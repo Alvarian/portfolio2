@@ -37,10 +37,6 @@
 	height: 100%;
 	width: 100%;
 	z-index: 9;
-/*	background-image: url('https://solarsystem.nasa.gov/system/basic_html_elements/11561_Sun.png');
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-position: center;*/
 	background-color: yellow;
 	opacity: 0.8;
 	display: none;
@@ -117,17 +113,17 @@ body {
 	min-width: 200px; 
 	width: 95%; 
 	min-height: 520px; 
-	background-image: url('./images/jpgresume.jpg'); 
+	background-image: url('/images/jpgresume.jpg'); 
 	background-position: center; 
 	background-size: cover;
 }
 .school {
-	background-image: url('./images/img_class.jpg');
+	background-image: url('/images/img_class.jpg');
 	min-height: 100vh;
 }
 
 .theLib {
-	background-image: url('./images/library.jpg');
+	background-image: url('/images/library.jpg');
 	filter: blur(3px);
 	min-height: 400px;
 	width: 100%;
@@ -142,10 +138,8 @@ body {
 	border-radius: 6px;
 	padding: 5px 0;
 	font-size: 14pt;
-	/* Position the tooltip */
 	position: absolute;
 	z-index: 1;
-	/*top: -5px;*/
 	left: 55%;
 }
 @keyframes tipFade {
@@ -198,7 +192,6 @@ body {
 	align-items: center; 
 	position: relative; 
 	justify-content: center; 
-	/*margin-bottom: 100px;*/
 	z-index: 1;
 }
 .dropCard:focus .gitBTN,
@@ -246,7 +239,7 @@ body {
 }
 
 .purp {
-	background-image: url('./images/img_clock1.jpg');
+	background-image: url('/images/img_clock1.jpg');
 	min-height: 400px;
 	width: 100%;
 }
@@ -256,7 +249,7 @@ body {
 }
 
 .icon {
-	background-image: url('./images/WARFACE.jpg');
+	background-image: url('/images/WARFACE.jpg');
 	background-size: cover; 
 	background-position: 10px 0px; 
 	background-repeat: no-repeat; 
@@ -369,13 +362,12 @@ body, html {
 	width: 100%;
 	min-width: 360px;
 	overflow-x: hidden;
-	/*background-color: black;*/
 }
 ::-webkit-scrollbar { 
     display: none; 
 }
 nav {
-	background-color: white
+	background-color: white;
 	/*width: 100%;*/
 	z-index: 10;
 }
@@ -440,7 +432,7 @@ nav {
 	width: 100%;
 	height: 100vh;
 	z-index: -2;
-	background: url('./images/img_clock1.jpg') no-repeat center center;
+	background: url('/images/img_clock1.jpg') no-repeat center center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
