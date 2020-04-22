@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
+import FontContextProvider from './contexts/FontContext.js';
 
 import Home from './pages/Home.js';
 import Gallery from './pages/Gallery.js';
@@ -12,15 +13,16 @@ import './styles/flexbox.css';
 import './styles/modalbox.css';
 
 function App() {
-  return (
-    <BrowserRouter>
-    	<Navbar />
-
-		<Route exact path='/' component={Home} />
-		<Route path='/gallery' component={Gallery} />
-		<Route path='/contact' component={Contact} />
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<FontContextProvider>
+				<Navbar />
+				<Route exact path='/' component={Home} />
+				<Route path='/gallery' component={Gallery} />
+				<Route path='/contact' component={Contact} />
+			</FontContextProvider>
+		</BrowserRouter>
+	);
 }
 
 export default App;
