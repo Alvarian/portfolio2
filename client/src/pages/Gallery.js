@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { FontContext } from '../contexts/FontContext.js';
+
 import ProjectList from './components/ProjectList.js';
+import Navbar from './components/Navbar.js';
 
 
 function Gallery() {
   const [projects, setProjects] = useState([]);
+  const { setFont } = useContext(FontContext);
 
   useEffect(() => {
+    setFont('pressStart galleryNav');
+
     fetch(process.env.REACT_APP_API_URL)
       .then(response => response.json())
       .then(json => setProjects(json))

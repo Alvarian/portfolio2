@@ -8,6 +8,20 @@
 	min-width: 300px;
 }  
 
+.galleryNav {
+	font-size: 18pt;
+	padding: 10px 0px;
+}
+
+.homeNav {
+	font-size: 36pt;
+}
+
+.contactNav {
+	font-size: 30pt;
+	position: fixed;
+}
+
 .naver {
 	display: flex; 
 	justify-content: space-around; 
