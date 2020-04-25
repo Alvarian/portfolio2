@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { FontContext } from '../../contexts/FontContext.js';
+
 
 function Navbar(props) {
 	return (

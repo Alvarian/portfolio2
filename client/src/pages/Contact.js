@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { FontContext } from '../contexts/FontContext.js';
 
 import Navbar from './components/Navbar.js';
 import ContactForm from './components/ContactForm.js';
