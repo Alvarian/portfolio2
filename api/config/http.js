@@ -29,16 +29,17 @@ module.exports.http = {
     *                                                                          *
     ***************************************************************************/
 
-    // order: [
-    //   'cookieParser',
-    //   'session',
-    //   'bodyParser',
+    order: [
+      // 'cookieParser',
+      'session',
+      // 'bodyParser',
+      // 'connectFlash',
     //   'compress',
     //   'poweredBy',
     //   'router',
     //   'www',
     //   'favicon',
-    // ],
+    ],
 
 
     /***************************************************************************
@@ -54,7 +55,6 @@ module.exports.http = {
     //   var middlewareFn = skipper({ strict: true });
     //   return middlewareFn;
     // })(),
-
   },
 
 };
