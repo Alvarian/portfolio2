@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import { FontContext } from '../contexts/FontContext.js';
 
 import Navbar from './components/Navbar.js';
 
@@ -15,14 +14,10 @@ function scrollUp(){
 }
 
 function Home() {
-	const { setFont } = useContext(FontContext);
-
-	useEffect(() => {
-		setFont('amatic homeNav')
-	}, []);
-
 	return (
 		<div>
+			<Navbar class={'amatic homeNav'} />
+
 			<div className="amatic" id="scrolltop">
 				<div className="school" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
 					<h1 className="welcome">Welcome and ...</h1>
