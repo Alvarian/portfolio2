@@ -1,13 +1,9 @@
 import React, { useContext } from 'react';
 import { FontContext } from '../../contexts/FontContext.js';
 
-function Navbar() {
-	const { font } = useContext(FontContext);
-
-	console.log('font used:', font);
-
+function Navbar(props) {
 	return (
-		<nav className={"row spaced "+font} style={{backgroundColor: "black", color: "white"}}>
+		<nav className={"row spaced "+props.class} style={{backgroundColor: "black", color: "white"}}>
 			<div className="menu lrg">
 				<div className="menuLayer">
 					<div>Ivan Alvarez</div>
