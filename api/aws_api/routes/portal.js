@@ -1,4 +1,5 @@
 const express = require('express');
+const { ensureAuthenticated } = require('../config/auth');
 const router = express.Router();
 const { 
 	createProject,
@@ -8,7 +9,7 @@ const {
 } = require('../controllers/portal');
 
 
-router.get('/portal', readAllProjects);
+router.get('/portal', ensureAuthenticated, readAllProjects);
 
 router.get('/portal/:id', readOneProject);
 
