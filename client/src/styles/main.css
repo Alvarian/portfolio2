@@ -1,0 +1,489 @@
+.loopUnderstood, .loopUsed, .loopLoading {
+	display: flex;
+	display: -webkit-flex;
+	-webkit-flex-wrap: wrap;  
+	flex-wrap: wrap;
+	flex: 1;
+	max-width: 300px;
+	min-width: 300px;
+}  
+
+.galleryNav {
+	font-size: 18pt;
+	padding: 10px 0px;
+}
+
+.homeNav {
+	font-size: 36pt;
+}
+
+.contactNav {
+	font-size: 30pt;
+	position: fixed;
+}
+
+.naver {
+	display: flex; 
+	justify-content: space-around; 
+	flex-wrap: wrap;
+	width: 45%;
+}
+.dropBtn {
+	border: solid 3px white;
+	height: 50px; 
+	width: 50px; 
+	border-radius: 10px;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+	align-items: center;
+}
+.dropBtn > div {
+	border: solid 3px white;
+	border-radius: 10px;
+	width: 70%;
+}
+.dropBtn > p {
+	font-size: 30pt;
+}
+.lay {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 9;
+	background-color: yellow;
+	opacity: 0.8;
+	display: none;
+	top: 0;
+	cursor: pointer;
+}
+.clickOpen {
+	color: red;
+	cursor: pointer;
+}
+.contactMenu {
+	display: flex; 
+	justify-content: space-between; 
+	font-size: 30pt; 
+	flex-wrap: wrap;
+}
+.menuLayer {
+	display: flex; 
+	justify-content: space-between;
+}
+.dropMenu {
+	position: absolute;
+	display: none;
+	z-index: 1;
+	width: 100%;
+	right: 20px;
+	background-color: black;
+	color: white;
+	left: 0.3px;
+}
+
+.dropMenu a {
+	border: solid 1px white;
+	display: block;
+	text-align: center;
+	padding: 6px 0px;
+}
+.bord > div {
+	background-color: white;
+	border-radius: 10px;
+}
+.bord > h2 {
+	text-align: center;
+}
+.badges {
+	margin: 5px;
+}
+.float {
+	display: -webkit-flex;
+	-webkit-flex-wrap: wrap;
+	display: flex;   
+	flex-wrap: wrap;
+	background-color: wheat;
+}
+.bord {
+	display: flex;
+	flex-direction: column;
+}
+html {
+	height: 100%;
+}
+body {
+	overflow: auto;
+}
+.school, .purp, .theLib {
+	position: relative;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.resume {
+	min-width: 200px; 
+	width: 95%; 
+	min-height: 520px; 
+	background-image: url('/images/jpgresume.jpg'); 
+	background-position: center; 
+	background-size: cover;
+}
+.school {
+	background-image: url('/images/img_class.jpg');
+	min-height: 100vh;
+}
+
+.theLib {
+	background-image: url('/images/library.jpg');
+	filter: blur(3px);
+	min-height: 400px;
+	width: 100%;
+}
+
+.tooltiptext {
+	opacity: 0;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	font-size: 14pt;
+	position: absolute;
+	z-index: 1;
+	left: 55%;
+}
+@keyframes tipFade {
+	from { opacity: 0 }
+	to { opacity: 1 }
+}
+.downRes {
+	width: 100%; 
+	display: flex; 
+	justify-content: center; 
+	position: relative;
+}
+.downRes:hover .tooltiptext {
+	animation-name: tipFade;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+}
+
+.bleach {
+	cursor: pointer;
+	color: white;
+}
+.bleach:link {
+	text-decoration: none;
+}
+.bleach:visited {
+	color: white;
+	text-decoration: none;
+}
+.badges {
+	font-size: 5em;
+	height: 80px;
+	margin: 10px;
+}
+.anchor {
+	cursor: pointer;
+}
+.anchor:link {
+	text-decoration: none;
+}
+.anchor:visited {
+	text-decoration: none;
+}
+.anchor:hover {
+	filter: invert(1);
+}
+.dropCard {
+	display: flex; 
+	flex-direction: column; 
+	align-items: center; 
+	position: relative; 
+	justify-content: center; 
+	z-index: 1;
+}
+.dropCard:focus .gitBTN,
+.dropCard:focus-within .gitBTN,
+.dropCard:hover .gitBTN {
+	animation-name: dropGit;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+}
+@keyframes dropGit {
+	from {
+		visibility: 0;
+		opacity: 0;
+		margin-top: 0;
+	}
+	to {
+		visibility: 1;
+		opacity: 1;
+		margin-top: 85px;
+	}
+}
+.gitBTN {
+	position: absolute; 
+	z-index: -1; 
+	visibility: 0; 
+	opacity: 0;
+}
+.gitBTN:link {
+	text-decoration: none;
+}
+.gitBTN:visited {
+	text-decoration: none;
+}
+.circle {
+	z-index: 10;
+	border-radius: 50%;
+	background-color: white;
+	color: black;
+	height: 120px;
+	width: 120px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 36pt;
+}
+
+.purp {
+	background-image: url('/images/img_clock1.jpg');
+	min-height: 400px;
+	width: 100%;
+}
+
+.clsbtn {
+	width: 20px
+}
+
+.icon {
+	background-image: url('/images/WARFACE.jpg');
+	background-size: cover; 
+	background-position: 10px 0px; 
+	background-repeat: no-repeat; 
+	height: 200px; 
+	width: 200px; 
+	min-width: 200px;
+	margin-right: 25px;
+}
+.card {
+	border-style: solid;
+	border-width: 5px;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: white;
+	margin: 10px;
+	width: 120px; 
+	height: 120px; 
+	background-size: 80% 80%; 
+	background-repeat: no-repeat; 
+	background-position: center;
+}
+.cards {
+	overflow: auto;
+	width: 100%;
+}
+.fordeployed, .forupload {
+	visibility: hidden;
+	position: absolute;
+}
+.fill {
+	position: relative;
+	height: 130px;
+}
+.upbutt {
+	border: solid 1px black;
+	background-color: lightgrey;
+}
+.upbutt:hover {
+	background-color: grey;
+}
+.orb {	
+	background-color: white;
+	width: 100%;
+	text-align: center;
+}
+.synop {
+	padding: 0px 20px; 
+	width: 190px;
+	text-align: center;
+	height: 70vh;
+	background-color: white;
+}
+#app {
+	height: 100%;
+}
+.pressStart {
+	font-family: 'Press Start 2P', cursive;
+	width: 100%;
+}
+.barcode {
+	/*font-family: 'Ruge Boogie', cursive;*/
+	font-family: 'Libre Barcode 39 Text', cursive;
+}
+.amatic {
+	font-family: 'Amatic SC', cursive;
+}
+.play {
+	font-family: 'Play', sans-serif;	
+}
+.orbi {
+	font-family: 'Orbitron', sans-serif;	
+}
+.ruge {
+	font-family: 'Ruge Boogie', cursive;
+}
+.indie {
+	font-family: 'Indie Flower', cursive;
+}
+.codepro {
+	font-family: 'Source Code Pro', monospace;	
+}
+
+.contactForm {
+	display: flex; 
+	flex-direction: column; 
+	width: 40%; 
+	min-width: 300px;
+}
+.footerBtns {
+	display: flex; 
+	justify-content: space-around; 
+	align-items: center; 
+	min-height: 400px; 
+	width: 70%; 
+	flex-wrap: wrap; 
+	z-index: 1;
+}
+.des {
+	display: flex; 
+	padding: 0px 100px;
+}
+.welcome {
+	text-align: center; margin: 0; font-size: 38pt;
+}
+.navName {
+	margin-right: 100px;
+}
+body, html {
+	margin: 0;
+	width: 100%;
+	min-width: 360px;
+	overflow-x: hidden;
+}
+::-webkit-scrollbar { 
+    display: none; 
+}
+nav {
+	background-color: white;
+	/*width: 100%;*/
+	z-index: 10;
+}
+.drop {
+	position: absolute;
+}
+.gall {
+	overflow-y: scroll; 
+	height: 70vh; 
+	padding: 0px 20px;
+}
+@media only screen and (max-width: 600px) {
+  .gall {
+  	 padding-top: 40px;
+  }
+  .menuLayer {
+	display: flex; 
+	justify-content: space-around;
+	align-items: center;
+  }
+  .contactMenu {
+  	justify-content: space-around;
+	align-items: center;
+  	display: flex;
+  }
+  .navName {
+  	margin-right: 0;
+  }
+  body { 
+	max-width: 600px;
+  }
+  .drop {
+  	position: static;
+  }
+  .naver {
+	width: 0;
+  }
+  .circle {
+    margin: 0px 30px;
+	height: 90px;
+	width: 90px;
+  }
+  .des {
+  	margin: 0;
+  	width: 100%;
+  }
+  .float {
+  	/*z-index: -2;*/
+  	opacity: 0.97;
+  	background-color: none;
+  	background: none;
+  }
+  .welcome {
+  	color: wheat;
+  }
+  #scrolltop:before {
+	content: "";
+	display: block;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: -2;
+	background: url('/images/img_clock1.jpg') no-repeat center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+  }
+  .theLib {
+  	background: none;
+  	/*background-color: rgba(245, 222, 179, 0);*/
+  	background-color: black;
+  	/*filter: none;*/
+  }
+  .bord {
+  	background-color: rgba(245, 222, 179, 0.9);
+  	margin: 5px 0px;
+  	border-radius: 10px;
+  	/*width: 100%;*/
+  }
+  .purp:before {
+	z-index: -1;
+  }
+  #modal:before {
+  	z-index: 999;
+  }
+  .purp, .school {
+  	background-color: none;
+  	background: none;
+  }
+}
+
+
+/*font-family: 'Libre Barcode 39 Text', cursive;
+font-family: 'Amatic SC', cursive;
+font-family: 'Orbitron', sans-serif;
+font-family: 'Ruge Boogie', cursive;
+font-family: 'Press Start 2P', cursive;*/
+/*font-family: 'Indie Flower', cursive;
+font-family: 'Gloria Hallelujah', cursive;
+font-family: 'Play', sans-serif;
+font-family: 'Source Code Pro', monospace;*/
+
