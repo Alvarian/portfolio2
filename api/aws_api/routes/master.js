@@ -11,6 +11,12 @@ router.get('/', (req, res) => {
 	res.render('login');
 });
 
+router.get('/logout', (req, res) => {
+	req.logout();
+	req.flash('success_msg', 'You are logged out');
+	res.redirect('/');
+});
+
 router.post('/', async (req, res, next) => {
 	const { username, password } = req.body;
 	let errors = [];
