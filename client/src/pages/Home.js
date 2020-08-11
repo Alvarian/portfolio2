@@ -5,12 +5,12 @@ import Navbar from './components/Navbar.js';
 
 function scrollUp(){
     let scrollStep = -window.scrollY / (1000 / 15),
-	scrollInterval = setInterval(function(){
-        if ( window.scrollY != 0 ) {
-            window.scrollBy( 0, scrollStep );
-        }
-        else clearInterval(scrollInterval); 
-	}, 15);
+		scrollInterval = setInterval(function(){
+	        if ( window.scrollY != 0 ) {
+	            window.scrollBy( 0, scrollStep );
+	        }
+	        else clearInterval(scrollInterval); 
+		}, 15);
 }
 
 function Home() {
