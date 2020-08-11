@@ -1,22 +1,44 @@
-<div class="panel four columns" style="background-color: pink">
-	<h1>Panel</h1>
+<div class="col-md-5 m-auto">
 
-	<form action="" method="POST">
-		<!-- title -->
-		<input type="text">
+	<div class="card card-body">	
+		<h2>Panel</h2>
 
-		<!-- description -->
-		<input type="text">
+		<form action="" method="POST">
+			<!-- title -->
+			<div class="form-group">
+				<label for="title">Title</label>
+				<input name="title" class="form-control" type="text">
+			</div>
 
-		<!-- option: deployedUrl || gameFile && styleFile -->
-		<input type="option">
+			<!-- description -->
+			<div class="form-group">
+				<label for="description">Description</label>
+				<textarea name="description" class="form-control" type="text"></textarea>
+			</div>
 
-		<!-- git url -->
-		<input type="text">
+			<!-- option: deployedUrl || gameFile && styleFile -->
+			<div class="form-group">
+				<label for="type">Type</label>
+				<select name="type" class="form-control">
+					<option disabled selected value> -- select an option -- </option>
+					<option value="is_deployed">Web App</option>
+					<option value="is_game_file">Native App</option>
+				</select>
+			</div>
 
-		<!-- iconFile -->
-		<input type="file">
+			<!-- git url -->
+			<div class="form-group">
+				<label for="git_url">Git URL</label>
+				<input name="git_url" class="form-control" type="text">
+			</div>
 
-		<input type="submit" value="Submit">
-	</form>
+			<!-- iconFile -->
+			<div class="form-group">
+				<label for="icon_file">Icon</label>
+				<input name="icon_file" class="form-control" type="file">
+			</div>
+
+			<button class="btn btn-primary btn-block" type="submit">Submit</button>
+		</form>
+	</div>
 </div>
