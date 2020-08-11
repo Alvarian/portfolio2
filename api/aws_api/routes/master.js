@@ -35,7 +35,6 @@ router.post('/', async (req, res, next) => {
 		if ((await readAllUsers()).length) {
 			// normal login strategy
 			// if un and ps matches, login
-			console.log('master exists')
 			passport.authenticate('local', {
 				successRedirect: '/portal',
 				failureRedirect: '/',
