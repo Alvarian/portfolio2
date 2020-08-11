@@ -1,10 +1,46 @@
-<div class="card card-body">
-	<h2>Gallery</h2>
+<div class="col-md-7">
 	
-	<ul>
-		<li>Hey</li>
-		<li>There</li>
-		<li>Friend</li>
-		<li>!</li>
-	</ul>
+	<div class="card card-body h-100" style="position: absolute;">
+		<h2>Gallery</h2>
+		
+		<div class="overflow-auto">
+			<% projects.forEach(function(project) { %>
+				<div id="<%= project.id %>" class="card card-body float-right col-sm-4 m-1">
+					<img onclick="loadProjectIntoModalBox(`${<%= project.id %>}`)" class="w-100" src="https://soulslore.wdfiles.com/local--resized-images/data:firekeepers/bonfire.png/medium.jpg" alt="icon">
+
+					<div class="float-right">
+						<i class="far fa-edit" onclick="loadProjectIntoPanel(`${<%= project.id %>}`)"></i>
+						<i class="far fa-trash-alt" onclick="confirmationPrompt(`${<%= project.id %>}`)"></i>
+					</div>	
+				</div>
+			<% }); %>
+		</div>
+	</div>
+
+	<script>
+		function loadProjectIntoModalBox(id) {
+			console.log('open modal box', id);
+		}
+ 
+		function confirmationPrompt(title, id) {
+			const isConfirmed = confirm(`Are you sure you want to delete ${title}?`);
+
+			console.log(isConfirmed);
+		}
+
+		async function loadProjectIntoPanel(id) {
+			const response = await fetch(`/portal/${id}`);
+			const project = await response.json();
+
+			console.log(project);
+
+			const { title, description, type, icon } = {
+				title: panel.elements[0].value,
+				description: panel.elements[1].value,
+				type: panel.elements[2].value
+			};
+
+			// load into fields
+		}
+	</script>
 </div>

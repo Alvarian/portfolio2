@@ -1,9 +1,9 @@
 <div class="col-md-5 m-auto">
 
 	<div class="card card-body">	
-		<h2>Panel</h2>
+		<h2>Panel</h2><a onclick="clearPanel()">Clear</a>
 
-		<form action="" method="POST">
+		<form action="" method="POST" id="panel">
 			<!-- title -->
 			<div class="form-group">
 				<label for="title">Title</label>
@@ -16,7 +16,7 @@
 				<textarea name="description" class="form-control" type="text"></textarea>
 			</div>
 
-			<!-- option: deployedUrl || gameFile && styleFile -->
+			<!-- option: deployedUrl || gameFile && styleFile(S3) -->
 			<div class="form-group">
 				<label for="type">Type</label>
 				<select name="type" class="form-control">
@@ -32,7 +32,7 @@
 				<input name="git_url" class="form-control" type="text">
 			</div>
 
-			<!-- iconFile -->
+			<!-- iconFile(S3) -->
 			<div class="form-group">
 				<label for="icon_file">Icon</label>
 				<input name="icon_file" class="form-control" type="file">
@@ -41,4 +41,12 @@
 			<button class="btn btn-primary btn-block" type="submit">Submit</button>
 		</form>
 	</div>
+
+	<script>
+		const panel = $('panel');
+
+		function clearPanel() {
+			panel.reset();
+		}
+	</script>
 </div>

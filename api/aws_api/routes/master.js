@@ -8,7 +8,7 @@ const {
 
 
 router.get('/', (req, res) => {
-	res.render('login');
+	res.render('login', { title: 'Portal Login' });
 });
 
 router.get('/logout', (req, res) => {
