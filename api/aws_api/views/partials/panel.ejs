@@ -60,6 +60,47 @@
 		const urlField = $('#urlField');
 		const displayUploads = $('#displayUploads');
 
+
+		panel.submit(() => {
+			const inputs = panel[0];
+			const title = inputs[0].value;
+			const description = inputs[1].value;
+			const type = inputs[2].value;
+			const deployedUrl = inputs[3].value;
+			const gitUrl = inputs[5].value;
+			const iconFile = inputs[6].value;
+			
+			if (!title) {
+				alert('no title');
+				return false;
+			}
+
+			if (!description) {
+				alert('no description');
+				return false;
+			}
+
+			if (!type) {
+				alert('no type');
+				return false;
+			}
+
+			if (!logic.children()[1].value && !deployedUrl) {
+				alert('no native logic or deployed url');
+				return false;
+			}
+
+			if (!gitUrl) {
+				alert('no git url');
+				return false;
+			}
+
+			if (!iconFile) {
+				alert('no icon file');
+				return false;
+			}
+		});
+
 		function returnSelectDefault() {
 			type.css('display', 'block');
 			urlField.css('display', 'none');
@@ -94,9 +135,11 @@
 		type.change(e => changeTypeOption(e.target.value));
 
 		function clearPanel() {
-			panel.action = '/portal';
+			panel.attr('action', '/portal');
 
-			panel.reset();
+			returnSelectDefault();
+
+			panel.trigger('reset');
 		}
 	</script>
 </div>
