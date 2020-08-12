@@ -28,8 +28,8 @@
 
 			// post request to delete
 			if (isConfirmed) {
-				panel.action = `/portal/delete/${id}`;
-			
+				panel.attr('action', `/portal/delete/${id}`);
+		
 				panel.submit();
 			}
 		}
@@ -46,15 +46,19 @@
 			} = projArr;
 
 			// load into fields
-			panel.action = `/portal/update/${id}`;
+			panel.attr('action', `/portal/update/${id}`);
 
-			panel.elements[0].value = title;
-			panel.elements[1].value = description;
+			panel[0][0].value = title;
+			panel[0][1].value = description;
+			panel[0][4].value = git_url;
 
 			// option: deployedUrl || gameFile && styleFile(S3)
-			(deployed_url) ? panel.elements[2].value = 'is_deployed' : panel.elements[2].value = 'is_game_file';
-			
-			panel.elements[3].value = git_url;
+			if (deployed_url) {
+				panel[0][3].value = deployed_url; 
+				changeTypeOption('is_deployed');
+			} else {
+				changeTypeOption('is_game_file');
+			}
 		}
 	</script>
 </div>
