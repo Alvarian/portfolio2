@@ -11,6 +11,7 @@ const createProject = (req, res) => {
 
 	// 	res.send(result.rows);
 	// });
+	res.redirect('/portal');
 };
 
 const readAllProjects = (req, res) => {

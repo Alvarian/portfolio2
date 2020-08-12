@@ -43,7 +43,7 @@
 
     function moveUploadedToForm() {
       panel.append(logic);
-      panel.append(style);
+      if (style.children()[1].value) panel.append(style);
 
       type.css('display', 'none');
 
