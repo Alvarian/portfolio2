@@ -117,14 +117,32 @@
 		}
 
 		function changeTypeOption(selectType) {
+			const istypeFromGallery = (urlField.children()[2].value) ? 'deployed' : 'game';
+
 			switch (selectType) {
 				case 'is_deployed':
+					if (panel.attr('action').split('/')[2] === 'update' && istypeFromGallery !== 'deployed') {
+						alert('Cannot alter type of already created app, please choose the WEB APP option');
+
+						type.children()[1].value = '';
+
+						return;
+					}
+
 					type.css('display', 'none');
 					urlField.css('display', 'block');
 
 					break;
 
 				case 'is_game_file':
+					if (panel.attr('action').split('/')[2] === 'update' && istypeFromGallery !== 'game') {
+						alert('Cannot alter type of already created app, please choose the NATIVE APP option');
+
+						type.children()[1].value = '';
+
+						return;
+					};
+
 					$('#exampleModalCenter').modal("show");
 
 					break;

@@ -55,9 +55,9 @@
 			// option: deployedUrl || gameFile && styleFile(S3)
 			if (deployed_url) {
 				panel[0][3].value = deployed_url; 
-				changeTypeOption('is_deployed');
+				changeTypeOption('is_deployed', 'deployed');
 			} else {
-				changeTypeOption('is_game_file');
+				changeTypeOption('is_game_file', 'game');
 			}
 		}
 	</script>
