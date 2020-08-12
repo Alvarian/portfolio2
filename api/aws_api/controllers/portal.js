@@ -3,12 +3,15 @@ const db = require('../config/db');
 
 const createProject = (req, res) => {
 	console.log(req.body)
-	// const {} = req.body;
 
+	// create new image in s3, after success provide link for each to db to store for fields that require it
+
+
+
+	// const {} = req.body;
 	// db.query(`SELECT * FROM public.add_project()`, 
 	// (err, result) => {
 	// 	console.log(err ? err : result.rows);
-
 	// 	res.send(result.rows);
 	// });
 	res.redirect('/portal');
@@ -34,11 +37,18 @@ const readOneProject = (req, res) => {
 };
 
 const updateProject = (req, res) => {
-	const { title, description, type, git_url, icon_file } = req.body;
 	console.log('update', req.body);
+	
+	// if new logic, icon, or style, overwrite s3 and db fields
+
+
+
+
+
+
+	// const { title, description, type, git_url, icon_file } = req.body;
 	// db.query(`SELECT * FROM public.update_project(${req.params.id})`, (err, result) => {
 	// 	console.log(err ? err : result.rows);
-
 	// 	res.send(result.rows);
 	// });
 
@@ -46,12 +56,7 @@ const updateProject = (req, res) => {
 };
 
 const deleteProject = (req, res) => {
-	console.log('delete', req.params.id);
-	// db.query(`SELECT * FROM public.delete_project(${req.params.id})`, (err, result) => {
-	// 	console.log(err ? err : result.rows);
-
-	// 	res.send(result.rows);
-	// });
+	db.query(`SELECT * FROM public.delete_project(${req.params.id})`, (err, result) => {if (err) throw err});
 
 	res.redirect('/portal');
 };
