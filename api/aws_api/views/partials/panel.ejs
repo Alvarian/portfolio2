@@ -69,6 +69,8 @@
 			const deployedUrl = inputs[3].value;
 			const gitUrl = inputs[5].value;
 			const iconFile = inputs[6].value;
+
+			if (panel.attr('action').split('/')[2] === 'delete') return true;
 			
 			if (!title) {
 				alert('no title');
