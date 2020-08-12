@@ -3,7 +3,7 @@
 	<div class="card card-body">	
 		<h2>Panel</h2><a href="" onclick="clearPanel(); return false;">Clear</a>
 
-		<form action="/panel" method="POST" id="panel">
+		<form action="/portal" method="POST" id="panel">
 			<!-- title -->
 			<div class="form-group">
 				<label for="title">Title</label>
@@ -32,6 +32,12 @@
 				<input name="deployed_url" type="text" class="form-control" placeholder="Deployed URL">
 			</div>
 
+			<div class="form-group" id="displayUploads" style="display: none">
+				<label for="type">Type</label>
+				<i class="far fa-window-close float-right" onclick="returnSelectDefault()"></i>
+				<input name="" type="text" class="form-control" disabled>
+			</div>
+
 			<!-- git url -->
 			<div class="form-group">
 				<label for="git_url">Git URL</label>
@@ -52,10 +58,17 @@
 		const panel = $('#panel');
 		const type = $('#type');
 		const urlField = $('#urlField');
+		const displayUploads = $('#displayUploads');
 
 		function returnSelectDefault() {
 			type.css('display', 'block');
 			urlField.css('display', 'none');
+			displayUploads.css('display', 'none');
+
+			logic.css('display', 'block');
+			style.css('display', 'block');
+			fakeModalForm.append(logic);
+			fakeModalForm.append(style);
 
 			type.children()[1].value = '';
 		}
@@ -69,10 +82,7 @@
 					break;
 
 				case 'is_game_file':
-					// open modal box with input files for manditory logic and optional styling
-					console.log('triggered')
 					$('#exampleModalCenter').modal("show");
-					// with cancel button to return to default
 
 					break;
 

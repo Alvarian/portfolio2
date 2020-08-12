@@ -3,18 +3,61 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Upload App Files</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="returnSelectDefault()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="returnSelectDefault()">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+
+        <div id="fakeModalForm">
+          
+          <div class="form-group" id="logic_input">
+            <label for="game_file">Logic File</label>
+
+            <input name="game_file" class="form-control" type="file" accept=".js, .wasm">
+          </div>
+
+          <div class="form-group" id="style_input">
+            <label for="style_file">Style File(optional)</label>
+
+            <input name="style_file" class="form-control" type="file" accept=".css">
+          </div>
+
+        </div>
+
+        <button class="btn btn-primary btn-block" onclick="moveUploadedToForm()">Upload</button>
+
       </div>
     </div>
   </div>
+
+  <script>
+    const logic = $('#logic_input');
+    const style = $('#style_input');
+    const fakeModalForm = $('#fakeModalForm');
+
+    function regexFormatFromFilePath(path) {
+      return path.split('.')[1];
+    }
+
+    function moveUploadedToForm() {
+      panel.append(logic);
+      panel.append(style);
+
+      type.css('display', 'none');
+
+      displayUploads.children()[2].value = `
+        Logic: ${regexFormatFromFilePath(logic.children()[1].value)}, 
+        Style?: ${regexFormatFromFilePath(style.children()[1].value)}
+      `;
+
+      displayUploads.css('display', 'block');
+
+      logic.css('display', 'none');
+      style.css('display', 'none');
+
+      $('#exampleModalCenter').modal("hide");
+    }
+  </script>
 </div>
