@@ -13,7 +13,7 @@ router.get('/portal', ensureAuthenticated, readAllProjects);
 
 router.get('/portal/:id', readOneProject);
 
-router.post('/portal/:id', createProject);
+router.post('/portal', createProject);
 
 router.post('/portal/update/:id', ensureAuthenticated, updateProject);
 
