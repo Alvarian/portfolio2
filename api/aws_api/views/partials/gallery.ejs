@@ -3,14 +3,14 @@
 	<div class="card card-body h-100" style="position: absolute;">
 		<h2>Gallery</h2>
 		
-		<div class="overflow-auto">
+		<div class="overflow-auto d-flex flex-wrap">
 			<% projects.forEach(function(project) { %>
-				<div id="<%= project.id %>" class="card card-body float-right col-sm-4 m-1">
+				<div id="<%= project.id %>" class="card card-body col-sm-5 m-1 ">
 					<img onclick="loadProjectIntoModalBox(`${<%= project.id %>}`)" class="w-100" src="https://soulslore.wdfiles.com/local--resized-images/data:firekeepers/bonfire.png/medium.jpg" alt="icon">
 
 					<div class="float-right">
-						<i class="far fa-edit" onclick="loadProjectIntoPanel(`${<%= project.id %>}`)"></i>
-						<i class="far fa-trash-alt" onclick="confirmationPrompt(`${<%= project.id %>}`)"></i>
+						<i class="far fa-edit" onclick="loadProjectIntoPanel(<%= JSON.stringify(project) %>)"></i>
+						<i class="far fa-trash-alt" onclick="confirmationPrompt(<%= JSON.stringify(project) %>)"></i>
 					</div>	
 				</div>
 			<% }); %>
@@ -22,25 +22,39 @@
 			console.log('open modal box', id);
 		}
  
-		function confirmationPrompt(title, id) {
+		function confirmationPrompt(projArr) {
+			const { id, title } = projArr;
 			const isConfirmed = confirm(`Are you sure you want to delete ${title}?`);
 
-			console.log(isConfirmed);
+			// post request to delete
+			if (isConfirmed) {
+				panel.action = `/portal/delete/${id}`;
+			
+				panel.submit();
+			}
 		}
 
-		async function loadProjectIntoPanel(id) {
-			const response = await fetch(`/portal/${id}`);
-			const project = await response.json();
-
-			console.log(project);
-
-			const { title, description, type, icon } = {
-				title: panel.elements[0].value,
-				description: panel.elements[1].value,
-				type: panel.elements[2].value
-			};
+		function loadProjectIntoPanel(projArr) {
+			const {
+				id,
+				title, 
+				description,
+				deployed_url, 
+				game_file,
+				git_url,
+				style_file
+			} = projArr;
 
 			// load into fields
+			panel.action = `/portal/update/${id}`;
+
+			panel.elements[0].value = title;
+			panel.elements[1].value = description;
+
+			// option: deployedUrl || gameFile && styleFile(S3)
+			(deployed_url) ? panel.elements[2].value = 'is_deployed' : panel.elements[2].value = 'is_game_file';
+			
+			panel.elements[3].value = git_url;
 		}
 	</script>
 </div>
