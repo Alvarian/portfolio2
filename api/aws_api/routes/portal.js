@@ -15,9 +15,9 @@ router.get('/portal/:id', readOneProject);
 
 router.post('/portal/:id', createProject);
 
-router.put('/portal/:id', updateProject);
+router.post('/portal/update/:id', ensureAuthenticated, updateProject);
 
-router.delete('/portal/:id', deleteProject);
+router.post('/portal/delete/:id', ensureAuthenticated, deleteProject);
 
 
 module.exports = router;

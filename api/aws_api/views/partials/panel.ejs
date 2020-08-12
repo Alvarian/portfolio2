@@ -1,9 +1,9 @@
 <div class="col-md-5 m-auto">
 
 	<div class="card card-body">	
-		<h2>Panel</h2><a onclick="clearPanel()">Clear</a>
+		<h2>Panel</h2><a href="" onclick="clearPanel(); return false;">Clear</a>
 
-		<form action="" method="POST" id="panel">
+		<form action="/panel" method="POST" id="panel">
 			<!-- title -->
 			<div class="form-group">
 				<label for="title">Title</label>
@@ -17,13 +17,19 @@
 			</div>
 
 			<!-- option: deployedUrl || gameFile && styleFile(S3) -->
-			<div class="form-group">
+			<div class="form-group" id="type">
 				<label for="type">Type</label>
 				<select name="type" class="form-control">
 					<option disabled selected value> -- select an option -- </option>
 					<option value="is_deployed">Web App</option>
 					<option value="is_game_file">Native App</option>
 				</select>
+			</div>
+
+			<div class="form-group" id="urlField" style="display: none">
+				<label for="type">Type</label>
+				<i class="far fa-window-close float-right" onclick="returnSelectDefault()"></i>
+				<input name="deployed_url" type="text" class="form-control">
 			</div>
 
 			<!-- git url -->
@@ -44,8 +50,40 @@
 
 	<script>
 		const panel = $('panel');
+		const type = $('type');
+		const urlField = $('urlField');
+
+		function returnSelectDefault() {
+			type.style.display = 'block';
+			urlField.style.display = 'none';
+
+			type.children[1].value = '';	
+		}
+
+		type.onchange = (e) => {
+			switch (e.target.value) {
+				case 'is_deployed':
+					type.style.display = 'none';
+					urlField.style.display = 'block';
+
+					break;
+
+				case 'is_game_file':
+					console.log('reveal select field, hide url field');
+
+					// open modal box with input files for manditory logic and optional styling
+					// with cancel button to return to default
+
+					break;
+
+				default:
+					break;
+			}
+		};
 
 		function clearPanel() {
+			panel.action = '/portal';
+
 			panel.reset();
 		}
 	</script>
