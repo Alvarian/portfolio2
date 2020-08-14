@@ -6,7 +6,7 @@
 		<div class="overflow-auto d-flex flex-wrap">
 			<% projects.forEach(function(project) { %>
 				<div id="<%= project.id %>" class="card card-body col-sm-5 m-1 ">
-					<img onclick="loadProjectIntoModalBox(`${<%= project.id %>}`)" class="w-100" src="https://soulslore.wdfiles.com/local--resized-images/data:firekeepers/bonfire.png/medium.jpg" alt="icon">
+					<img onclick="loadProjectIntoModalBox(<%= JSON.stringify(project) %>)" class="w-100" src="https://soulslore.wdfiles.com/local--resized-images/data:firekeepers/bonfire.png/medium.jpg" alt="icon">
 
 					<div class="float-right">
 						<i class="far fa-edit" onclick="loadProjectIntoPanel(<%= JSON.stringify(project) %>)"></i>
@@ -18,12 +18,32 @@
 	</div>
 
 	<script>
-		function loadProjectIntoModalBox(id) {
-			console.log('open modal box', id);
+		function loadProjectIntoModalBox({ title, deployed_url }) {
+			const appModalBody = $('#app');
+			const cEl = (el) => document.createElement(el);
+			$('#appModalTitle').empty().append(title);
+
+			// if deployedUrl is true load iframe with aws link and return
+			if (deployed_url) {
+				const iframe = cEl('iframe');
+				const appTitle = $('#appModalTitle');
+
+				iframe.setAttribute('src', deployed_url);
+				iframe.setAttribute('class', 'w-100 h-100');
+
+				appModalBody.empty().append(iframe);
+
+				$('#appDisplay').modal("show");
+
+				return;
+			}
+
+			// if not, create and load script pointing to aws link for js
+			// and call function and pass through modal body element to load content
+
 		}
  
-		function confirmationPrompt(projArr) {
-			const { id, title } = projArr;
+		function confirmationPrompt({ id, title }) {
 			const isConfirmed = confirm(`Are you sure you want to delete ${title}?`);
 
 			// post request to delete
@@ -34,17 +54,7 @@
 			}
 		}
 
-		function loadProjectIntoPanel(projArr) {
-			const {
-				id,
-				title, 
-				description,
-				deployed_url, 
-				game_file,
-				git_url,
-				style_file
-			} = projArr;
-
+		function loadProjectIntoPanel({ id, title, description, deployed_url, game_file, git_url, style_file }) {
 			// load into fields
 			panel.attr('action', `/portal/update/${id}`);
 
