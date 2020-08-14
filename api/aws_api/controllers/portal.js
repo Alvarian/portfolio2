@@ -18,7 +18,7 @@ const createProject = (req, res) => {
 };
 
 const readAllProjects = (req, res) => {
-	db.query(`SELECT * FROM public.find_all()`, (err, result) => {
+	db.query(`SELECT * FROM public.find_all_projects()`, (err, result) => {
 		if (err) throw err;
 
 		res.render('portal', { 
@@ -29,7 +29,7 @@ const readAllProjects = (req, res) => {
 };
 
 const readOneProject = (req, res) => {
-	db.query(`SELECT * FROM public.find_by_id(${req.params.id})`, (err, result) => {
+	db.query(`SELECT * FROM public.find_project_by_id(${req.params.id})`, (err, result) => {
 		console.log('read one', req.body);
 
 		res.json(result.rows[0]);
