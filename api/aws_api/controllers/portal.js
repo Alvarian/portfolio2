@@ -1,20 +1,25 @@
 const db = require('../config/db');
+const upload = require('../config/s3');
 
 
-const createProject = (req, res) => {
-	console.log(req.body)
-
+const createProject = async (req, res) => {
 	// create new image in s3, after success provide link for each to db to store for fields that require it
 
+	db.query(`SELECT * FROM public.add_project($1, $2, $3, $4, $5, $6, $7)`,
+	[	
+		req.body.title, 
+		req.body.description, 
+		req.body.deployed_url, 
+		await upload(req.files.game_file, `${req.body.title}/logic`), 
+		await upload(req.files.style_file, `${req.body.title}/style`),
+		req.body.git_url,
+		await upload(req.files.icon_file, `${req.body.title}/icon`)
+	],
+	(err, result) => {
+		if (err) throw err;
 
-
-	// const {} = req.body;
-	// db.query(`SELECT * FROM public.add_project()`, 
-	// (err, result) => {
-	// 	console.log(err ? err : result.rows);
-	// 	res.send(result.rows);
-	// });
-	res.redirect('/portal');
+		res.redirect('/portal');
+	});
 };
 
 const readAllProjects = (req, res) => {
@@ -36,7 +41,7 @@ const readOneProject = (req, res) => {
 	});
 };
 
-const updateProject = (req, res) => {
+const updateProject = async (req, res) => {
 	console.log('update', req.body);
 	
 	// if new logic, icon, or style, overwrite s3 and db fields

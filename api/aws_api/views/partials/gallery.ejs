@@ -5,7 +5,7 @@
 		
 		<div class="overflow-auto d-flex flex-wrap">
 			<% projects.forEach(function(project) { %>
-				<div id="<%= project.id %>" class="card card-body col-sm-5 m-1 ">
+				<div id="<%= project.id %>" class="card card-body col-sm-4 m-1 ">
 					<img onclick="loadProjectIntoModalBox(<%= JSON.stringify(project) %>)" class="w-100" src="https://soulslore.wdfiles.com/local--resized-images/data:firekeepers/bonfire.png/medium.jpg" alt="icon">
 
 					<div class="float-right">
@@ -18,8 +18,8 @@
 	</div>
 
 	<script>
-		function loadProjectIntoModalBox({ title, deployed_url }) {
-			const appModalBody = $('#app');
+		function loadProjectIntoModalBox({ title, deployed_url, game_file, style_file }) {
+			const appModalBody = document.getElementById('app');
 			const cEl = (el) => document.createElement(el);
 			$('#appModalTitle').empty().append(title);
 
@@ -31,16 +31,33 @@
 				iframe.setAttribute('src', deployed_url);
 				iframe.setAttribute('class', 'w-100 h-100');
 
-				appModalBody.empty().append(iframe);
+				appModalBody.innerHTML = '';
+				appModalBody.appendChild(iframe);
 
 				$('#appDisplay').modal("show");
 
 				return;
 			}
 
-			// if not, create and load script pointing to aws link for js
-			// and call function and pass through modal body element to load content
+			// if not, create and load script element sourcing aws link as js
+			// and call a global function and pass through modal body element to load content
+			appModalBody.innerHTML = '';
 
+			$.ajax({
+		        url: game_file,
+		        dataType: "script",
+		        async: false,
+		        success: function () {
+		        	const styleFile = cEl('link');
+		        	styleFile.setAttribute('rel', 'stylesheet');
+		        	styleFile.setAttribute('href', style_file);
+		        	appModalBody.appendChild(styleFile);
+
+		        	gameFile.start(appModalBody);
+		        }
+		    });
+
+			$('#appDisplay').modal("show");
 		}
  
 		function confirmationPrompt({ id, title }) {
@@ -60,14 +77,16 @@
 
 			panel[0][0].value = title;
 			panel[0][1].value = description;
+			panel[0][2].value = '';
 			panel[0][5].value = git_url;
 
 			// option: deployedUrl || gameFile && styleFile(S3)
-			if (deployed_url) {
+			if (!deployed_url) {
+				panel[0][3].value = '';
+				changeTypeOption('is_game_file', 'game');
+			} else {
 				panel[0][3].value = deployed_url; 
 				changeTypeOption('is_deployed', 'deployed');
-			} else {
-				changeTypeOption('is_game_file', 'game');
 			}
 		}
 	</script>

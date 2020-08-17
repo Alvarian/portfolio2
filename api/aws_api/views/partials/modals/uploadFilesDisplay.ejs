@@ -42,8 +42,8 @@
     }
 
     function moveUploadedToForm() {
-      panel.append(logic);
-      if (style.children()[1].value) panel.append(style);
+      panel.prepend(logic);
+      if (style.children()[1].value) panel.prepend(style);
 
       type.css('display', 'none');
 
