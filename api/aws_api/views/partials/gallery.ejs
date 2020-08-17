@@ -65,9 +65,12 @@
 
 			// post request to delete
 			if (isConfirmed) {
-				panel.attr('action', `/portal/delete/${id}`);
-		
-				panel.submit();
+				$.ajax({
+					type: "POST",
+					url: `/portal/delete/${id}`,
+					data: { "title": title },
+					success: data => window.location.href = '/portal'
+				});
 			}
 		}
 

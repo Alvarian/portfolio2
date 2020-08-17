@@ -61,44 +61,44 @@
 		const displayUploads = $('#displayUploads');
 
 
-		// panel.submit(e => {
-		// 	const inputs = panel[0];
-		// 	const title = inputs[0].value;
-		// 	const description = inputs[1].value;
-		// 	const type = inputs[2].value;
-		// 	const deployedUrl = inputs[3].value;
-		// 	const gitUrl = inputs[5].value;
-		// 	const iconFile = inputs[6].value;
+		panel.submit(e => {
+			const inputs = panel[0];
+			const title = inputs[0].value;
+			const description = inputs[1].value;
+			const type = inputs[2].value;
+			const deployedUrl = inputs[3].value;
+			const gitUrl = inputs[5].value;
+			const iconFile = inputs[6].value;
 
-		// 	if (panel.attr('action').split('/')[2] === 'delete') return true;
+			if (panel.attr('action').split('/')[2] === 'delete') return true;
 			
-		// 	if (!title) {
-		// 		alert('no title');
-		// 		return false;
-		// 	}
+			if (!title) {
+				alert('no title');
+				return false;
+			}
 
-		// 	if (!description) {
-		// 		alert('no description');
-		// 		return false;
-		// 	}
+			if (!description) {
+				alert('no description');
+				return false;
+			}
 
-		// 	if (!logic.children()[1].value && !deployedUrl) {
-		// 		alert('no native logic or deployed url');
-		// 		return false;
-		// 	}
+			if (!logic.children()[1].value && !deployedUrl) {
+				alert('no native logic or deployed url');
+				return false;
+			}
 
-		// 	if (!gitUrl) {
-		// 		alert('no git url');
-		// 		return false;
-		// 	}
+			if (!gitUrl) {
+				alert('no git url');
+				return false;
+			}
 
-		// 	if (!iconFile) {
-		// 		alert('no icon file');
-		// 		return false;
-		// 	}
+			if (!iconFile) {
+				alert('no icon file');
+				return false;
+			}
 
-		// 	urlField.remove();
-		// });
+			urlField.remove();
+		});
 
 		function returnSelectDefault() {
 			type.css('display', 'block');

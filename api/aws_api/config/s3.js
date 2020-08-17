@@ -12,7 +12,6 @@ const {
 	BUCKET_NAME
 } = process.env;
 
-const s3 = new aws.S3();
 
 aws.config.update({
 	secretAccessKey: ACCESS_SECRET_KEY,
@@ -20,6 +19,7 @@ aws.config.update({
 	region: REGION_NAME
 });
 
+const s3 = new aws.S3();
 
 function upload(file, fileKey) {
 	if (!file) return null;
@@ -34,14 +34,43 @@ function upload(file, fileKey) {
 		};
 
 		s3.upload(params, function(s3Err, data) {
-			if (s3Err){
-				reject(s3Err);
-			}
+			if (s3Err) reject(s3Err);
+
 			console.log(`File uploaded successfully at ${data.Location}`);
 			resolve(data.Location);
 		});
 	});
 }
 
+function destroy(fileKey) {
+	console.log(fileKey)
+	return new Promise(async function(resolve, reject) {
+		let params = { Bucket: BUCKET_NAME, Prefix: fileKey };
 
-module.exports = upload;
+		const delObj = () => {			
+			s3.deleteObjects(params, function(err, data) {
+				if (err) return reject(err, err.stack);  // error
+				
+				console.log(`File deleted successfully: ${data}`);
+				resolve(data);                 // deleted
+			});
+		}
+
+		s3.listObjectsV2(params, function(err, data) {
+			if (err) return reject(err);
+
+			if (data.Contents.length == 0) return delObj();
+
+			params = { Bucket: BUCKET_NAME };
+			params.Delete = {Objects:[]};
+
+			data.Contents.forEach(function(content) {
+				params.Delete.Objects.push({Key: content.Key});
+			});
+
+			delObj();
+		});
+	});
+}
+
+module.exports = { upload, destroy };
