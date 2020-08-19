@@ -53,7 +53,8 @@
 		        	styleFile.setAttribute('href', style_file);
 		        	appModalBody.appendChild(styleFile);
 
-		        	gameFile.start(appModalBody);
+		        	const newGame = new Game();
+		        	newGame.start(appModalBody);
 		        }
 		    });
 
