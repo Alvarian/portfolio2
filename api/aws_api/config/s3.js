@@ -1,7 +1,4 @@
 const aws = require('aws-sdk');
-// const multer = require('multer');
-// const multerS3 = require('multer-s3');
-const fs = require('fs');
 
 
 require('dotenv').config();
@@ -21,10 +18,10 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-function upload(file, fileKey) {
+function s3Create(file, fileKey) {
 	if (!file) return null;
 
-	return new Promise(async function(resolve, reject) {
+	return new Promise(function(resolve, reject) {
 		const params = {
 			Bucket: BUCKET_NAME, // pass your bucket name
 			Key: fileKey,
@@ -42,8 +39,7 @@ function upload(file, fileKey) {
 	});
 }
 
-function destroy(fileKey) {
-	console.log(fileKey)
+function s3Destroy(fileKey) {
 	return new Promise(async function(resolve, reject) {
 		let params = { Bucket: BUCKET_NAME, Prefix: fileKey };
 
@@ -73,4 +69,4 @@ function destroy(fileKey) {
 	});
 }
 
-module.exports = { upload, destroy };
+module.exports = { s3Create, s3Destroy };

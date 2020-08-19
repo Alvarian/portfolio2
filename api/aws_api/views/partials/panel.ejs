@@ -45,9 +45,16 @@
 			</div>
 
 			<!-- iconFile(S3) -->
-			<div class="form-group">
+			<div class="form-group" id="icon">
 				<label for="icon_file">Icon</label>
+				<i class="fas fa-globe float-right" onclick="fillIconUrlField(null)"></i>
 				<input name="icon_file" class="form-control" type="file">
+			</div>
+
+			<div class="form-group" id="displayIcon" style="display: none">
+				<label for="type">Type</label>
+				<i class="far fa-window-close float-right" onclick="returnIconFieldDefault()"></i>
+				<input name="icon_url" type="text" class="form-control">
 			</div>
 
 			<button class="btn btn-primary btn-block" type="submit">Submit</button>
@@ -82,38 +89,58 @@
 				return false;
 			}
 
-			if (!logic.children()[1].value && !deployedUrl) {
-				alert('no native logic or deployed url');
-				return false;
-			}
+			// if (!logic.children()[1].value && !deployedUrl) {
+			// 	alert('no native logic or deployed url');
+			// 	return false;
+			// }
 
-			if (!gitUrl) {
-				alert('no git url');
-				return false;
-			}
+			// if (!gitUrl) {
+			// 	alert('no git url');
+			// 	return false;
+			// }
 
-			if (!iconFile) {
-				alert('no icon file');
-				return false;
-			}
-
-			urlField.remove();
+			// if (!iconFile) {
+			// 	alert('no icon file');
+			// 	return false;
+			// }
 		});
 
 		function returnSelectDefault() {
-			type.css('display', 'block');
 			urlField.css('display', 'none');
+			displayUploads.children()[2].value = '';
 			displayUploads.css('display', 'none');
 
+			logic.children()[1].value = '';
 			logic.css('display', 'block');
+			style.children()[1].value = '';
 			style.css('display', 'block');
+
+			$('.oldLogicUrl').remove();
+			$('.oldStyleUrl').remove();
 			fakeModalForm.append(logic);
 			fakeModalForm.append(style);
 
 			type.children()[1].value = '';
+			type.css('display', 'block');
 		}
 
-		function changeTypeOption(selectType) {
+		function returnIconFieldDefault() {
+			$('#icon').children()[2].setAttribute('value', '');
+			$('#displayIcon').css('display', 'none');
+			$('#displayIcon').children()[2].setAttribute('value', '');
+
+			$('#icon').css('display', 'block');			
+		}
+
+		function fillIconUrlField(url) {
+			$('#icon').children()[2].setAttribute('value', '');
+			$('#icon').css('display', 'none');
+
+			$('#displayIcon').css('display', 'block');
+			$('#displayIcon').children()[2].setAttribute('value', (url) ? url : '');
+		}
+
+		function changeTypeOption(selectType, fileUrlsFromGallery) {
 			const istypeFromGallery = (urlField.children()[2].value) ? 'deployed' : 'game';
 
 			switch (selectType) {
@@ -140,7 +167,34 @@
 						return;
 					};
 
-					$('#exampleModalCenter').modal("show");
+					if (!fileUrlsFromGallery) {
+						$('#exampleModalCenter').modal("show");
+						
+						return;
+					}
+
+				    type.css('display', 'none');
+
+				    const oldLogicUrl = document.createElement('input');
+				    oldLogicUrl.setAttribute('type', 'hidden');
+				    oldLogicUrl.setAttribute('class', 'oldLogicUrl');
+				    oldLogicUrl.setAttribute('name', 'game_file');
+				    oldLogicUrl.value = fileUrlsFromGallery.game_file;
+
+					panel.prepend(oldLogicUrl);
+				    
+				    if (fileUrlsFromGallery.style_file) {
+					    const oldStyleUrl = document.createElement('input');
+					    oldStyleUrl.setAttribute('type', 'hidden');
+					    oldStyleUrl.setAttribute('class', 'oldStyleUrl');
+					    oldStyleUrl.setAttribute('name', 'style_file');
+					    oldStyleUrl.value = fileUrlsFromGallery.style_file;
+					
+						panel.prepend(oldStyleUrl);
+				    }
+
+					displayUploads.children()[2].value = `Has Logic; ${(!fileUrlsFromGallery.style_file) ? '' : 'Has Style;'}`;
+					displayUploads.css('display', 'block');
 
 					break;
 
@@ -149,7 +203,7 @@
 			}
 		}
 
-		type.change(e => changeTypeOption(e.target.value));
+		type.change(e => changeTypeOption(e.target.value, null));
 
 		function clearPanel() {
 			panel.attr('action', '/portal');
