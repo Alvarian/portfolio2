@@ -6,7 +6,7 @@
 		<div class="overflow-auto d-flex flex-wrap">
 			<% projects.forEach(function(project) { %>
 				<div id="<%= project.id %>" class="card card-body col-sm-4 m-1 ">
-					<img onclick="loadProjectIntoModalBox(<%= JSON.stringify(project) %>)" class="w-100" src="https://soulslore.wdfiles.com/local--resized-images/data:firekeepers/bonfire.png/medium.jpg" alt="icon">
+					<img onclick="loadProjectIntoModalBox(<%= JSON.stringify(project) %>)" class="w-100" src="<%= project.icon_file %>" alt="icon">
 
 					<div class="float-right">
 						<i class="far fa-edit" onclick="loadProjectIntoPanel(<%= JSON.stringify(project) %>)"></i>

@@ -5,13 +5,13 @@
 
 		<form action="/portal" method="POST" enctype="multipart/form-data" id="panel">
 			<!-- title -->
-			<div class="form-group">
+			<div class="form-group" id="title">
 				<label for="title">Title</label>
 				<input name="title" class="form-control" type="text">
 			</div>
 
 			<!-- description -->
-			<div class="form-group">
+			<div class="form-group" id="description">
 				<label for="description">Description</label>
 				<textarea name="description" class="form-control" type="text"></textarea>
 			</div>
@@ -39,7 +39,7 @@
 			</div>
 
 			<!-- git url -->
-			<div class="form-group">
+			<div class="form-group" id="gitUrl">
 				<label for="git_url">Git URL</label>
 				<input name="git_url" class="form-control" type="text">
 			</div>
@@ -48,7 +48,7 @@
 			<div class="form-group" id="icon">
 				<label for="icon_file">Icon</label>
 				<i class="fas fa-globe float-right" onclick="fillIconUrlField(null)"></i>
-				<input name="icon_file" class="form-control" type="file">
+				<input name="icon_file" class="form-control" type="file" accept=".jpg, .jpeg, .png">
 			</div>
 
 			<div class="form-group" id="displayIcon" style="display: none">
@@ -69,16 +69,15 @@
 
 
 		panel.submit(e => {
-			const inputs = panel[0];
-			const title = inputs[0].value;
-			const description = inputs[1].value;
-			const type = inputs[2].value;
-			const deployedUrl = inputs[3].value;
-			const gitUrl = inputs[5].value;
-			const iconFile = inputs[6].value;
+			const title = $('#title').children()[1].value;
+			const description = $('#description').children()[1].value;
+			const deployedUrl = urlField.children()[2].value;
+			const uploads = displayUploads.children()[2].value;
+			const gitUrl = $('#gitUrl').children()[1].value;
+			const iconUrl = $('#displayIcon').children()[2].value;
+			const iconFile = $('#icon').children()[2].value;
 
-			if (panel.attr('action').split('/')[2] === 'delete') return true;
-			
+
 			if (!title) {
 				alert('no title');
 				return false;
@@ -89,20 +88,20 @@
 				return false;
 			}
 
-			// if (!logic.children()[1].value && !deployedUrl) {
-			// 	alert('no native logic or deployed url');
-			// 	return false;
-			// }
+			if (!uploads && !deployedUrl) {
+				alert('no native logic or deployed url');
+				return false;
+			}
 
-			// if (!gitUrl) {
-			// 	alert('no git url');
-			// 	return false;
-			// }
+			if (!gitUrl) {
+				alert('no git url');
+				return false;
+			}
 
-			// if (!iconFile) {
-			// 	alert('no icon file');
-			// 	return false;
-			// }
+			if (!iconUrl && !iconFile) {
+				alert('no icon');
+				return false;
+			}
 		});
 
 		function returnSelectDefault() {
