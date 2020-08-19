@@ -1,56 +1,103 @@
 const db = require('../config/db');
+const { s3Create, s3Destroy } = require('../config/s3');
 
 
-const createProject = (req, res) => {
-	const {} = req.body;
-	console.log(req.body);
-	// db.query(`SELECT * FROM public.add_project()`, 
-	// (err, result) => {
-	// 	console.log(err ? err : result.rows);
+const createProject = async (req, res) => {
+	// create new image in s3, after success provide link for each to db to store for fields that require it
+	try {	
+		const { title, description, deployed_url, git_url, icon_url } = req.body;
+		const { game_file, style_file, icon_file } = req.files;
 
-	// 	res.send(result.rows);
-	// });
+		const bodyInputs = [	
+			title, 
+			description, 
+			deployed_url, 
+			await checkIfFileIsBufferable(game_file, `${title.replace(/\s/g, '')}/logic`), 
+			await checkIfFileIsBufferable(style_file, `${title.replace(/\s/g, '')}/style`),
+			git_url,
+			await checkIfFileIsBufferable(icon_file || icon_url, `${title.replace(/\s/g, '')}/icon`)
+		];
+
+		db.query(`SELECT * FROM public.add_project($1, $2, $3, $4, $5, $6, $7)`, bodyInputs,
+		(err, result) => {
+			if (err) throw err;
+		});
+	} catch (err) {
+		console.log('Failed to create project files in aws', err);
+	} finally {
+		res.redirect('/portal');
+	}
 };
 
 const readAllProjects = (req, res) => {
-	db.query(`SELECT * FROM public.find_all()`, (err, result) => {
-		console.log(err ? err : result.rows);
+	db.query(`SELECT * FROM public.find_all_projects()`, (err, result) => {
+		if (err) throw err;
 
-		res.render('portal', result.rows);
+		res.render('portal', { 
+			title: 'Portal', 
+			projects: result.rows.reverse()
+		});
 	});
 };
 
-const readOneProject = (req, res) => {
-	db.query(`SELECT * FROM public.find_by_id(${req.params.id})`, (err, result) => {
-		console.log(err ? err : result.rows);
+const checkIfFileIsBufferable = (file, awsKey) => {
+	return new Promise(async function(resolve, reject) {
+		// if field from update matches field from db, return
+		if (typeof file === 'string' || !file) {
+			return resolve(file);
+		}
 
-		res.send(result.rows[0]);
+		// if field does not match, pass parameter through s3Upload
+		let fileUrl = await s3Create(file, awsKey);
+		resolve(fileUrl);
 	});
 };
 
-const updateProject = (req, res) => {
-	const {} = req.body;
-	console.log(req.body);
-	// db.query(`SELECT * FROM public.update_project(${req.params.id})`, (err, result) => {
-	// 	console.log(err ? err : result.rows);
+const updateProject = async (req, res) => {
+	// if new logic, icon, or style, overwrite s3 and db fields
+	const { title, description, deployed_url, git_url, icon_url } = req.body;
+	const { game_file, style_file, icon_file } = req.files;
 
-	// 	res.send(result.rows);
-	// });
+	try {
+		const bodyInputs = [	
+			title, 
+			description, 
+			deployed_url, 
+			await checkIfFileIsBufferable(game_file, `${title.replace(/\s/g, '')}/logic`), 
+			await checkIfFileIsBufferable(style_file, `${title.replace(/\s/g, '')}/style`),
+			git_url,
+			await checkIfFileIsBufferable(icon_file || icon_url, `${title.replace(/\s/g, '')}/icon`)
+		];	
+
+		db.query(`SELECT * FROM public.update_project(${req.params.id}, $1, $2, $3, $4, $5, $6, $7)`, bodyInputs,
+		(err, result) => {
+			if (err) throw err
+		});
+	} catch (err) {
+		console.log('promise err from update', err)
+	} finally {
+		res.redirect('/portal');
+	}
 };
 
-const deleteProject = (req, res) => {
-	console.log(req.params.id);
-	// db.query(`SELECT * FROM public.delete_project(${req.params.id})`, (err, result) => {
-	// 	console.log(err ? err : result.rows);
+const deleteProject = async (req, res) => {
+	try {
+		await s3Destroy(`${req.body.title.replace(/\s/g, '')}/`);
+	} catch (err) {
+		console.log('huh', err);
+	} finally {
+		db.query(`SELECT * FROM public.delete_project(${req.params.id})`, (err, result) => {
+			if (err) throw err
 
-	// 	res.send(result.rows);
-	// });
+			res.json({ msg: 'redirect plase' })
+		});
+	}
 };
 
 
 module.exports = {
 	createProject,
-	readAllProjects, readOneProject,
+	readAllProjects, 
 	updateProject,
 	deleteProject
 }

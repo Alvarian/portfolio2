@@ -8,7 +8,13 @@ const {
 
 
 router.get('/', (req, res) => {
-	res.render('login');
+	res.render('login', { title: 'Portal Login' });
+});
+
+router.get('/logout', (req, res) => {
+	req.logout();
+	req.flash('success_msg', 'You are logged out');
+	res.redirect('/');
 });
 
 router.post('/', async (req, res, next) => {
@@ -35,7 +41,6 @@ router.post('/', async (req, res, next) => {
 		if ((await readAllUsers()).length) {
 			// normal login strategy
 			// if un and ps matches, login
-			console.log('master exists')
 			passport.authenticate('local', {
 				successRedirect: '/portal',
 				failureRedirect: '/',

@@ -35,7 +35,6 @@ module.exports = function(passport) {
 	});
 
 	passport.deserializeUser(function(id, done) {
-		console.log(id);
 		db.query(`SELECT * FROM find_master_by_user('${id}')`,
 			(err, result) => {
 				const m = result.rows[0];
