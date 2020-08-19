@@ -3,15 +3,21 @@ const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const path = require('path');
+const multer = require('multer');
+const upload = multer({ dest: '' });
 
 const app = express();
 
+
+// static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ejs
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
-// body
+// parsers
 app.use(express.urlencoded({ extended: false }));
 
 // session
@@ -42,7 +48,11 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/master.js'));
 
 // portal
-app.use('/', require('./routes/portal.js'));
+app.use('/', upload.fields([
+	{ name: 'game_file', maxCount: 1 }, 
+	{ name: 'style_file', maxCount: 1 }, 
+	{ name: 'icon_file', maxCount: 1 }
+]), require('./routes/portal.js'));
 
 
 require('dotenv').config();
