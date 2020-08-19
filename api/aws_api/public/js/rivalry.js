@@ -1,4 +1,4 @@
-function Rivalry() {
+function Game() {
   let game, track, inject, ticDesc;
   this.getName = (e,ind) => {
     console.log('Rivalry');
@@ -277,5 +277,3 @@ function Rivalry() {
     }
   }
 }
-
-const gameFile = new Rivalry();
