@@ -74,8 +74,10 @@
 			}
 		}
 
-		function loadProjectIntoPanel({ id, title, description, deployed_url, game_file, git_url, style_file }) {
+		function loadProjectIntoPanel({ id, title, description, deployed_url, game_file, git_url, style_file, icon_file }) {
 			// load into fields
+			clearPanel();
+
 			panel.attr('action', `/portal/update/${id}`);
 
 			panel[0][0].value = title;
@@ -83,13 +85,17 @@
 			panel[0][2].value = '';
 			panel[0][5].value = git_url;
 
+			fillIconUrlField(icon_file);
+
 			// option: deployedUrl || gameFile && styleFile(S3)
 			if (!deployed_url) {
 				panel[0][3].value = '';
-				changeTypeOption('is_game_file', 'game');
+
+				changeTypeOption('is_game_file', { game_file, style_file });
 			} else {
 				panel[0][3].value = deployed_url; 
-				changeTypeOption('is_deployed', 'deployed');
+
+				changeTypeOption('is_deployed', null);
 			}
 		}
 	</script>

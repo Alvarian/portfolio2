@@ -47,10 +47,7 @@
 
       type.css('display', 'none');
 
-      displayUploads.children()[2].value = `
-        Logic: ${regexFormatFromFilePath(logic.children()[1].value)}, 
-        Style?: ${regexFormatFromFilePath(style.children()[1].value)}
-      `;
+      displayUploads.children()[2].value = `Logic: ${regexFormatFromFilePath(logic.children()[1].value)}; Style?: ${regexFormatFromFilePath(style.children()[1].value)}`;
 
       displayUploads.css('display', 'block');
 
