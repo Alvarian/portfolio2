@@ -11,6 +11,14 @@ function Contact() {
 
 	const HandleSubmitAndToggle = contactFieldValues => e => {
 		e.preventDefault();
+		
+		for(let key in contactFieldValues) {
+			if (!contactFieldValues[key]) {
+				alert('Please fill out all fields');
+
+				return false;
+			}
+		}
 
 		axios.post(process.env.REACT_APP_API_URL+'/api/contact', contactFieldValues)
 			.catch(err => console.log(err));
