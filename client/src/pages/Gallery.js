@@ -2,17 +2,25 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import Navbar from './components/Navbar.js';
 import ProjectList from './components/ProjectList.js';
+import ProjectModal from './components/ProjectModal.js';
 
 
 function Gallery() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_URL+"/projects")
+    fetch(process.env.REACT_APP_API_URL+"/api/projects")
       .then(response => response.json())
-      .then(json => setProjects(json))
+      .then(json => setProjects(json.msg))
   }, []);
-console.log("Server connected: ", projects);
+
+
+  const [content, setContent] = useState();
+
+  const modalContent = (projectModalPayload) => {
+    setContent(projectModalPayload);
+  };
+
   return (
     <div>
       <Navbar class={'pressStart galleryNav'} />
@@ -36,13 +44,17 @@ console.log("Server connected: ", projects);
         
           <div className="cards">
             <div className="gallery gall">
-              {/* <ProjectList projects={projects} />  */}
+              <ProjectList data={projects} callbackForModal={modalContent} />           
             </div>
           </div>
         </div>
       </div>
+{/*
+*/}
+      <ProjectModal content={content} clear={modalContent} />
     </div>
   );
 }
+
 
 export default Gallery;
