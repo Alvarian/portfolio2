@@ -1,31 +1,33 @@
 import React, { useState, useEffect } from 'react';
 
-import ScriptTag from 'react-script-tag';
+import useScript from './hooks/useScript';
 
 
 function ProjectModal(props) {
-	const [isOpen, toggleOpen] = useState(false);
+	const status = useScript(props.content);
 
-	useEffect(() => toggleOpen(!!props.content));
+	const handleToggle = () => {
+		window.Game = null;
 
-	const handleToggle = () => props.clear(null);
-	
-	return isOpen && props.content ? (
+		props.clear(null);
+	};
+
+	return props.content ? (
 		<div id="modal">
 			<div className="modal-content">
-				<a href="#" className="close" onClick={handleToggle}>X</a>
+				<a href="#" className="close" onClick={ handleToggle }>X</a>
 				<div className="border">
-					{/*App loads into here*/}
+					{/*App loads here*/}
 					{ props.content.logic ?
 						<div className="app">
 							{ props.content.style &&
-								<link rel="" href="" />
+								<link rel="stylesheet" href={ props.content.style } />
 							}
-
-							<ScriptTag isHydrating={true} type="text/javascript" src="" />
+							
+							{ status === "ready" && window.Game.start(document.querySelector('.app')) } 
 						</div>
 					 : 
-						<iframe />
+						<iframe src={ props.content.url } height="100%" width="100%" />
 					}
 				</div>
 			</div>
