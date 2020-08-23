@@ -20,7 +20,6 @@ function Game() {
   }
   this.loopy = (arr, func) => {
     if(typeof arr == 'number'){
-      console.log('number');
       for(let i = 1; i <= arr; i++){
         func(i);
       }      
@@ -35,7 +34,6 @@ function Game() {
     ticDesc.setAttribute('class','ticDesc');
     let desc = ['Tic Tac Toe','Mark three in a row and you win!'];
     this.loopy(desc, (i) => {
-      console.log('loop');
       if(desc[i] == desc[0]){
         // console.log(desc[i]);
         let head = document.createElement('h2');
@@ -50,7 +48,7 @@ function Game() {
     }); 
   }
   this.box = () => {
-    // console.log('box0');
+    if (game.children.length === 3) return;
     document.querySelector('head').innerHTML += `<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">`;
     // game.innerHTML += `<iframe width="0" height="0" src="https://www.youtube.com/embed/CMD-0h9EOG0?rel=0&amp;autoplay=1&amp;start=0" frameborder="0" allowfullscreen></iframe>`;  
 
@@ -157,7 +155,7 @@ function Game() {
     clr.addEventListener('click', () => {
       let m = document.querySelector('#mugen');
       let j = document.querySelector('#jin');
-      console.log(allToClr[0]);
+
       for(let i of allToClr){
         // console.log(i);
         i.innerText = " ";
@@ -176,8 +174,7 @@ function Game() {
 
     if(document.querySelector('title').innerText == 'Portfolio'){
       // console.log(name);
-      if(name == 'Rivalry'){ 
-        console.log('carded');         
+      if(name == 'Rivalry'){        
         Rivalry.loadMsg();   
         description.innerHTML = '';
         description.appendChild(ticDesc);
@@ -200,12 +197,9 @@ function Game() {
   }
   this.start = (el) => {
     game = el;
-    this.box();
-    console.log('app');  
+    this.box();  
   }
   this.btns = () => {
-    console.log('win check');
-
     // column
     let col1 = document.getElementById(`riv_${1}`).innerText+document.getElementById(`riv_${4}`)
     .innerText+document.getElementById(`riv_${7}`).innerText;
@@ -244,7 +238,6 @@ function Game() {
         if (count >= 1){
           clearInterval(incOp);
         } else {
-          console.log('add');
           count += 0.02;
           mugen.style.opacity = count;
         }
@@ -268,7 +261,6 @@ function Game() {
         if (count >= 1){
           clearInterval(incOp);
         } else {
-          console.log('add');
           count += 0.02;
           jin.style.opacity = count;
         }
@@ -277,3 +269,5 @@ function Game() {
     }
   }
 }
+
+window.Game = new Game();
