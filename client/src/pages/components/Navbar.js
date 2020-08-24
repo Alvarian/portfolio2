@@ -6,10 +6,9 @@ function Navbar(props) {
 		<nav className={"row spaced "+props.class} style={{backgroundColor: "black", color: "white"}}>
 			<div className="menu lrg">
 				<div className="menuLayer">
-					<div>Ivan Alvarez</div>
+					<a className="bleach" href="/">Ivan Alvarez</a>
 
 					<div className="naver">
-						<a href="/">/home</a>
 						<a className="bleach" href="/gallery">/projects</a>
 						<a className="bleach" href="/contact">/contact</a>
 					</div>
