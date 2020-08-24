@@ -34,9 +34,11 @@ function Home() {
 								<div style={{minWidth: "150px", fontSize: "16pt", marginTop: "20px"}}>
 									<span style={{fontSize: "50pt", float: "left", marginRight: "20px"}}>Hi</span>
 									Im Ivan, a webdev
-									<p>I favor using nodejs and AWS</p>
+									<p>I am very curious about programming, it has become a growing passion</p>
+								{/*}
 									<p>I prefer tea instead of coffee</p>
-									<p>No dev exp aside from autonomous deployments</p>
+								*/}
+									<p>In search for more dev exp, please browse my work!</p>
 									<p>presented in <a style={{fontSize: "10pt"}} className="pressStart" href="/projects">Gallery</a></p>
 									<p>and <a className="orbi" href="https://github.com/Alvarian/INTRO" target="_blank">Github</a></p>
 								</div>
@@ -63,7 +65,6 @@ function Home() {
 								<i className="badges devicon-css3-plain colored"></i>
 								<i className="badges devicon-html5-plain colored"></i>
 								<i className="badges devicon-python-plain colored"></i>
-								<i className="badges devicon-amazonwebservices-plain-wordmark colored"></i>
 							</div>
 						</div>
 
@@ -76,6 +77,7 @@ function Home() {
 								<i className="badges devicon-jquery-plain-wordmark colored"></i>
 								<i className="badges devicon-mongodb-plain-wordmark colored"></i>
 								<i className="badges devicon-mysql-plain-wordmark colored"></i>
+								<i className="badges devicon-amazonwebservices-plain-wordmark colored"></i>
 							</div>
 						</div>
 					
@@ -84,7 +86,8 @@ function Home() {
 
 							<div className="loopLoading">
 								<i className="badges devicon-cplusplus-plain colored"></i>
-								<i className="badges devicon-react-original-wordmark colored"></i>
+								<i className="badges devicon-rust-plain colored"></i>
+								<i className="badges devicon-php-plain colored"></i>
 							</div>
 						</div>
 					</div>

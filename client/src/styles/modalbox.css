@@ -33,14 +33,11 @@
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  min-width: 300px;
-  margin: auto; 
+  margin: 5% auto; /* 15% from the top and centered */
   padding: 20px;
-  position: relative;
-  height: 85%;
-  z-index: 9999;
   border: 1px solid #888;
-  width: 60%; /* Could be more or less, depending on screen size */
+  width: 80%; /* Could be more or less, depending on screen size */
+  height: 80vh;
 }
 .border {
   border-style: inset;

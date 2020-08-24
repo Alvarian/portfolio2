@@ -4,7 +4,7 @@ import useScript from './hooks/useScript';
 
 
 function ProjectModal(props) {
-	const status = useScript(props.content);
+	const status = useScript(props.content, document.querySelector('.app'));
 
 	const handleToggle = () => {
 		window.Game = null;
