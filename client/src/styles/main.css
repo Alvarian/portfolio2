@@ -62,6 +62,9 @@
 	top: 0;
 	cursor: pointer;
 }
+.clickOpen:hover, .lay:hover, .card:hover ~ .lay {
+	display: flex;
+}
 .clickOpen {
 	color: red;
 	cursor: pointer;
