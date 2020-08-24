@@ -5,9 +5,8 @@ import Home from './pages/Home.js';
 import Gallery from './pages/Gallery.js';
 import Contact from './pages/Contact.js';
 
-import logo from './logo.svg';
-import './styles/main.css';
 import './styles/flexbox.css';
+import './styles/main.css';
 import './styles/modalbox.css';
 
 
