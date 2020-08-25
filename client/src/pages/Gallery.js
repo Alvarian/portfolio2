@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Navbar from './components/Navbar.js';
 import ProjectList from './components/ProjectList.js';
@@ -33,9 +33,7 @@ function Gallery() {
   return (
     <div>
       <Navbar class={'pressStart galleryNav'} />
-
-      <h1>Gallery</h1>
-
+      
       <div id="app">
         <h1 className="orb codepro" style={{textAlign: "center"}}>Project Gallery</h1>
         <div className="row">
