@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Link } from "react-router-dom";
-
 
 function ProjectList(props) {
 	return props.data.map(project => (
@@ -19,7 +17,7 @@ function ProjectList(props) {
 				</div>
 				<div style={{height: '100px'}}></div>
 
-				<a className="gitBTN" target="_blank" href={ project.git_url }><i className="fab fa-4x fa-github"></i></a>
+				<a rel="noopener noreferrer" className="gitBTN" target="_blank" href={ project.git_url }><i className="fab fa-4x fa-github"></i></a>
 			</div>
 		</div>   
 	))
