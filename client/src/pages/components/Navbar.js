@@ -3,7 +3,7 @@ import useResize from './hooks/useResize';
 
 
 function Navbar(props) {
-	const [width, height] = useResize();
+	const [width] = useResize();
 
 	const [isDisplayed, toggleDisplay] = useState(false);
 
