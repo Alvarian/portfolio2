@@ -1,10 +1,10 @@
 import { SmtpClient } from "https://deno.land/x/smtp/mod.ts";
-import { config } from "https://deno.land/x/dotenv/mod.ts";
+import "https://deno.land/x/dotenv/load.ts";
 
 
 const {
 	EMAIL_U, EMAIL_P
-} = config();
+} = Deno.env.toObject();
 
 const client = new SmtpClient();
 
