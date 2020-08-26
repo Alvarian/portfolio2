@@ -21,7 +21,7 @@ function ProjectModal(props) {
 					{ props.content.logic ?
 						<div className="app">
 							{ props.content.style &&
-								<link rel="stylesheet" href={ props.content.style } />
+								<link rel="stylesheet" type="text/css" href={ props.content.style } />
 							}
 							
 							{ status === "ready" && window.Game.start(document.querySelector('.app')) } 
