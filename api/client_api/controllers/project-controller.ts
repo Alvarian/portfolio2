@@ -1,4 +1,3 @@
-import { Project } from '../typings/types.ts';
 import { client } from '../config/db.ts';
 
 
