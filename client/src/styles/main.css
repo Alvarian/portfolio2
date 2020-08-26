@@ -436,17 +436,26 @@ nav {
 	height: 70vh; 
 	padding: 0px 20px;
 }
+
+.bio {
+	/*min-width: 150px; */
+	font-size: 16pt; 
+	margin-top: 20px;
+}
 @media only screen and (max-width: 600px) {
   .gall {
   	 padding-top: 40px;
   }
+/*  .bio {
+  	float: right;
+  }*/
   .menuLayer {
 	display: flex; 
 	justify-content: space-around;
 	align-items: center;
   }
   .bleach {
-	font-size: 32pt;
+	font-size-adjust: 0.5;
   }
   .contactMenu {
   	justify-content: space-around;
@@ -471,7 +480,7 @@ nav {
 	width: 90px;
   }
   .des {
-  	margin: 0;
+  	padding: 0;
   	width: 100%;
   }
   .float {
