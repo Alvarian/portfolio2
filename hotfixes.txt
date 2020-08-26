@@ -1,9 +1,5 @@
 work on responsiveness of the layout
 
-have a que in the app modal box when apps are being loaded
-
-logger
-
 get domain name
 
 ...update linkedin

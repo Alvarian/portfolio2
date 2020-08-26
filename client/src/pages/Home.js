@@ -34,10 +34,8 @@ function Home() {
 								<div style={{minWidth: "150px", fontSize: "16pt", marginTop: "20px"}}>
 									<span style={{fontSize: "50pt", float: "left", marginRight: "20px"}}>Hi</span>
 									Im Ivan, a webdev
-									<p>I am very curious about programming, it has become a growing passion</p>
-								{/*}
-									<p>I prefer tea instead of coffee</p>
-								*/}
+									<p>I have a fasination about programming, it has become a growing passion</p>
+								
 									<p>In search for more dev exp, please browse my work!</p>
 									<p>presented in <a style={{fontSize: "10pt"}} className="pressStart" href="/projects">Gallery</a></p>
 									<p>and <a rel="noopener noreferrer" className="orbi" href="https://github.com/Alvarian/INTRO" target="_blank">Github</a></p>
