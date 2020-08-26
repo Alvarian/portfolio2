@@ -25,6 +25,9 @@
   display: flex;
   justify-content: center;
 }
+.verticled {
+	align-items: center;
+}
 .arounded {
   display: flex;
   justify-content: space-around;
