@@ -50,9 +50,15 @@ function Gallery() {
           </div>
         
           <div className="cards">
-            <div className="gallery gall">
-              <ProjectList data={projects} callbackForModal={modalContent} fillSynopsis={handleHover} />           
-            </div>
+            { projects.length ? 
+              <div className="gallery gall">
+                  <ProjectList data={projects} callbackForModal={modalContent} fillSynopsis={handleHover} />           
+              </div>
+            : 
+              <div className="arounded verticled" style={{ height: "70%" }}>                      
+                <div className="pulsate-css" style={{ width: "80px", height: "80px" }}></div>
+              </div>
+            }
           </div>
         </div>
       </div>
