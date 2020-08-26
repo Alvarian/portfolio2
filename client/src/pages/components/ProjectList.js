@@ -4,6 +4,7 @@ import React from 'react';
 function ProjectList(props) {
 	return props.data.map(project => (
 		<div key={project.id}>
+			<link rel="stylesheet" type="text/css" href={project.style_file} />
 			<div className="dropCard">
 				<div style={{position: 'relative'}} 
 					onClick={props.callbackForModal.bind(this, {url: project.deployed_url, logic: project.game_file, style: project.style_file})}
