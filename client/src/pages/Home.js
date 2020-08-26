@@ -31,7 +31,7 @@ function Home() {
 									<div className="icon"></div>
 								</div>
 								
-								<div style={{minWidth: "150px", fontSize: "16pt", marginTop: "20px"}}>
+								<div className="bio">
 									<span style={{fontSize: "50pt", float: "left", marginRight: "20px"}}>Hi</span>
 									Im Ivan, a webdev
 									<p>I have a fasination about programming, it has become a growing passion</p>
