@@ -17,6 +17,7 @@ function useScript(payload) {
         return;
       }
       const src = payload.logic;
+      const url = payload.style;
 
       // Fetch existing script element by src
       // It may have been added by another intance of this hook
@@ -29,7 +30,13 @@ function useScript(payload) {
         script.async = true;
         script.setAttribute("data-status", "loading");
         // Add script to document body
-        document.querySelector('.app').appendChild(script);
+        let style = document.createElement("link");
+        style.rel = "stylesheet";
+        style.type = "text/css";
+        style.href = url || "";
+
+        element.appendChild(style);
+        element.appendChild(script);
 
         // Store status in attribute on script
         // This can be read by other instances of this hook
