@@ -1,5 +1,3 @@
-work on responsiveness of the layout
-
 get domain name
 
 ...update linkedin
