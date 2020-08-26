@@ -21,7 +21,7 @@ function Contact() {
 		}
 
 		axios.post(process.env.REACT_APP_API_URL+'/api/contact', contactFieldValues)
-			.then(res => res.json())
+			.then(res => console.log(res))
 			.catch(err => console.log(err));
 
 		setBool(!isSubmitted);

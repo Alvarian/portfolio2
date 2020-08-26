@@ -7,7 +7,7 @@ const router = new Router();
 router.post('/api/contact', async ({ request, response }: { request: any, response: any }) => {
 	const body = await request.body();
 	const { guestName, guestEmail, guestInqury } = await body.value;
-
+	
 	try {
 		await client.send({
 		  from: guestEmail, // Your Email address
