@@ -11,7 +11,7 @@ function ProjectModal(props) {
 
 		props.clear(null);
 	};
-
+console.log('re rendered')
 	return props.content ? (
 		<div id="modal">
 			<div className="modal-content">
@@ -20,7 +20,10 @@ function ProjectModal(props) {
 					{/*App loads here*/}
 					{ props.content.logic ?
 						<div className="app">
-							{ status === "ready" && window.Game.start(document.querySelector('.app')) } 
+							{ status === "ready" && window.Game.start(document.querySelector('.app')) }
+{/*							{ status === "ready" && console.log('game rendered', props.content.logic) } */}
+							{ props.content.style && <link rel="stylesheet" href={props.content.style} /> }
+{/*							{ props.content.style && console.log('style rendered', props.content.style) } */}
 						</div>
 					 : 
 						<iframe title="jsx-a11y/iframe-has-title" src={ props.content.url } height="100%" width="100%" />
