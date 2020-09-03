@@ -83,14 +83,14 @@ const updateProject = async (req, res) => {
 const deleteProject = async (req, res) => {
 	try {
 		await s3Destroy(`${req.body.title.replace(/\s/g, '')}/`);
+	
+		db.query(`SELECT * FROM public.delete_project(${req.params.id})`, (err, result) => {
+			if (err) throw err
+		});
 	} catch (err) {
 		console.log('huh', err);
 	} finally {
-		db.query(`SELECT * FROM public.delete_project(${req.params.id})`, (err, result) => {
-			if (err) throw err
-
-			res.json({ msg: 'redirect plase' })
-		});
+		res.json({ msg: 'redirect plase' });
 	}
 };
 
