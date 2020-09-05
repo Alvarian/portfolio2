@@ -51,10 +51,10 @@
 		        	const styleFile = cEl('link');
 		        	styleFile.setAttribute('rel', 'stylesheet');
 		        	styleFile.setAttribute('href', style_file);
+		        	styleFile.setAttribute('type', 'text/css');
 		        	appModalBody.appendChild(styleFile);
 
-		        	const newGame = new Game();
-		        	newGame.start(appModalBody);
+		        	window.Game.start(appModalBody);
 		        }
 		    });
 
