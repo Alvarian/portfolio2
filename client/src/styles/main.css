@@ -334,7 +334,8 @@ body {
 }
 .synop {
 	padding: 0px 20px; 
-	width: 190px;
+	max-width: 290px;
+	min-width: 290px;
 	text-align: center;
 	height: 70vh;
 	background-color: white;
@@ -449,6 +450,10 @@ nav {
 /*  .bio {
   	float: right;
   }*/
+  .synop {
+  	min-width: 100px;
+  	max-width: 100px;
+  }
   .menuLayer {
 	display: flex; 
 	justify-content: space-around;

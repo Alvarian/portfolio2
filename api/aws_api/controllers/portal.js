@@ -4,18 +4,28 @@ const { s3Create, s3Destroy } = require('../config/s3');
 
 const createProject = async (req, res) => {
 	// create new image in s3, after success provide link for each to db to store for fields that require it
-	try {	
-		const { title, description, deployed_url, git_url, icon_url } = req.body;
-		const { game_file, style_file, icon_file } = req.files;
+	const { title, description, deployed_url, git_url, icon_url } = req.body;
+	const { game_file, style_file, icon_file } = req.files;
 
+	const getFileExt = ({originalname}) => {
+		if (originalname.split('.')[1] === 'js') {	
+			return 'javascript';
+		}
+
+		if (originalname.split('.')[1] === 'css') {
+			return 'cascade';
+		}
+	};
+
+	try {	
 		const bodyInputs = [	
 			title, 
 			description, 
 			deployed_url, 
-			await checkIfFileIsBufferable(game_file, `${title.replace(/\s/g, '')}/logic`), 
-			await checkIfFileIsBufferable(style_file, `${title.replace(/\s/g, '')}/style`),
+			await checkIfFileIsBufferable(s3Create, game_file, `${title.replace(/\s/g, '')}/${getFileExt(game_file[0])}`), 
+			await checkIfFileIsBufferable(s3Create, style_file, `${title.replace(/\s/g, '')}/${getFileExt(style_file[0])}`),
 			git_url,
-			await checkIfFileIsBufferable(icon_file || icon_url, `${title.replace(/\s/g, '')}/icon`)
+			await checkIfFileIsBufferable(s3Create, icon_file || icon_url, `${title.replace(/\s/g, '')}/icon`)
 		];
 
 		db.query(`SELECT * FROM public.add_project($1, $2, $3, $4, $5, $6, $7)`, bodyInputs,
@@ -40,16 +50,14 @@ const readAllProjects = (req, res) => {
 	});
 };
 
-const checkIfFileIsBufferable = (file, awsKey) => {
+const checkIfFileIsBufferable = (cb, file, awsKey) => {
 	return new Promise(async function(resolve, reject) {
 		// if field from update matches field from db, return
 		if (typeof file === 'string' || !file) {
 			return resolve(file);
 		}
 
-		// if field does not match, pass parameter through s3Upload
-		let fileUrl = await s3Create(file, awsKey);
-		resolve(fileUrl);
+		resolve(cb(file, awsKey));
 	});
 };
 
@@ -58,15 +66,25 @@ const updateProject = async (req, res) => {
 	const { title, description, deployed_url, git_url, icon_url } = req.body;
 	const { game_file, style_file, icon_file } = req.files;
 
+	const getFileExt = ({originalname}) => {
+		if (originalname.split('.')[1] === 'js') {	
+			return 'javascript';
+		}
+
+		if (originalname.split('.')[1] === 'css') {
+			return 'cascade';
+		}
+	};
+
 	try {
 		const bodyInputs = [	
 			title, 
 			description, 
 			deployed_url, 
-			await checkIfFileIsBufferable(game_file, `${title.replace(/\s/g, '')}/logic`), 
-			await checkIfFileIsBufferable(style_file, `${title.replace(/\s/g, '')}/style`),
+			await checkIfFileIsBufferable(s3Create, game_file, `${title.replace(/\s/g, '')}/${getFileExt(game_file[0])}`), 
+			await checkIfFileIsBufferable(s3Create, style_file, `${title.replace(/\s/g, '')}/${getFileExt(style_file[0])}`),
 			git_url,
-			await checkIfFileIsBufferable(icon_file || icon_url, `${title.replace(/\s/g, '')}/icon`)
+			await checkIfFileIsBufferable(s3Create, icon_file || icon_url, `${title.replace(/\s/g, '')}/icon`)
 		];	
 
 		db.query(`SELECT * FROM public.update_project(${req.params.id}, $1, $2, $3, $4, $5, $6, $7)`, bodyInputs,
@@ -84,13 +102,14 @@ const deleteProject = async (req, res) => {
 	try {
 		await s3Destroy(`${req.body.title.replace(/\s/g, '')}/`);
 	
-		db.query(`SELECT * FROM public.delete_project(${req.params.id})`, (err, result) => {
-			if (err) throw err
-		});
 	} catch (err) {
 		console.log('huh', err);
 	} finally {
-		res.json({ msg: 'redirect plase' });
+		db.query(`SELECT * FROM public.delete_project(${req.params.id})`, (err, result) => {
+			if (err) throw err
+			
+			res.json({ msg: 'redirect plase' });
+		});
 	}
 };
 

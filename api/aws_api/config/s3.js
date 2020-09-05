@@ -21,20 +21,13 @@ const s3 = new aws.S3();
 function s3Create(file, fileKey) {
 	if (!file) return null;
 
-	const type = () => {
-		const keyType = fileKey.split('/')[1];
-
-		if (keyType === 'style') return 'text/css';
-		if (keyType === 'logic') return 'application/x-javascript';
-	};
-
 	return new Promise(function(resolve, reject) {
 		const params = {
 			Bucket: BUCKET_NAME, // pass your bucket name
 			Key: fileKey,
 			ACL: 'public-read',
 			Body: file[0].buffer,
-			ContentType: type(),
+			ContentType: file[0].mimetype,
 			CacheControl: 'max-age=0'
 		};
 
@@ -49,7 +42,7 @@ function s3Create(file, fileKey) {
 
 function s3Destroy(fileKey) {
 	return new Promise(async function(resolve, reject) {
-		// let params = { Bucket: BUCKET_NAME, Prefix: fileKey };
+		let params = { Bucket: BUCKET_NAME, Prefix: fileKey };
 
 		const delObj = () => {			
 			s3.deleteObjects(params, function(err, data) {
@@ -61,12 +54,10 @@ function s3Destroy(fileKey) {
 		};
 
 		s3.listObjectsV2(params, function(err, data) {
-			if (err) return reject(err);
-
-			if (data.Contents.length == 0) return delObj();
-
 			params = { Bucket: BUCKET_NAME };
 			params.Delete = {Objects:[]};
+			
+			// if (!data.Contents.length) return delObj();
 
 			data.Contents.forEach(function(content) {
 				params.Delete.Objects.push({Key: content.Key});

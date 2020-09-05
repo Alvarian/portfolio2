@@ -27,7 +27,13 @@ function Gallery() {
   };
 
   const handleHover = (title, description, logic, url) => {
-    setSynopsis({title, description, type: (logic) ? 'Logic': 'Deployed'});
+    setSynopsis({
+      title, 
+      description, 
+      type: {
+        logic, url
+      }
+    });
   };
 
   return (
@@ -44,7 +50,13 @@ function Gallery() {
                 <h3 className="title" style={{textDecoration: "underline", width: "100%"}}>{synopsis.title}</h3>
                 <p className="article description">{synopsis.description}</p>
               </div>
-              <div className="type">{synopsis.type}</div> 
+              <div className="type">
+              {synopsis.type.logic ? 
+                <p>{synopsis.type.logic.split('/')[4] === 'javascript' && 'Vanilla Javascript'}</p>
+               :
+                <a href={synopsis.type.url}>Visit the site!</a>
+              }
+              </div> 
               <div className="icons"></div>   
             </div>
           </div>

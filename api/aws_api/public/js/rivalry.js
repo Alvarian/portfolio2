@@ -48,7 +48,6 @@ function Game() {
     }); 
   }
   this.box = () => {
-    console.log('5:03',game.children)
     if (game.children.length === 3) return;
     document.querySelector('head').innerHTML += `<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">`;
     // game.innerHTML += `<iframe width="0" height="0" src="https://www.youtube.com/embed/CMD-0h9EOG0?rel=0&amp;autoplay=1&amp;start=0" frameborder="0" allowfullscreen></iframe>`;  

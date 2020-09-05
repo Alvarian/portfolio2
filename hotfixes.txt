@@ -1,5 +1,9 @@
-get domain name
-
 clean hub
+
+fix drop down buttons for app buttons
+
+display deployed url if hovered over, replace 'logic'
+
+detect phone responsiveness and change onhover to onclick
 
 ...update linkedin
