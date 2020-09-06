@@ -67,20 +67,7 @@
 .dropBtn > p {
 	font-size: 30pt;
 }
-.lay {
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	z-index: 9;
-	background-color: yellow;
-	opacity: 0.8;
-	display: none;
-	top: 0;
-	cursor: pointer;
-}
-.clickOpen:hover, .lay:hover, .card:hover ~ .lay {
-	display: flex;
-}
+
 .clickOpen {
 	color: red;
 	cursor: pointer;
@@ -223,6 +210,21 @@ body {
 .anchor:hover {
 	filter: invert(1);
 }
+
+.lay {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 9;
+	background-color: yellow;
+	opacity: 0.8;
+	display: none;
+	top: 0;
+	cursor: pointer;
+}
+/*.clickOpen:hover, .lay:hover, .card:hover ~ .lay {
+	display: flex;
+}*/
 .dropCard {
 	display: flex; 
 	flex-direction: column; 
@@ -240,21 +242,15 @@ body {
 }
 @keyframes dropGit {
 	from {
-		visibility: 0;
-		opacity: 0;
 		margin-top: 0;
 	}
 	to {
-		visibility: 1;
-		opacity: 1;
-		margin-top: 85px;
+		margin-top: 235px;
 	}
 }
 .gitBTN {
 	position: absolute; 
 	z-index: -1; 
-	visibility: 0; 
-	opacity: 0;
 }
 .gitBTN:link {
 	text-decoration: none;
@@ -262,6 +258,7 @@ body {
 .gitBTN:visited {
 	text-decoration: none;
 }
+
 .circle {
 	z-index: 10;
 	border-radius: 50%;
@@ -444,96 +441,96 @@ nav {
 	margin-top: 20px;
 }
 @media only screen and (max-width: 600px) {
-  .gall {
-  	 padding-top: 40px;
-  }
-/*  .bio {
-  	float: right;
-  }*/
-  .synop {
-  	min-width: 100px;
-  	max-width: 100px;
-  }
-  .menuLayer {
-	display: flex; 
-	justify-content: space-around;
-	align-items: center;
-  }
-  .bleach {
-	font-size-adjust: 0.5;
-  }
-  .contactMenu {
-  	justify-content: space-around;
-	align-items: center;
-  	display: flex;
-  }
-  .navName {
-  	margin-right: 0;
-  }
-  body { 
-	max-width: 600px;
-  }
-  .drop {
-  	position: static;
-  }
-  .naver {
-	width: 0;
-  }
-  .circle {
-    margin: 0px 30px;
-	height: 90px;
-	width: 90px;
-  }
-  .des {
-  	padding: 0;
-  	width: 100%;
-  }
-  .float {
-  	/*z-index: -2;*/
-  	opacity: 0.97;
-  	background-color: none;
-  	background: none;
-  }
-  .welcome {
-  	color: wheat;
-  }
-  #scrolltop:before {
-	content: "";
-	display: block;
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100vh;
-	z-index: -2;
-	background: url('/images/img_clock1.jpg') no-repeat center center;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-  }
-  .theLib {
-  	background: none;
-  	/*background-color: rgba(245, 222, 179, 0);*/
-  	background-color: black;
-  	/*filter: none;*/
-  }
-  .bord {
-  	background-color: rgba(245, 222, 179, 0.9);
-  	margin: 5px 0px;
-  	border-radius: 10px;
-  	/*width: 100%;*/
-  }
-  .purp:before {
-	z-index: -1;
-  }
-  #modal:before {
-  	z-index: 999;
-  }
-  .purp, .school {
-  	background-color: none;
-  	background: none;
-  }
+	.gall {
+		padding-top: 40px;
+	}
+	/*  .bio {
+	float: right;
+	}*/
+	.synop {
+		min-width: 100px;
+		max-width: 100px;
+	}
+	.menuLayer {
+		display: flex; 
+		justify-content: space-around;
+		align-items: center;
+	}
+	.bleach {
+		font-size-adjust: 0.5;
+	}
+	.contactMenu {
+		justify-content: space-around;
+		align-items: center;
+		display: flex;
+	}
+	.navName {
+		margin-right: 0;
+		}
+	body { 
+		max-width: 600px;
+	}
+	.drop {
+		position: static;
+	}
+	.naver {
+		width: 0;
+	}
+	.circle {
+		margin: 0px 30px;
+		height: 90px;
+		width: 90px;
+	}
+	.des {
+		padding: 0;
+		width: 100%;
+	}
+	.float {
+		/*z-index: -2;*/
+		opacity: 0.97;
+		background-color: none;
+		background: none;
+	}
+	.welcome {
+		color: wheat;
+	}
+	#scrolltop:before {
+		content: "";
+		display: block;
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100vh;
+		z-index: -2;
+		background: url('/images/img_clock1.jpg') no-repeat center center;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+	.theLib {
+		background: none;
+		/*background-color: rgba(245, 222, 179, 0);*/
+		background-color: black;
+		/*filter: none;*/
+	}
+	.bord {
+		background-color: rgba(245, 222, 179, 0.9);
+		margin: 5px 0px;
+		border-radius: 10px;
+		/*width: 100%;*/
+	}
+	.purp:before {
+		z-index: -1;
+	}
+	#modal:before {
+		z-index: 999;
+	}
+	.purp, .school {
+		background-color: none;
+		background: none;
+	}
 }
 
 
