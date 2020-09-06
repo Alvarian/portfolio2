@@ -52,7 +52,7 @@ const readAllProjects = (req, res) => {
 
 const checkIfFileIsBufferable = (cb, file, awsKey) => {
 	return new Promise(async function(resolve, reject) {
-		// if field from update matches field from db, return
+console.log(file)
 		if (typeof file === 'string' || !file) {
 			return resolve(file);
 		}
@@ -63,10 +63,14 @@ const checkIfFileIsBufferable = (cb, file, awsKey) => {
 
 const updateProject = async (req, res) => {
 	// if new logic, icon, or style, overwrite s3 and db fields
-	const { title, description, deployed_url, git_url, icon_url } = req.body;
+	const { title, description, deployed_url, git_url, icon_url, game_url, style_url } = req.body;
 	const { game_file, style_file, icon_file } = req.files;
 
-	const getFileExt = ({originalname}) => {
+	const getFileExt = (file) => {
+		if (!file) return null;
+
+		const {originalname} = file[0];
+
 		if (originalname.split('.')[1] === 'js') {	
 			return 'javascript';
 		}
@@ -81,12 +85,12 @@ const updateProject = async (req, res) => {
 			title, 
 			description, 
 			deployed_url, 
-			await checkIfFileIsBufferable(s3Create, game_file, `${title.replace(/\s/g, '')}/${getFileExt(game_file[0])}`), 
-			await checkIfFileIsBufferable(s3Create, style_file, `${title.replace(/\s/g, '')}/${getFileExt(style_file[0])}`),
+			await checkIfFileIsBufferable(s3Create, game_file || game_url, `${title.replace(/\s/g, '')}/${getFileExt(game_file)}`), 
+			await checkIfFileIsBufferable(s3Create, style_file || style_url, `${title.replace(/\s/g, '')}/${getFileExt(style_file)}`),
 			git_url,
 			await checkIfFileIsBufferable(s3Create, icon_file || icon_url, `${title.replace(/\s/g, '')}/icon`)
 		];	
-
+		
 		db.query(`SELECT * FROM public.update_project(${req.params.id}, $1, $2, $3, $4, $5, $6, $7)`, bodyInputs,
 		(err, result) => {
 			if (err) throw err

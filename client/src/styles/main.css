@@ -82,6 +82,12 @@
 	display: flex; 
 	justify-content: space-between;
 }
+.menuLayer > a {
+	padding-left: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 .dropMenu {
 	position: absolute;
 	z-index: 1;
