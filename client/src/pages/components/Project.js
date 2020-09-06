@@ -26,7 +26,10 @@ function Project(props) {
 	};
 
 	return (
-		<div style={{height: '280px'}}>	
+		<div style={{height: '280px'}}
+			onMouseEnter={handleOpenLayoutAndFillSynop.bind(this, project.title, project.description, project.game_file, project.deployed_url)}
+			onMouseLeave={handleMouseLeave}
+		>	
 			<div className="dropCard">
 				{width < 600 ?	
 					<div style={{position: "relative"}} 
