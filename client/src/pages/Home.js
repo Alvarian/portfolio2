@@ -42,9 +42,9 @@ function Home() {
 								</div>
 							</div>
 							
-							<div className="down" style={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", backgroundColor: "white", flex: 1, minWidth: "150px"}}>
-								<p><a rel="noopener noreferrer" className="anchor" href="https://docs.google.com/document/d/1E8sK0bPbW3zeLZb4_ld9EtZ4x_iNW_nqJhrPTvbSZW4/edit?usp=sharing" target="_blank" id="btn" style={{fontSize: "16pt", cursor: "pointer", border: "solid 1px black", backgroundColor: "white"}}>View my resume</a></p>
-								<p><a rel="noopener noreferrer" className="anchor" style={{fontSize: "16pt", cursor: "pointer", border: "solid 1px black", backgroundColor: "white"}} href="/contact">Contact me</a></p>
+							<div className="down" style={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", backgroundColor: "white", flex: 1, minWidth: "180px"}}>
+								<p><a rel="noopener noreferrer" className="descriptionLinks anchor" href="/resume" id="btn">View my resume</a></p>
+								<p><a rel="noopener noreferrer" className="descriptionLinks anchor" href="/contact">Contact me</a></p>
 							</div>
 						</div>
 					</div>

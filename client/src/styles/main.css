@@ -217,6 +217,11 @@ body {
 	filter: invert(1);
 }
 
+.descriptionLinks {
+	font-size: 30pt;
+	border: solid 1px black;
+}
+
 .lay {
 	position: absolute;
 	height: 100%;
@@ -236,21 +241,7 @@ body {
 	justify-content: center; 
 	z-index: 1;
 }
-/*.dropCard:focus .gitBTN,
-.dropCard:focus-within .gitBTN,
-.dropCard:hover .gitBTN {
-	animation-name: dropGit;
-	animation-duration: 1s;
-	animation-fill-mode: forwards;
-}
-@keyframes dropGit {
-	from {
-		margin-top: 0;
-	}
-	to {
-		margin-top: 235px;
-	}
-}*/
+
 .gitBTN {
 	position: absolute; 
 	z-index: -1; 
@@ -286,7 +277,7 @@ body {
 }
 
 .icon {
-	background-image: url('/images/WARFACE.jpg');
+	background-image: url('/images/mainFace.jpg');
 	background-size: cover; 
 	background-position: 10px 0px; 
 	background-repeat: no-repeat; 
@@ -369,7 +360,19 @@ body {
 .codepro {
 	font-family: 'Source Code Pro', monospace;	
 }
-
+.verdana { 
+	font-family: Verdana,Geneva,sans-serif; 
+} 
+.resumeNav {
+	font-size: 30pt;
+}
+.resumeBackground {
+	height: 100vh;
+	position: relative;
+	overflow: hidden;
+	background-image: url("/images/img_bridge3.jpg");
+	background-size: cover;
+}
 .contactForm {
 	display: flex; 
 	flex-direction: column; 
@@ -443,13 +446,21 @@ nav {
 	font-size: 16pt; 
 	margin-top: 20px;
 }
+.prettyResume {
+	height: 100%;
+	min-width: 550px;
+}
+@media only screen and (max-width: 765px) {
+	.prettyResume {
+		min-width: 550px;
+		height: 95%;
+	}
+}
+
 @media only screen and (max-width: 600px) {
 	.gall {
 		padding-top: 40px;
 	}
-	/*  .bio {
-	float: right;
-	}*/
 	.synop {
 		min-width: 100px;
 		max-width: 100px;
@@ -466,6 +477,12 @@ nav {
 		justify-content: space-around;
 		align-items: center;
 		display: flex;
+	}
+	.prettyResume {
+		min-width: 380px;
+		max-width: 380px;
+		height: 73%;
+		margin-top: 13%;
 	}
 	.navName {
 		margin-right: 0;
