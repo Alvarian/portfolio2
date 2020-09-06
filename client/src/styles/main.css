@@ -222,9 +222,6 @@ body {
 	top: 0;
 	cursor: pointer;
 }
-/*.clickOpen:hover, .lay:hover, .card:hover ~ .lay {
-	display: flex;
-}*/
 .dropCard {
 	display: flex; 
 	flex-direction: column; 
@@ -233,7 +230,7 @@ body {
 	justify-content: center; 
 	z-index: 1;
 }
-.dropCard:focus .gitBTN,
+/*.dropCard:focus .gitBTN,
 .dropCard:focus-within .gitBTN,
 .dropCard:hover .gitBTN {
 	animation-name: dropGit;
@@ -247,7 +244,7 @@ body {
 	to {
 		margin-top: 235px;
 	}
-}
+}*/
 .gitBTN {
 	position: absolute; 
 	z-index: -1; 
