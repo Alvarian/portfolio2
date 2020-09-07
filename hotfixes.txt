@@ -1,5 +1,0 @@
-drop git btn lingers when hovering over it
-
-clean hub
-
-...update linkedin / resume
