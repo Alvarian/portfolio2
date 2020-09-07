@@ -368,11 +368,12 @@ body {
 }
 .resumeBackground {
 	height: 100vh;
-	position: relative;
+	/*position: relative;*/
 	overflow: hidden;
 	background-image: url("/images/img_bridge3.jpg");
 	background-size: cover;
 }
+
 .contactForm {
 	display: flex; 
 	flex-direction: column; 
@@ -440,7 +441,28 @@ nav {
 	height: 70vh; 
 	padding: 0px 20px;
 }
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
 
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
 .bio {
 	/*min-width: 150px; */
 	font-size: 16pt; 
@@ -450,6 +472,19 @@ nav {
 	height: 100%;
 	min-width: 550px;
 }
+.resumeBottomBtns {
+	position: absolute; 
+	display: flex;
+	justify-content: space-between;
+	width: 65px;
+}
+.bottomBtn {
+	color: gainsboro;
+}
+.bottomBtn:hover {
+	transform: scale(1.1);
+	color: white;
+}
 @media only screen and (max-width: 765px) {
 	.prettyResume {
 		min-width: 550px;
@@ -458,6 +493,17 @@ nav {
 }
 
 @media only screen and (max-width: 600px) {
+	.bottomBtn {
+		color: gray;
+	}
+	.bottomBtn:hover {
+		transform: scale(1.1);
+		color: gainsboro;
+	}
+	.resumeBottomBtns {
+		margin-top: 525px;
+		transform: translateX(20%);
+	}
 	.gall {
 		padding-top: 40px;
 	}
