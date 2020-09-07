@@ -27,7 +27,8 @@ function s3Create(file, fileKey) {
 			Key: fileKey,
 			ACL: 'public-read',
 			Body: file[0].buffer,
-			ContentType: file[0].memetype
+			ContentType: file[0].mimetype,
+			CacheControl: 'max-age=0'
 		};
 
 		s3.upload(params, function(s3Err, data) {
@@ -50,15 +51,13 @@ function s3Destroy(fileKey) {
 				console.log(`File deleted successfully: ${data}`);
 				resolve(data);                 // deleted
 			});
-		}
+		};
 
 		s3.listObjectsV2(params, function(err, data) {
-			if (err) return reject(err);
-
-			if (data.Contents.length == 0) return delObj();
-
 			params = { Bucket: BUCKET_NAME };
 			params.Delete = {Objects:[]};
+			
+			// if (!data.Contents.length) return delObj();
 
 			data.Contents.forEach(function(content) {
 				params.Delete.Objects.push({Key: content.Key});

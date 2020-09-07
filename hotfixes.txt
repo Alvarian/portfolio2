@@ -1,2 +1,0 @@
-in aws_api:
-	for smtp, instantiate client in scope and re include client close in same scope 

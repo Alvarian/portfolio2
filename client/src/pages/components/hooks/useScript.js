@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 
 
 // Hook
-function useScript(payload, element) {
+function useScript(payload) {
   // Keep track of script status ("idle", "loading", "ready", "error")
-
   const [status, setStatus] = useState(payload ? "loading" : "idle");
 
   useEffect(
     () => {
+      const element = document.querySelector('.app') || null;
+    
       // Allow falsy src value if waiting on other data needed for
       // constructing the script URL passed to this hook.
       if (!payload || !element) {
@@ -28,7 +29,8 @@ function useScript(payload, element) {
         script.async = true;
         script.setAttribute("data-status", "loading");
         // Add script to document body
-        document.querySelector('.app').appendChild(script);
+
+        element.appendChild(script);
 
         // Store status in attribute on script
         // This can be read by other instances of this hook

@@ -8,6 +8,22 @@
 	min-width: 300px;
 }  
 
+.pulsate-css {
+    animation: pulsate 1s ease-out;
+    animation-iteration-count: infinite; 
+    opacity: 0.0;
+
+    /* you dont need the stuff below, but its what I used to create the loading circle */
+    border: 3px solid #999;
+    border-radius: 70px;
+    height: 18px;
+    width: 18px;
+    position: relative;
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+}
+
 .app {
 	width: 100%;
 	height: 100%;
@@ -51,20 +67,7 @@
 .dropBtn > p {
 	font-size: 30pt;
 }
-.lay {
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	z-index: 9;
-	background-color: yellow;
-	opacity: 0.8;
-	display: none;
-	top: 0;
-	cursor: pointer;
-}
-.clickOpen:hover, .lay:hover, .card:hover ~ .lay {
-	display: flex;
-}
+
 .clickOpen {
 	color: red;
 	cursor: pointer;
@@ -79,9 +82,14 @@
 	display: flex; 
 	justify-content: space-between;
 }
+.menuLayer > a {
+	padding-left: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 .dropMenu {
 	position: absolute;
-	display: none;
 	z-index: 1;
 	width: 100%;
 	right: 20px;
@@ -208,6 +216,23 @@ body {
 .anchor:hover {
 	filter: invert(1);
 }
+
+.descriptionLinks {
+	font-size: 30pt;
+	border: solid 1px black;
+}
+
+.lay {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 9;
+	background-color: yellow;
+	opacity: 0.8;
+	display: none;
+	top: 0;
+	cursor: pointer;
+}
 .dropCard {
 	display: flex; 
 	flex-direction: column; 
@@ -216,30 +241,10 @@ body {
 	justify-content: center; 
 	z-index: 1;
 }
-.dropCard:focus .gitBTN,
-.dropCard:focus-within .gitBTN,
-.dropCard:hover .gitBTN {
-	animation-name: dropGit;
-	animation-duration: 1s;
-	animation-fill-mode: forwards;
-}
-@keyframes dropGit {
-	from {
-		visibility: 0;
-		opacity: 0;
-		margin-top: 0;
-	}
-	to {
-		visibility: 1;
-		opacity: 1;
-		margin-top: 85px;
-	}
-}
+
 .gitBTN {
 	position: absolute; 
 	z-index: -1; 
-	visibility: 0; 
-	opacity: 0;
 }
 .gitBTN:link {
 	text-decoration: none;
@@ -247,6 +252,7 @@ body {
 .gitBTN:visited {
 	text-decoration: none;
 }
+
 .circle {
 	z-index: 10;
 	border-radius: 50%;
@@ -271,7 +277,7 @@ body {
 }
 
 .icon {
-	background-image: url('/images/WARFACE.jpg');
+	background-image: url('/images/mainFace.jpg');
 	background-size: cover; 
 	background-position: 10px 0px; 
 	background-repeat: no-repeat; 
@@ -319,7 +325,8 @@ body {
 }
 .synop {
 	padding: 0px 20px; 
-	width: 190px;
+	max-width: 290px;
+	min-width: 290px;
 	text-align: center;
 	height: 70vh;
 	background-color: white;
@@ -353,7 +360,9 @@ body {
 .codepro {
 	font-family: 'Source Code Pro', monospace;	
 }
-
+.verdana { 
+	font-family: Verdana,Geneva,sans-serif; 
+} 
 .contactForm {
 	display: flex; 
 	flex-direction: column; 
@@ -394,94 +403,192 @@ nav {
 	z-index: 10;
 }
 .drop {
-	position: absolute;
+	position: relative;
+	display: inline-block;
 }
+
+.dropBtn {
+	border: solid 3px white;
+	height: 60px; 
+	width: 60px;
+	border-radius: 10px;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+	align-items: center;
+	margin: 10px;
+}
+
+.dropBtn > div {
+    border: solid 3px white;
+    border-radius: 10px;
+    width: 70%;
+}
+
 .gall {
 	overflow-y: scroll; 
 	height: 70vh; 
 	padding: 0px 20px;
 }
-@media only screen and (max-width: 600px) {
-  .gall {
-  	 padding-top: 40px;
-  }
-  .menuLayer {
-	display: flex; 
-	justify-content: space-around;
-	align-items: center;
-  }
-  .contactMenu {
-  	justify-content: space-around;
-	align-items: center;
-  	display: flex;
-  }
-  .navName {
-  	margin-right: 0;
-  }
-  body { 
-	max-width: 600px;
-  }
-  .drop {
-  	position: static;
-  }
-  .naver {
-	width: 0;
-  }
-  .circle {
-    margin: 0px 30px;
-	height: 90px;
-	width: 90px;
-  }
-  .des {
-  	margin: 0;
-  	width: 100%;
-  }
-  .float {
-  	/*z-index: -2;*/
-  	opacity: 0.97;
-  	background-color: none;
-  	background: none;
-  }
-  .welcome {
-  	color: wheat;
-  }
-  #scrolltop:before {
-	content: "";
-	display: block;
-	position: fixed;
-	left: 0;
-	top: 0;
+.bio {
+	font-size: 16pt; 
+	margin-top: 20px;
+}
+.prettyResume {
+	opacity: 0.95;
+	max-height: 695px;
+	height: 100%;
+	min-width: 570px;
+	max-width: 570px;
 	width: 100%;
+	margin: auto 0;
+}
+.resumeBottomBtns {
+	position: absolute; 
+	display: flex;
+	justify-content: space-between;
+	width: 65px;
+}
+.bottomBtn {
+	color: gainsboro;
+}
+.bottomBtn:hover {
+	transform: scale(1.1);
+	color: white;
+}
+.resumeNav {
+	font-size: 28pt;
+}
+.resumeBackground {
 	height: 100vh;
-	z-index: -2;
-	background: url('/images/img_clock1.jpg') no-repeat center center;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
+	overflow: hidden;
+	background-image: url("/images/img_bridge3.jpg");
 	background-size: cover;
-  }
-  .theLib {
-  	background: none;
-  	/*background-color: rgba(245, 222, 179, 0);*/
-  	background-color: black;
-  	/*filter: none;*/
-  }
-  .bord {
-  	background-color: rgba(245, 222, 179, 0.9);
-  	margin: 5px 0px;
-  	border-radius: 10px;
-  	/*width: 100%;*/
-  }
-  .purp:before {
-	z-index: -1;
-  }
-  #modal:before {
-  	z-index: 999;
-  }
-  .purp, .school {
-  	background-color: none;
-  	background: none;
-  }
+}
+.resumeBody {
+	display: flex; 
+	justify-content: center; 
+	overflow: hidden;
+	height: 100%;
+}
+
+@media only screen and (max-width: 765px) {
+	.prettyResume {
+		margin: 0;
+		min-width: 580px;
+		min-height: 800px;
+	}
+	.resumeBody {
+		overflow: auto;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.bottomBtn {
+		color: gray;
+	}
+	.bottomBtn:hover {
+		transform: scale(1.1);
+		color: gainsboro;
+	}
+	.resumeBottomBtns {
+		transform: translate(20%, 475px);
+	}
+	.prettyResume {
+		max-width: 360px;
+		min-width: 360px;
+		height: 490px;
+		max-height: 490px;
+		min-height: 490px;
+		margin-top: 9%;
+	}
+	.gall {
+		padding-top: 40px;
+	}
+	.synop {
+		min-width: 100px;
+		max-width: 100px;
+	}
+	.menuLayer {
+		display: flex; 
+		justify-content: space-around;
+		align-items: center;
+	}
+	.bleach {
+		font-size-adjust: 0.5;
+	}
+	.contactMenu {
+		justify-content: space-around;
+		align-items: center;
+		display: flex;
+	}
+	.navName {
+		margin-right: 0;
+		}
+	body { 
+		max-width: 600px;
+	}
+	.drop {
+		position: static;
+	}
+	.naver {
+		width: 0;
+	}
+	.circle {
+		margin: 0px 30px;
+		height: 90px;
+		width: 90px;
+	}
+	.des {
+		padding: 0;
+		width: 100%;
+	}
+	.float {
+		/*z-index: -2;*/
+		opacity: 0.97;
+		background-color: none;
+		background: none;
+	}
+	.welcome {
+		color: wheat;
+	}
+	#scrolltop:before {
+		content: "";
+		display: block;
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100vh;
+		z-index: -2;
+		background: url('/images/img_clock1.jpg') no-repeat center center;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+	.theLib {
+		background: none;
+		/*background-color: rgba(245, 222, 179, 0);*/
+		background-color: black;
+		/*filter: none;*/
+	}
+	.bord {
+		background-color: rgba(245, 222, 179, 0.9);
+		margin: 5px 0px;
+		border-radius: 10px;
+		/*width: 100%;*/
+	}
+	.purp:before {
+		z-index: -1;
+	}
+	#modal:before {
+		z-index: 999;
+	}
+	.purp, .school {
+		background-color: none;
+		background: none;
+	}
 }
 
 
