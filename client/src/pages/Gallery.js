@@ -55,7 +55,10 @@ function Gallery() {
                 {synopsis.type.logic ? 
                   <p>{synopsis.type.logic.split('/')[4] === 'javascript' && 'Vanilla Javascript'}</p>
                  :
-                  <a href={synopsis.type.url} rel="noopener noreferrer" target="_blank">Visit the site!</a>
+                  synopsis.type.url ?  
+                    <a href={synopsis.type.url} rel="noopener noreferrer" target="_blank">Visit the site!</a>
+                   :
+                    <p>{synopsis.type}</p>
                 }
               </div> 
               
