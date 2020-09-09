@@ -433,6 +433,7 @@ nav {
 .bio {
 	font-size: 16pt; 
 	margin-top: 20px;
+	max-width: 250px;
 }
 .prettyResume {
 	opacity: 0.95;

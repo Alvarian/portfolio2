@@ -33,11 +33,15 @@ function Home() {
 								
 								<div className="bio">
 									<span style={{fontSize: "50pt", float: "left", marginRight: "20px"}}>Hi</span>
-									Im Ivan, a webdev
-									<p>I have a fasination about programming, it has become a growing passion</p>
+									Im Ivan, a web developer
+									<p>I am enjoying this journey as a growing developer in The Big Apple. Having the fundamentals grasped...</p>
+
+									<p>I aspire to make an endless amount of cool and scalable applications, not just pertaining to website stacks</p>
 								
-									<p>In search for more dev exp, please browse my work!</p>
+									<p>Feel free to browse my work!</p>
+
 									<p>presented in <a style={{fontSize: "10pt"}} className="pressStart" href="/projects">Gallery</a></p>
+									
 									<p>and <a rel="noopener noreferrer" className="orbi" href="https://github.com/Alvarian/INTRO" target="_blank">Github</a></p>
 								</div>
 							</div>
