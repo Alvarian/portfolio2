@@ -148,12 +148,12 @@ body {
 	background-size: cover;
 }
 .school {
-	background-image: url('/images/img_class.jpg');
+	background-image: url('/images/img_class-min.jpg');
 	min-height: 100vh;
 }
 
 .theLib {
-	background-image: url('/images/library.jpg');
+	background-image: url('/images/library-min.jpg');
 	filter: blur(3px);
 	min-height: 400px;
 	width: 100%;
@@ -267,7 +267,7 @@ body {
 }
 
 .purp {
-	background-image: url('/images/img_clock1.jpg');
+	background-image: url('/images/img_clock1-min.jpg');
 	min-height: 400px;
 	width: 100%;
 }
@@ -277,7 +277,7 @@ body {
 }
 
 .icon {
-	background-image: url('/images/mainFace.jpg');
+	background-image: url('/images/mainFace-min.jpg');
 	background-size: cover; 
 	background-position: 10px 0px; 
 	background-repeat: no-repeat; 
