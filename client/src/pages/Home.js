@@ -34,9 +34,9 @@ function Home() {
 								<div className="bio">
 									<span style={{fontSize: "50pt", float: "left", marginRight: "20px"}}>Hi</span>
 									Im Ivan, a web developer
-									<p>I am enjoying this journey as a growing developer in The Big Apple. Having the fundamentals grasped...</p>
+									<p>As a growing developer in The Big Apple</p>
 
-									<p>I aspire to make an endless amount of cool and scalable applications, not just pertaining to website stacks</p>
+									<p>I aspire to make an endless amount of cool and scalable applications, anywhere.</p>
 								
 									<p>Feel free to browse my work!</p>
 
@@ -100,7 +100,7 @@ function Home() {
 				<div style={{position: "absolute"}} className="theLib"></div>
 				<div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%"}}>
 					<div className="footerBtns">
-						<a rel="noopener noreferrer" href="https://github.com/Alvarian/INTRO" className="circle anchor" target="_blank"><i className="fab fa-github"></i></a>
+						<a rel="noopener noreferrer" href="https://github.com/Alvarian/" className="circle anchor" target="_blank"><i className="fab fa-github"></i></a>
 						<a rel="noopener noreferrer" href="https://www.linkedin.com/in/alvarezivan88/" className="circle anchor" target="_blank"><i className="fab fa-linkedin-in"></i></a>
 						<div className="circle anchor scrollUp" onClick={scrollUp}><i className="fas fa-arrow-up"></i></div>
 					</div>
