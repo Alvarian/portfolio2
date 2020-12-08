@@ -42,7 +42,7 @@ function Home() {
 
 									<p>presented in <a style={{fontSize: "10pt"}} className="pressStart" href="/projects">Gallery</a></p>
 									
-									<p>and <a rel="noopener noreferrer" className="orbi" href="https://github.com/Alvarian/INTRO" target="_blank">Github</a></p>
+									<p>and <a rel="noopener noreferrer" className="orbi" href="https://github.com/Alvarian" target="_blank">Github</a></p>
 								</div>
 							</div>
 							
