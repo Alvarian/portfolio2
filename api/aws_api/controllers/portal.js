@@ -1,25 +1,13 @@
 const db = require('../config/db');
 const { s3Create, s3Destroy } = require('../config/s3');
+const { checkIfFileIsBufferable, getFileExt } = require('../local/file-repurposer');
+const { mapIfSlidesExist } = require('../local/data-formater');
 
 
 const createProject = async (req, res) => {
 	// create new image in s3, after success provide link for each to db to store for fields that require it
 	const { title, description, deployed_url, git_url, icon_url } = req.body;
 	const { game_file, style_file, icon_file } = req.files;
-
-	const getFileExt = (file) => {
-		if (!file) return null;
-
-		const {originalname} = file[0];
-
-		if (originalname.split('.')[1] === 'js') {	
-			return 'javascript';
-		}
-
-		if (originalname.split('.')[1] === 'css') {
-			return 'cascade';
-		}
-	};
 
 	try {
 		if (req.files.slide_file) {
@@ -47,8 +35,6 @@ const createProject = async (req, res) => {
 						await checkIfFileIsBufferable(s3Create, [slide], `${title.replace(/\s/g, '')}/${slide.originalname}`),
 						desc
 					];
-
-					console.log(slides);
 
 					db.query(`SELECT * FROM public.add_slide($1, $2, $3)`, slides,
 					(err, result) => {
@@ -82,24 +68,23 @@ const createProject = async (req, res) => {
 };
 
 const readAllProjects = (req, res) => {
-	db.query(`SELECT * FROM public.find_all_projects()`, (err, result) => {
-		if (err) throw err;
+	try {
+		db.query(`SELECT * FROM public.find_all_projects()`, 
+		async (err, result) => {
+			if (err) throw err;
 
-		res.render('portal', { 
-			title: 'Portal', 
-			projects: result.rows.reverse()
+			const promise = await mapIfSlidesExist(result.rows.reverse(), db);
+
+			const payload = { 
+				title: 'Portal', 
+				projects: await promise
+			};
+			
+			res.render('portal', payload);
 		});
-	});
-};
-
-const checkIfFileIsBufferable = (cb, file, awsKey) => {
-	return new Promise(async function(resolve, reject) {
-		if (typeof file === 'string' || !file) {
-			return resolve(file);
-		}
-
-		resolve(cb(file, awsKey));
-	});
+	} catch (err) {
+		console.log(err);
+	} 
 };
 
 const updateProject = async (req, res) => {
@@ -107,19 +92,19 @@ const updateProject = async (req, res) => {
 	const { title, description, deployed_url, git_url, icon_url, game_url, style_url } = req.body;
 	const { game_file, style_file, icon_file } = req.files;
 
-	const getFileExt = (file) => {
-		if (!file) return null;
+	// const getFileExt = (file) => {
+	// 	if (!file) return null;
 
-		const {originalname} = file[0];
+	// 	const {originalname} = file[0];
 
-		if (originalname.split('.')[1] === 'js') {	
-			return 'javascript';
-		}
+	// 	if (originalname.split('.')[1] === 'js') {	
+	// 		return 'javascript';
+	// 	}
 
-		if (originalname.split('.')[1] === 'css') {
-			return 'cascade';
-		}
-	};
+	// 	if (originalname.split('.')[1] === 'css') {
+	// 		return 'cascade';
+	// 	}
+	// };
 
 	try {
 		const bodyInputs = [	
