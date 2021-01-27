@@ -14,11 +14,11 @@ function Gallery() {
   });
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_URL+"/api/projects")
+    fetch(process.env.REACT_APP_API_URL+"/projects")
       .then(response => response.json())
-      .then(json => setProjects(json.msg))
+      .then(json => setProjects(json))
   }, []);
-
+console.log(projects)
 
   const [content, setContent] = useState();
 
