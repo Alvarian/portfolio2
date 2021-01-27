@@ -1,1 +1,0 @@
-web: deno run --allow-env --allow-read --allow-net=:${PORT},smtp.gmail.com:465,${PSQL_HOST} --cached-only server.ts --port=${PORT}
