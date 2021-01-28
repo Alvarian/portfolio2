@@ -11,7 +11,7 @@ function ProjectModal(props) {
 
 		props.clear(null);
 	};
-	
+
 	return props.content ? (
 		<div id="modal">
 			<div className="modal-content">
@@ -25,7 +25,22 @@ function ProjectModal(props) {
 							{ props.content.style && <link rel="stylesheet" type="text/css" href={props.content.style} /> }
 						</div>
 					 : 
+					  props.content.url ?
 						<iframe title="jsx-a11y/iframe-has-title" src={ props.content.url } height="100%" width="100%" />
+					 :
+						<div className="slide-container">
+							<div className="slide-wrapper">
+								{props.content.slides.reverse().map(slide => (
+									<div key={slide.id}>
+										<div>
+											<img src={slide.image_url} />
+										</div>
+
+										<p>{slide.description}</p>
+									</div>
+								))}
+							</div>
+						</div>
 					}
 				</div>
 			</div>

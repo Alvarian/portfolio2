@@ -18,7 +18,6 @@ function Gallery() {
       .then(response => response.json())
       .then(json => setProjects(json))
   }, []);
-console.log(projects)
 
   const [content, setContent] = useState();
 
@@ -58,7 +57,7 @@ console.log(projects)
                   synopsis.type.url ?  
                     <a href={synopsis.type.url} rel="noopener noreferrer" target="_blank">Visit the site!</a>
                    :
-                    <p>{synopsis.type}</p>
+                    <p>Service</p>
                 }
               </div> 
               
@@ -69,7 +68,7 @@ console.log(projects)
           <div className="cards">
             { projects.length ? 
               <div className="gallery gall">
-                {projects.map(project => (
+                {projects.reverse().map(project => (
                   <Project key={project.id} data={project} callbackForModal={modalContent} fillSynopsis={handleButtonOverlay} />           
                 ))}
               </div>
