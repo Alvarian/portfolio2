@@ -4,6 +4,7 @@
 		<h2>Panel</h2><a href="" onclick="clearPanel(); return false;">Clear</a>
 
 		<form action="/portal" method="POST" enctype="multipart/form-data" id="panel">
+			<div class="model-data-container" style="display: none;"></div>
 			<!-- title -->
 			<div class="form-group" id="title">
 				<label for="title">Title</label>
@@ -21,8 +22,9 @@
 				<label for="type">Type</label>
 				<select name="type" class="form-control">
 					<option disabled selected value> -- select an option -- </option>
-					<option value="is_deployed">Web App</option>
-					<option value="is_game_file" data-toggle="modal" data-target="#exampleModalCenter">Native App</option>
+					<option value="is_deployed">Website</option>
+					<option value="is_game_file" data-toggle="modal" data-target="#exampleModalCenter">Native</option>
+					<option value="is_service" data-toggle="modal" data-target="#exampleModalCenter">Service</option>
 				</select>
 			</div>
 
@@ -63,6 +65,7 @@
 
 	<script>
 		const panel = $('#panel');
+		const modalDataContainer = $('.model-data-container');
 		const type = $('#type');
 		const urlField = $('#urlField');
 		const displayUploads = $('#displayUploads');
@@ -109,18 +112,10 @@
 			displayUploads.children()[2].value = '';
 			displayUploads.css('display', 'none');
 
-			logic.children()[1].value = '';
-			logic.css('display', 'block');
-			style.children()[1].value = '';
-			style.css('display', 'block');
-
-			$('.oldLogicUrl').remove();
-			$('.oldStyleUrl').remove();
-			fakeModalForm.append(logic);
-			fakeModalForm.append(style);
-
 			type.children()[1].value = '';
 			type.css('display', 'block');
+
+			modalDataContainer.empty();
 		}
 
 		function returnIconFieldDefault() {
@@ -180,7 +175,7 @@
 				    oldLogicUrl.setAttribute('name', 'game_url');
 				    oldLogicUrl.value = fileUrlsFromGallery.game_file;
 
-					panel.prepend(oldLogicUrl);
+					modalDataContainer.prepend(oldLogicUrl);
 				    
 				    if (fileUrlsFromGallery.style_file) {
 					    const oldStyleUrl = document.createElement('input');
@@ -189,11 +184,51 @@
 					    oldStyleUrl.setAttribute('name', 'style_url');
 					    oldStyleUrl.value = fileUrlsFromGallery.style_file;
 					
-						panel.prepend(oldStyleUrl);
+						modalDataContainer.prepend(oldStyleUrl);
 				    }
 
 					displayUploads.children()[2].value = `Has Logic; ${(!fileUrlsFromGallery.style_file) ? '' : 'Has Style;'}`;
 					displayUploads.css('display', 'block');
+
+					break;
+
+				case 'is_service':
+					if (panel.attr('action').split('/')[2] === 'update' && istypeFromGallery !== 'game') {
+						alert('Cannot alter type of already created app, please choose the WEB APP option');
+
+						type.children()[1].value = '';
+
+						return;
+					};
+
+					if (!fileUrlsFromGallery) {
+						$('#serviceModal').modal("show");
+						
+						return;
+					}
+
+				 //    type.css('display', 'none');
+
+				 //    const oldLogicUrl = document.createElement('input');
+				 //    oldLogicUrl.setAttribute('type', 'hidden');
+				 //    oldLogicUrl.setAttribute('class', 'oldLogicUrl');
+				 //    oldLogicUrl.setAttribute('name', 'game_url');
+				 //    oldLogicUrl.value = fileUrlsFromGallery.game_file;
+
+					// modalDataContainer.prepend(oldLogicUrl);
+				    
+				 //    if (fileUrlsFromGallery.style_file) {
+					//     const oldStyleUrl = document.createElement('input');
+					//     oldStyleUrl.setAttribute('type', 'hidden');
+					//     oldStyleUrl.setAttribute('class', 'oldStyleUrl');
+					//     oldStyleUrl.setAttribute('name', 'style_url');
+					//     oldStyleUrl.value = fileUrlsFromGallery.style_file;
+					
+					// 	modalDataContainer.prepend(oldStyleUrl);
+				 //    }
+
+					// displayUploads.children()[2].value = `Has Logic; ${(!fileUrlsFromGallery.style_file) ? '' : 'Has Style;'}`;
+					// displayUploads.css('display', 'block');
 
 					break;
 

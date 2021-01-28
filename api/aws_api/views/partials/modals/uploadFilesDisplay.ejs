@@ -26,7 +26,7 @@
 
         </div>
 
-        <button class="btn btn-primary btn-block" onclick="moveUploadedToForm()">Upload</button>
+        <button class="btn btn-primary btn-block" onclick="moveUploadedNativeFilesToForm()">Upload</button>
 
       </div>
     </div>
@@ -37,22 +37,21 @@
     const style = $('#style_input');
     const fakeModalForm = $('#fakeModalForm');
 
-    function regexFormatFromFilePath(path) {
-      return path.split('.')[1];
-    }
+    function moveUploadedNativeFilesToForm() {
+      const logicClone = logic.clone();
+      const styleClone = style.clone();
 
-    function moveUploadedToForm() {
-      panel.prepend(logic);
-      if (style.children()[1].value) panel.prepend(style);
+      modalDataContainer.prepend(logicClone);
+      if (style.children()[1].value) modalDataContainer.prepend(styleClone);
+
+      logic.children()[1].value = '';
+      style.children()[1].value = '';
 
       type.css('display', 'none');
 
       displayUploads.children()[2].value = `Logic: ${regexFormatFromFilePath(logic.children()[1].value)}; Style?: ${regexFormatFromFilePath(style.children()[1].value)}`;
 
       displayUploads.css('display', 'block');
-
-      logic.css('display', 'none');
-      style.css('display', 'none');
 
       $('#exampleModalCenter').modal("hide");
     }
