@@ -18,12 +18,60 @@
 	</div>
 
 	<script>
-		function loadProjectIntoModalBox({ title, deployed_url, game_file, style_file }) {
-			const appModalBody = document.getElementById('app');
+		function loadProjectIntoModalBox({ title, deployed_url, game_file, style_file, slides }) {
 			const cEl = (el) => document.createElement(el);
-			$('#appModalTitle').empty().append(title);
+
+			if (slides) {
+				$('#serviceModalTitle').empty().append(title);
+				const slideShowContent = $('#slideShowContent');
+				const addSlideContent = (payload) => {
+					const { image_url, description } = payload;
+
+					const followingSlides = cEl('div');
+					followingSlides.setAttribute('class', 'carousel-item');
+
+					const startSlideImg = cEl('img');
+					startSlideImg.src = image_url;
+					startSlideImg.style.height = '72vh';
+					startSlideImg.setAttribute('class', "d-block w-100");
+					followingSlides.append(startSlideImg);
+
+					const startSlidePara = cEl('p');
+					startSlidePara.innerText = description;
+					followingSlides.append(startSlidePara);
+
+					return followingSlides;
+				};
+
+				const startingSlide = cEl('div');
+				startingSlide.setAttribute('class', 'carousel-item active');
+
+				const startSlideImg = cEl('img');
+				startSlideImg.src = slides[0].image_url;
+				startSlideImg.style.height = '72vh';
+				startSlideImg.setAttribute('class', "d-block w-100");
+				startingSlide.append(startSlideImg);
+
+				const startSlidePara = cEl('p');
+				startSlidePara.innerText = slides[0].description;
+				startingSlide.append(startSlidePara);
+
+				slideShowContent.empty();
+				slideShowContent.append(startingSlide);
+
+				for (let i = 1; i < slides.length; i++) {
+					slideShowContent.append(addSlideContent(slides[i]));
+				}
+
+				$('#serviceDisplayModal').modal("show");
+
+				return;
+			}
 
 			// if deployedUrl is true load iframe with aws link and return
+			const appModalBody = document.getElementById('app');
+			$('#appModalTitle').empty().append(title);
+			
 			if (deployed_url) {
 				const iframe = cEl('iframe');
 				const appTitle = $('#appModalTitle');
@@ -41,6 +89,7 @@
 
 			// if not, create and load script element sourcing aws link as js
 			// and call a global function and pass through modal body element to load content
+
 			appModalBody.innerHTML = '';
 
 			$.ajax({

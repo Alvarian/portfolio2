@@ -51,7 +51,9 @@ app.use('/', require('./routes/master.js'));
 app.use('/', upload.fields([
 	{ name: 'game_file', maxCount: 1 }, 
 	{ name: 'style_file', maxCount: 1 }, 
-	{ name: 'icon_file', maxCount: 1 }
+	{ name: 'icon_file', maxCount: 1 }, 
+	{ name: 'slide_file', maxCount: 4 }, 
+	{ name: 'slide_desc', maxCount: 4 }
 ]), require('./routes/portal.js'));
 
 
