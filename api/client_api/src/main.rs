@@ -7,7 +7,7 @@ mod models;
 
 use rocket::http::Method::{Get}; // 1
 use rocket_cors::{
-    AllowedHeaders, AllowedOrigins, Error, // 2.
+    AllowedHeaders, AllowedOrigins, // 2.
     Cors, CorsOptions // 3.
 };
 
