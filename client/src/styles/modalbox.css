@@ -1,0 +1,60 @@
+/* The Modal (background) */
+#modal {
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.close {
+  position: absolute;
+  z-index: 9999;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 3px;
+  text-decoration: none;
+  background-color: white;
+  font-family: 'Press Start 2P', cursive;
+  border: outset 5px;
+}
+.close:visited {
+  color: black;
+}
+.close:hover {
+  background-color: pink;
+}
+.close:active {
+  filter: invert(1);
+}
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  height: 80vh;
+}
+.border {
+  border-style: inset;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background: url(/images/loading2.gif);
+  background-position: center; 
+  background-size: cover;
+}
+
+@media only screen and (max-width: 600px) {
+  .modal-content {
+    margin: 3% auto;
+    height: 89%;
+  }
+}
