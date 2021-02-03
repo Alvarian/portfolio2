@@ -5,9 +5,9 @@ const prisma = new PrismaClient();
 
 const readAllUsers = async () => {	
 	try {
-		const allMasters = await prisma.master.findMany();
+		const result = await prisma.master.findMany();
 
-		return allMasters;
+		return result;
 	} catch (err) {
 		console.log(err);
 	} finally {
@@ -15,24 +15,37 @@ const readAllUsers = async () => {
 	}
 };
 
-const readOneUser = (name) => {
-	return new Promise((resolve, reject) => {
-		db.query(`SELECT * FROM public.find_by_name('${name}')`, (err, result) => {
-			if (err) reject(err);
-
-			resolve(result.rows[0]);
+const readOneUser = async (name) => {
+	try {
+		const result = await prisma.master.findUnique({
+			where: {
+				username: name,
+			},
 		});
-	});
+
+		return result;
+	catch (err) {
+		console.log(err);
+	} finally {
+		await prisma.$disconnect();
+	}
 };
 
-const createUser = (u, p) => {
-	return new Promise((resolve, reject) => {
-		db.query(`SELECT * FROM public.create_master('${u}', '${p}')`, (err, result) => {
-			if (err) reject(err);
-
-			resolve(true);
+const createUser = async (u, p) => {
+	try {
+		const result = await prisma.master.create({
+			data: { 
+				username: u,
+				password: p
+			},
 		});
-	});
+
+		return result;
+	} catch (err) {
+		console.log(err);
+	} finally {
+		await prisma.$disconnect();
+	}
 };
 
 module.exports = { readAllUsers, readOneUser, createUser };
