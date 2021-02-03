@@ -1,7 +1,7 @@
 const db = require('../config/db');
 const { s3Create, s3Destroy } = require('../config/s3');
-const { checkIfFileIsBufferable, getFileExt } = require('../local/file-repurposer');
-const { mapIfSlidesExist } = require('../local/data-formater');
+const { checkIfFileIsBufferable, getFileExt } = require('../resolvers/file-repurposer');
+const { mapIfSlidesExist } = require('../resolvers/data-formater');
 
 
 const createProject = async (req, res) => {
