@@ -14,11 +14,10 @@ function Gallery() {
   });
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_URL+"/api/projects")
+    fetch(process.env.REACT_APP_API_URL+"/projects")
       .then(response => response.json())
-      .then(json => setProjects(json.msg))
+      .then(json => setProjects(json))
   }, []);
-
 
   const [content, setContent] = useState();
 
@@ -58,7 +57,7 @@ function Gallery() {
                   synopsis.type.url ?  
                     <a href={synopsis.type.url} rel="noopener noreferrer" target="_blank">Visit the site!</a>
                    :
-                    <p>{synopsis.type}</p>
+                    <p>Service</p>
                 }
               </div> 
               
@@ -69,7 +68,7 @@ function Gallery() {
           <div className="cards">
             { projects.length ? 
               <div className="gallery gall">
-                {projects.map(project => (
+                {projects.reverse().map(project => (
                   <Project key={project.id} data={project} callbackForModal={modalContent} fillSynopsis={handleButtonOverlay} />           
                 ))}
               </div>

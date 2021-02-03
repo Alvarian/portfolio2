@@ -1,13 +1,18 @@
 const db = require('../config/db');
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
-const readAllUsers = () => {
-	return new Promise((resolve, reject) => {
-		db.query(`SELECT * FROM public.find_all_master()`, (err, result) => {
-			if (err) reject(err);
 
-			resolve(result.rows);
-		});	
-	});
+const readAllUsers = async () => {	
+	try {
+		const allMasters = await prisma.master.findMany();
+
+		return allMasters;
+	} catch (err) {
+		console.log(err);
+	} finally {
+		await prisma.$disconnect();
+	}
 };
 
 const readOneUser = (name) => {

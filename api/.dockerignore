@@ -1,0 +1,7 @@
+.git
+.gitignore
+README.md
+docker-compose.yml
+./aws_api/Dockerfile
+./aws_api/node_modules
+./aws_api/.env

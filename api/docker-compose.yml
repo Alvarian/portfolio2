@@ -1,0 +1,20 @@
+version: "3"
+services:  
+  db:
+    image: postgres
+    networks: 
+      - webnet
+    environment:
+      POSTGRES_PASSWORD: ${PSQL_PASS}
+      POSTGRES_INITDB_ARGS: "-A md5"
+  panel:
+    build: 
+      context: aws_api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - webnet
+    env_file: ./aws_api/.env
+networks:
+  webnet:

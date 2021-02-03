@@ -36,11 +36,33 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
+build/
 
 # Dependency directories
+target/
 node_modules/
 jspm_packages/
 config/sql/
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
@@ -70,5 +92,5 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+*.env
 .env.test

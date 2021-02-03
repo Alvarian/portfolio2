@@ -24,7 +24,7 @@ function Project(props) {
 
 		setPos({y: 0});
 	};
-
+	
 	return (
 		<div style={{height: '280px'}}
 			onMouseLeave={handleMouseLeave}
@@ -41,7 +41,8 @@ function Project(props) {
 							onClick={props.callbackForModal.bind(this, {
 								url: project.deployed_url, 
 								logic: project.game_file, 
-								style: project.style_file
+								style: project.style_file,
+								slides: project.slides
 							})
 						}>
 							<h2 className="clickOpen orbi">OPEN</h2>
@@ -58,7 +59,8 @@ function Project(props) {
 							onClick={props.callbackForModal.bind(this, {
 								url: project.deployed_url, 
 								logic: project.game_file, 
-								style: project.style_file
+								style: project.style_file,
+								slides: project.slides
 							})
 						}>
 							<h2 className="clickOpen orbi">OPEN</h2>
