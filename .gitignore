@@ -45,6 +45,7 @@ jspm_packages/
 config/sql/
 /.pnp
 .pnp.js
+migrations/
 
 # testing
 /coverage

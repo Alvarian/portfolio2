@@ -110,7 +110,7 @@
 			$('#appDisplay').modal("show");
 		}
  
-		function confirmationPrompt({ id, title }) {
+		function confirmationPrompt({ id, title, game_file, icon_file, slides }) {
 			const isConfirmed = confirm(`Are you sure you want to delete ${title}?`);
 
 			// post request to delete
@@ -118,7 +118,7 @@
 				$.ajax({
 					type: "POST",
 					url: `/portal/delete/${id}`,
-					data: { "title": title },
+					data: { title, game_file, slides, icon_file },
 					success: data => window.location.href = '/portal'
 				});
 			}

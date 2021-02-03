@@ -1,5 +1,5 @@
 const getFileExt = (file) => {
-	if (!file) return null;
+	if (!file) return "";
 
 	const {originalname} = file[0];
 

@@ -24,7 +24,7 @@ const readOneUser = async (name) => {
 		});
 
 		return result;
-	catch (err) {
+	} catch (err) {
 		console.log(err);
 	} finally {
 		await prisma.$disconnect();

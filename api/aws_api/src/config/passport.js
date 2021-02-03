@@ -2,31 +2,32 @@ const localStrategy = require('passport-local').Strategy;
 const db = require('./db');
 const bcrypt = require('bcryptjs');
 
+const { 
+	readOneUser
+} = require('../controllers/master');
+
+
 module.exports = function(passport) {
 	passport.use(
 		new localStrategy({ 
 			usernameField: 'username',
 			passwordField: 'password'
 		}, 
-		(username, password, done) => {
-			db.query(`SELECT * FROM find_master_by_user('${username}')`, 
-				(err, result) => {
-					const m = result.rows[0];
+		async (username, password, done) => {
+			const m = await readOneUser(username);
 
-					if (!m) {
-						return done (null, false, { message: 'You are not the master' });
-					}
+			if (!m) {
+				return done (null, false, { message: 'You are not the master' });
+			}
 
-					bcrypt.compare(password, m.password, (err, isMatch) => {
+			bcrypt.compare(password, m.password, (err, isMatch) => {
 
-						if (isMatch) {
-							return done(null, m.username);
-						} else {
-							done(null, false, { message: 'Password Incorrect' });
-						}
-					})
+				if (isMatch) {
+					return done(null, m.username);
+				} else {
+					done(null, false, { message: 'Password Incorrect' });
 				}
-			)
+			});
 		})
 	);
 
@@ -34,13 +35,13 @@ module.exports = function(passport) {
 		done(null, user);
 	});
 
-	passport.deserializeUser(function(id, done) {
-		db.query(`SELECT * FROM find_master_by_user('${id}')`,
-			(err, result) => {
-				const m = result.rows[0];
+	passport.deserializeUser(async (id, done) => {
+		try {	
+			const m = await readOneUser(id);
 
-				done(err, m.username);
-			}
-		)
+			done(null, m.username);
+		} catch (err) {
+			done(err, m.username);
+		}
 	});
 };

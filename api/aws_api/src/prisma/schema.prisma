@@ -29,5 +29,4 @@ model services {
   project_id  Int
   image_url   String   @unique
   description String   @unique
-  projects 	  projects @relation(fields: [project_id], references: [id])
 }
