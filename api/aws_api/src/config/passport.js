@@ -1,23 +1,22 @@
-const localStrategy = require('passport-local').Strategy;
-const db = require('./db');
-const bcrypt = require('bcryptjs');
+const localStrategy = require("passport-local").Strategy;
+const bcrypt = require("bcryptjs");
 
 const { 
 	readOneUser
-} = require('../controllers/master');
+} = require("../controllers/master");
 
 
 module.exports = function(passport) {
 	passport.use(
 		new localStrategy({ 
-			usernameField: 'username',
-			passwordField: 'password'
+			usernameField: "username",
+			passwordField: "password"
 		}, 
 		async (username, password, done) => {
 			const m = await readOneUser(username);
 
 			if (!m) {
-				return done (null, false, { message: 'You are not the master' });
+				return done (null, false, { message: "You are not the master" });
 			}
 
 			bcrypt.compare(password, m.password, (err, isMatch) => {
@@ -25,7 +24,7 @@ module.exports = function(passport) {
 				if (isMatch) {
 					return done(null, m.username);
 				} else {
-					done(null, false, { message: 'Password Incorrect' });
+					done(null, false, { message: "Password Incorrect" });
 				}
 			});
 		})
@@ -41,7 +40,7 @@ module.exports = function(passport) {
 
 			done(null, m.username);
 		} catch (err) {
-			done(err, m.username);
+			done(err, null);
 		}
 	});
 };

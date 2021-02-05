@@ -1,36 +1,36 @@
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const passport = require('passport');
+const express = require("express");
+const bcrypt = require("bcryptjs");
+const passport = require("passport");
 const router = express.Router();
 const { 
-	createUser, readAllUsers, readOneUser
-} = require('../controllers/master');
+	createUser, readAllUsers
+} = require("../controllers/master");
 
 
-router.get('/', (req, res) => {
-	res.render('login', { title: 'Portal Login' });
+router.get("/", (req, res) => {
+	res.render("login", { title: "Portal Login" });
 });
 
-router.get('/logout', (req, res) => {
+router.get("/logout", (req, res) => {
 	req.logout();
-	req.flash('success_msg', 'You are logged out');
-	res.redirect('/');
+	req.flash("success_msg", "You are logged out");
+	res.redirect("/");
 });
 
-router.post('/', async (req, res, next) => {
+router.post("/", async (req, res, next) => {
 	const { username, password } = req.body;
 	let errors = [];
 
 	if (!username || !password) {
-		errors.push({ msg: 'Please fill in all fields' });
+		errors.push({ msg: "Please fill in all fields" });
 	}
 
 	if (password.length < 6) {
-		errors.push({ msg: 'Password short be atleast 6 characters' });
+		errors.push({ msg: "Password short be atleast 6 characters" });
 	}
 
 	if (errors.length > 0) {
-		res.render('login', {
+		res.render("login", {
 			errors,
 			username,
 			password
@@ -41,9 +41,9 @@ router.post('/', async (req, res, next) => {
 		if ((await readAllUsers()).length) {
 			// normal login strategy
 			// if un and ps matches, login
-			passport.authenticate('local', {
-				successRedirect: '/portal',
-				failureRedirect: '/',
+			passport.authenticate("local", {
+				successRedirect: "/portal",
+				failureRedirect: "/",
 				failureFlash: true
 			})(req, res, next);
 		} else {
@@ -57,8 +57,8 @@ router.post('/', async (req, res, next) => {
 				});
 			}).then(hashed => {	
 				if (createUser(username, hashed)) {
-					req.flash('success_msg', 'Welcome registered master!')
-					res.redirect('/');
+					req.flash("success_msg", "Welcome registered master!");
+					res.redirect("/");
 				}
 			});
 		} 

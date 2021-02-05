@@ -1,7 +1,7 @@
-const aws = require('aws-sdk');
+const aws = require("aws-sdk");
 
 
-require('dotenv').config();
+require("dotenv").config();
 const { 
 	ACCESS_KEY_ID,
 	ACCESS_SECRET_KEY,
@@ -25,10 +25,10 @@ function s3Create(file, fileKey) {
 		const params = {
 			Bucket: BUCKET_NAME, // pass your bucket name
 			Key: fileKey,
-			ACL: 'public-read',
+			ACL: "public-read",
 			Body: file[0].buffer,
 			ContentType: file[0].mimetype,
-			CacheControl: 'max-age=0'
+			CacheControl: "max-age=0"
 		};
 
 		s3.upload(params, function(s3Err, data) {
@@ -41,7 +41,7 @@ function s3Create(file, fileKey) {
 }
 
 function s3Destroy(fileKey) {
-	return new Promise(async function(resolve, reject) {
+	return new Promise(function(resolve, reject) {
 		let params = { Bucket: BUCKET_NAME, Prefix: fileKey };
 
 		const delObj = () => {			

@@ -5,14 +5,16 @@
   "main": "server.js",
   "scripts": {
     "build": "node ./src/server.js",
-    "dev": "cross-env PSQL_HOST=localhost nodemon ./src/server.js",
-    "prod": "nodemon ./src/server.js",
+    "dev": "cross-env PSQL_HOST=localhost npx prisma migrate dev --preview-feature && nodemon ./src/server.js",
+    "prod": "cross-env PSQL_HOST=db npx prisma migrate dev --preview-feature && nodemon ./dist/server.js",
+    "lint": "eslint **/*.js --ignore-pattern node_modules/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "alvarian",
   "license": "ISC",
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "eslint": "^7.19.0",
     "nodemon": "^2.0.4",
     "prisma": "^2.16.0"
   },
