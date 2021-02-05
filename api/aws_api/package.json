@@ -4,13 +4,15 @@
   "description": "api for s3 bucket read, write. db only",
   "main": "server.js",
   "scripts": {
-    "start": "node ./src/server.js",
-    "dev": "nodemon ./src/server.js",
+    "build": "node ./src/server.js",
+    "dev": "cross-env PSQL_HOST=localhost nodemon ./src/server.js",
+    "prod": "nodemon ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "alvarian",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.4",
     "prisma": "^2.16.0"
   },
