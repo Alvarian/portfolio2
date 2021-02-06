@@ -24,8 +24,9 @@
 			if (slides) {
 				$('#serviceModalTitle').empty().append(title);
 				const slideShowContent = $('#slideShowContent');
-				const addSlideContent = (payload) => {
-					const { image_url, description } = payload;
+
+				const makeSlideContent = (slide, pos) => {
+					const { image_url, description } = slide;
 
 					const followingSlides = cEl('div');
 					followingSlides.setAttribute('class', 'carousel-item');
@@ -40,8 +41,29 @@
 					startSlidePara.innerText = description;
 					followingSlides.append(startSlidePara);
 
+					const slideButtonsContainer = cEl('div');
+					slideButtonsContainer.setAttribute('class', 'd-flex justify-content-center slideEditButtons w-100');
+
+					const editButton = cEl('i');
+					editButton.setAttribute('class', 'far fa-edit');
+					editButton.onclick = () => {
+						editSlide(slide, title, slideShowContent);
+					};
+					slideButtonsContainer.append(editButton);
+
+					const delButton = cEl('i');
+					delButton.setAttribute('class', 'far fa-trash-alt');
+					delButton.onclick = () => {
+						deleteSlide(slide, title, slideShowContent, pos);
+					};
+					slideButtonsContainer.append(delButton);
+
+					followingSlides.append(slideButtonsContainer);
+
 					return followingSlides;
 				};
+
+				const slideEditButtonContainer = $('.slideEditButtons');
 
 				const startingSlide = cEl('div');
 				startingSlide.setAttribute('class', 'carousel-item active');
@@ -56,11 +78,30 @@
 				startSlidePara.innerText = slides[0].description;
 				startingSlide.append(startSlidePara);
 
+				const slideButtonsContainer = cEl('div');
+				slideButtonsContainer.setAttribute('class', 'd-flex justify-content-center slideEditButtons w-100');
+
+				const editButton = cEl('i');
+				editButton.setAttribute('class', 'far fa-edit');
+				editButton.onclick = () => {
+					editSlide(slides[0], title, slideShowContent);
+				};
+				slideButtonsContainer.append(editButton);
+
+				const delButton = cEl('i');
+				delButton.setAttribute('class', 'far fa-trash-alt');
+				delButton.onclick = () => {
+					deleteSlide(slides[0], title, slideShowContent, 0);
+				};
+				slideButtonsContainer.append(delButton);
+
+				startingSlide.append(slideButtonsContainer);
+
 				slideShowContent.empty();
 				slideShowContent.append(startingSlide);
 
 				for (let i = 1; i < slides.length; i++) {
-					slideShowContent.append(addSlideContent(slides[i]));
+					slideShowContent.append(makeSlideContent(slides[i], i));
 				}
 
 				$('#serviceDisplayModal').modal("show");

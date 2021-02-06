@@ -30,9 +30,11 @@ const createProject = async (req, res) => {
 			for (let i = 0; i < req.files.slide_file.length; i++)	{
 				const slide = req.files.slide_file[i];
 				const desc = req.body.slide_desc[i];
+
 				const slides = {
+					name: `slide_image_${i}`,
 					project_id: result.id,
-					image_url: await checkIfFileIsBufferable(s3Create, [slide], `${title.replace(/\s/g, "")}/${slide.originalname}`),
+					image_url: await checkIfFileIsBufferable(s3Create, [slide], `${title.replace(/\s/g, "")}/slide_image_${i}`),
 					description: desc
 				};
 
@@ -66,7 +68,13 @@ const createProject = async (req, res) => {
 
 const readAllProjects = async (req, res) => {
 	try {
-		const result = await prisma.projects.findMany();
+		const result = await prisma.projects.findMany({ 
+			orderBy: [
+				{
+					id: 'desc',
+				}
+			]
+		});
 		const promise = await mapIfSlidesExist(result, prisma);
 
 		const payload = { 
@@ -77,48 +85,67 @@ const readAllProjects = async (req, res) => {
 		res.render("portal", payload);
 	} catch (err) {
 		console.log(err);
-	} 
+	} finally {
+		await prisma.$disconnect();
+	}
 };
 
 const updateProject = async (req, res) => {
 	// if new logic, icon, or style, overwrite s3 and db fields
-	// const { title, description, deployed_url, git_url, icon_url, game_url, style_url } = req.body;
-	// const { game_file, style_file, icon_file } = req.files;
+	const { title, description, deployed_url, git_url, icon_url, game_url, style_url } = req.body;
+	const { game_file, style_file, icon_file } = req.files;
 
-	// const getFileExt = (file) => {
-	// 	if (!file) return null;
+	try {
+		const bodyInputs = {	
+			title, 
+			description, 
+			deployed_url, 
+			game_file: await checkIfFileIsBufferable(s3Create, game_file || game_url, `${title.replace(/\s/g, "")}/${getFileExt(game_file)}`), 
+			style_file: await checkIfFileIsBufferable(s3Create, style_file || style_url, `${title.replace(/\s/g, "")}/${getFileExt(style_file)}`),
+			git_url,
+			icon_file: await checkIfFileIsBufferable(s3Create, icon_file || icon_url, `${title.replace(/\s/g, "")}/icon`)
+		};
 
-	// 	const {originalname} = file[0];
+		await prisma.projects.update({
+			where: {
+				id: parseInt(req.params.id)
+			},
+			data: bodyInputs
+		});
+	} catch (err) {
+		console.log("promise err from update", err)
+	} finally {
+		await prisma.$disconnect();
 
-	// 	if (originalname.split(".")[1] === "js") {	
-	// 		return "javascript";
-	// 	}
+		res.redirect("/portal");
+	}
+};
 
-	// 	if (originalname.split(".")[1] === "css") {
-	// 		return "cascade";
-	// 	}
-	// };
+const updateSlide = async (req, res) => {
+	const slide = req.files.slide_file;
+	const desc = req.body.slide_desc;
+	const title = req.body.project_title;
+	const name = req.body.slide_name;
 
-	// try {
-		// const bodyInputs = [	
-		// 	title, 
-		// 	description, 
-		// 	deployed_url, 
-		// 	await checkIfFileIsBufferable(s3Create, game_file || game_url, `${title.replace(/\s/g, ")}/${getFileExt(game_file)}`), 
-		// 	await checkIfFileIsBufferable(s3Create, style_file || style_url, `${title.replace(/\s/g, ")}/${getFileExt(style_file)}`),
-		// 	git_url,
-		// 	await checkIfFileIsBufferable(s3Create, icon_file || icon_url, `${title.replace(/\s/g, ")}/icon`)
-		// ];	
-		
-		// db.query(`SELECT * FROM public.update_project(${req.params.id}, $1, $2, $3, $4, $5, $6, $7)`, bodyInputs,
-		// (err, result) => {
-		// 	if (err) throw err
-		// });
-	// } catch (err) {
-	// 	console.log("promise err from update", err)
-	// } finally {
-	// 	res.redirect("/portal");
-	// }
+	try {
+		const slidePayload = {
+			image_url: await checkIfFileIsBufferable(s3Create, slide, `${title.replace(/\s/g, "")}/${name}`),
+			description: desc
+		};
+
+		await prisma.services.update({
+			where: {
+				id: parseInt(req.params.id)
+			},
+			data: slidePayload,
+		});
+	} catch (err) {
+		console.log(err);
+	} finally {
+		await prisma.$disconnect();
+
+		res.redirect("/portal");
+	}
 };
 
 const deleteProject = async (req, res) => {
@@ -127,11 +154,27 @@ const deleteProject = async (req, res) => {
 			await s3Destroy(`${req.body.title.replace(/\s/g, "")}/`);
 		}
 		await prisma.projects.delete({ where: {id: parseInt(req.params.id)} });
-		await prisma.services.deleteMany({ where: {id: parseInt(req.params.id)} });
+		await prisma.services.deleteMany({ where: {project_id: parseInt(req.params.id)} });
 	} catch (err) {
 		console.log("huh", err);
 	} finally {
+		await prisma.$disconnect();
+
 		res.json({ msg: "redirect plase" });
+	}
+};
+
+const deleteSlide = async (req, res) => {
+	try {
+		await s3Destroy(`${req.body.title.replace(/\s/g, "")}/${req.body.name}`);
+		
+		await prisma.services.delete({ where: {id: parseInt(req.params.id)} });
+	} catch (err) {
+		console.log("huh", err);
+	} finally {
+		await prisma.$disconnect();
+
+		res.send("ok");
 	}
 };
 
@@ -140,5 +183,7 @@ module.exports = {
 	createProject,
 	readAllProjects, 
 	updateProject,
-	deleteProject
+	updateSlide,
+	deleteProject,
+	deleteSlide
 };
