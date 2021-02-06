@@ -3,7 +3,14 @@ const mapIfSlidesExist = async (dataArr, prisma) => {
 		const { deployed_url, game_file, style_file, id } = row;
 
 		if (!deployed_url && !game_file && !style_file) {
-			const result = await prisma.services.findMany({ where: {project_id: id} });
+			const result = await prisma.services.findMany({
+				orderBy: [
+					{
+						id: 'desc',
+					}
+				],
+				where: {project_id: id} 
+			});
 
 			row.slides = result;
 

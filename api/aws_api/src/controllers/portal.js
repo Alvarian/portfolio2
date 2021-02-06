@@ -30,7 +30,9 @@ const createProject = async (req, res) => {
 			for (let i = 0; i < req.files.slide_file.length; i++)	{
 				const slide = req.files.slide_file[i];
 				const desc = req.body.slide_desc[i];
+
 				const slides = {
+					name: `slide_image_${i}`,
 					project_id: result.id,
 					image_url: await checkIfFileIsBufferable(s3Create, [slide], `${title.replace(/\s/g, "")}/slide_image_${i}`),
 					description: desc
@@ -66,7 +68,13 @@ const createProject = async (req, res) => {
 
 const readAllProjects = async (req, res) => {
 	try {
-		const result = await prisma.projects.findMany();
+		const result = await prisma.projects.findMany({ 
+			orderBy: [
+				{
+					id: 'desc',
+				}
+			]
+		});
 		const promise = await mapIfSlidesExist(result, prisma);
 
 		const payload = { 
@@ -98,9 +106,9 @@ const updateProject = async (req, res) => {
 			icon_file: await checkIfFileIsBufferable(s3Create, icon_file || icon_url, `${title.replace(/\s/g, "")}/icon`)
 		};
 
-		await prisma.user.update({
+		await prisma.projects.update({
 			where: {
-				id: id
+				id: parseInt(req.params.id)
 			},
 			data: bodyInputs
 		});
@@ -113,9 +121,31 @@ const updateProject = async (req, res) => {
 	}
 };
 
-const updateSlide = (req, res) => {
-console.log(req.body, req.files);
+const updateSlide = async (req, res) => {
+	const slide = req.files.slide_file;
+	const desc = req.body.slide_desc;
+	const title = req.body.project_title;
+	const name = req.body.slide_name;
 
+	try {
+		const slidePayload = {
+			image_url: await checkIfFileIsBufferable(s3Create, slide, `${title.replace(/\s/g, "")}/${name}`),
+			description: desc
+		};
+
+		await prisma.services.update({
+			where: {
+				id: parseInt(req.params.id)
+			},
+			data: slidePayload,
+		});
+	} catch (err) {
+		console.log(err);
+	} finally {
+		await prisma.$disconnect();
+
+		res.redirect("/portal");
+	}
 };
 
 const deleteProject = async (req, res) => {
@@ -124,7 +154,7 @@ const deleteProject = async (req, res) => {
 			await s3Destroy(`${req.body.title.replace(/\s/g, "")}/`);
 		}
 		await prisma.projects.delete({ where: {id: parseInt(req.params.id)} });
-		await prisma.services.deleteMany({ where: {id: parseInt(req.params.id)} });
+		await prisma.services.deleteMany({ where: {project_id: parseInt(req.params.id)} });
 	} catch (err) {
 		console.log("huh", err);
 	} finally {

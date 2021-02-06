@@ -26,6 +26,7 @@ model projects {
 
 model services {
   id          Int      @id @default(autoincrement())
+  name        String   @unique
   project_id  Int
   image_url   String   @unique
   description String   @unique

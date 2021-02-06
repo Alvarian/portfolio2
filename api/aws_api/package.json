@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node ./src/server.js",
     "dev": "cross-env PSQL_HOST=localhost npx prisma migrate dev --preview-feature && nodemon ./src/server.js",
-    "prod": "cross-env PSQL_HOST=db npx prisma migrate dev --preview-feature && nodemon ./dist/server.js",
+    "prod": "cross-env PSQL_HOST=db npx prisma migrate dev --preview-feature && node ./dist/server.js",
     "lint": "eslint **/*.js --ignore-pattern node_modules/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

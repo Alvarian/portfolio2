@@ -39,6 +39,18 @@
       const containerSet = $(editInputsContainer).children()[0];
       $(containerSet).children().slice(-3).remove();
 
+      const hiddenTitleInput = cEl('input');
+      hiddenTitleInput.setAttribute('type', 'hidden');
+      hiddenTitleInput.setAttribute('name', 'project_title');
+      hiddenTitleInput.value = title;
+      containerSet.append(hiddenTitleInput);
+
+      const hiddenNameInput = cEl('input');
+      hiddenNameInput.setAttribute('type', 'hidden');
+      hiddenNameInput.setAttribute('name', 'slide_name');
+      hiddenNameInput.value = slide.name;
+      containerSet.append(hiddenNameInput);
+
       const updateButton = cEl('button');
       updateButton.setAttribute('class', 'btn btn-primary btn-block');
       updateButton.innerText = 'Update';
