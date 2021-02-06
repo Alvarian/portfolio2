@@ -10,16 +10,8 @@
       </div>
       <div class="modal-body">
 
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-
-          <div class="carousel-inner" id="slideShowContent">
-
-          </div>
+        <div id="carouselExampleIndicators" class="carousel slide">
+          <form class="carousel-inner" id="slideShowContent" method="POST" enctype="multipart/form-data"></form>
 
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -34,4 +26,42 @@
       </div>
     </div>
   </div>
+
+  <script>
+    function editSlide(slide, title, slideContainer) {
+      const cEl = (el) => document.createElement(el);
+      // clear slideContainer
+      slideContainer.empty();
+      slideContainer.attr('action', `/portal/slide/update/${slide.id}`);
+
+      // fill with same elements for creating a slide with reset features like back or exit
+      const editInputsContainer = listOfSets.clone(true);
+      const containerSet = $(editInputsContainer).children()[0];
+      $(containerSet).children().slice(-3).remove();
+
+      const updateButton = cEl('button');
+      updateButton.setAttribute('class', 'btn btn-primary btn-block');
+      updateButton.innerText = 'Update';
+
+      containerSet.append(updateButton);
+
+      // fill those elements with data from 'slide' and append to slideContainer
+      $(editInputsContainer).find('textarea[name="slide_desc"]').val(slide.description);
+      slideContainer.append(editInputsContainer);
+    }
+
+    function deleteSlide({id, project_id, image_url, description}, slideElement) {
+      const isConfirmed = confirm(`Are you sure you want to DELETE ${image_url}?`);
+
+      // // post request to delete
+      if (isConfirmed) {
+        $.ajax({
+          type: "POST",
+          url: `/portal/slide/delete/${id}`,
+          data: { title, game_file, slides, icon_file },
+          success: response => slideElement.remove()
+        });
+      }
+    }
+  </script>
 </div>
