@@ -164,8 +164,18 @@ const deleteProject = async (req, res) => {
 	}
 };
 
-const deleteSlide = (req, res) => {
+const deleteSlide = async (req, res) => {
+	try {
+		await s3Destroy(`${req.body.title.replace(/\s/g, "")}/${req.body.name}`);
+		
+		await prisma.services.delete({ where: {id: parseInt(req.params.id)} });
+	} catch (err) {
+		console.log("huh", err);
+	} finally {
+		await prisma.$disconnect();
 
+		res.send("ok");
+	}
 };
 
 

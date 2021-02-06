@@ -25,7 +25,7 @@
 				$('#serviceModalTitle').empty().append(title);
 				const slideShowContent = $('#slideShowContent');
 
-				const makeSlideContent = (slide, slideElement) => {
+				const makeSlideContent = (slide, pos) => {
 					const { image_url, description } = slide;
 
 					const followingSlides = cEl('div');
@@ -54,7 +54,7 @@
 					const delButton = cEl('i');
 					delButton.setAttribute('class', 'far fa-trash-alt');
 					delButton.onclick = () => {
-						deleteSlide(slide, title, slideElement);
+						deleteSlide(slide, title, slideShowContent, pos);
 					};
 					slideButtonsContainer.append(delButton);
 
@@ -91,7 +91,7 @@
 				const delButton = cEl('i');
 				delButton.setAttribute('class', 'far fa-trash-alt');
 				delButton.onclick = () => {
-					deleteSlide(slides[0], title, slideElement);
+					deleteSlide(slides[0], title, slideShowContent, 0);
 				};
 				slideButtonsContainer.append(delButton);
 
@@ -101,7 +101,7 @@
 				slideShowContent.append(startingSlide);
 
 				for (let i = 1; i < slides.length; i++) {
-					slideShowContent.append(makeSlideContent(slides[i], slideShowContent[i]));
+					slideShowContent.append(makeSlideContent(slides[i], i));
 				}
 
 				$('#serviceDisplayModal').modal("show");
