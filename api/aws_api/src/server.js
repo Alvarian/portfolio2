@@ -5,6 +5,7 @@ const session = require("express-session");
 const passport = require("passport");
 const multer = require("multer");
 const upload = multer({ dest: "" });
+const { writeToLog } = require("./lib/logger");
 
 const app = express();
 
@@ -56,5 +57,5 @@ app.use("/", upload.fields([
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-	console.log(`Server listening on port ${PORT}`);
+	writeToLog(`Server listening on port ${PORT}`);
 });

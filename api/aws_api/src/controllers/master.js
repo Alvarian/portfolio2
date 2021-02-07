@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const { writeToLog } = require("../lib/logger");
 
 
 const readAllUsers = async () => {	
@@ -8,7 +9,7 @@ const readAllUsers = async () => {
 
 		return result;
 	} catch (err) {
-		console.log(err);
+		writeToLog(err);
 	} finally {
 		await prisma.$disconnect();
 	}
@@ -24,7 +25,7 @@ const readOneUser = async (name) => {
 
 		return result;
 	} catch (err) {
-		console.log(err);
+		writeToLog(err);
 	} finally {
 		await prisma.$disconnect();
 	}
@@ -41,7 +42,7 @@ const createUser = async (u, p) => {
 
 		return result;
 	} catch (err) {
-		console.log(err);
+		writeToLog(err);
 	} finally {
 		await prisma.$disconnect();
 	}

@@ -6,7 +6,7 @@ const mapIfSlidesExist = async (dataArr, prisma) => {
 			const result = await prisma.services.findMany({
 				orderBy: [
 					{
-						id: 'desc',
+						id: "desc",
 					}
 				],
 				where: {project_id: id} 

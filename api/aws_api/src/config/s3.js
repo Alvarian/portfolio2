@@ -1,4 +1,5 @@
 const aws = require("aws-sdk");
+const { writeToLog } = require("../lib/logger");
 
 
 require("dotenv").config();
@@ -34,7 +35,7 @@ function s3Create(file, fileKey) {
 		s3.upload(params, function(s3Err, data) {
 			if (s3Err) reject(s3Err);
 
-			console.log(`File uploaded successfully at ${data.Location}`);
+			writeToLog(`File uploaded successfully at ${data.Location}`);
 			resolve(data.Location);
 		});
 	});
@@ -48,7 +49,7 @@ function s3Destroy(fileKey) {
 			s3.deleteObjects(params, function(err, data) {
 				if (err) return reject(err, err.stack);  // error
 				
-				console.log(`File deleted successfully: ${data}`);
+				writeToLog(`File deleted successfully: ${data}`);
 				resolve(data);                 // deleted
 			});
 		};

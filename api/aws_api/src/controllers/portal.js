@@ -2,8 +2,9 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const { s3Create, s3Destroy } = require("../config/s3");
-const { checkIfFileIsBufferable, getFileExt } = require("../formaters/file-repurposer");
-const { mapIfSlidesExist } = require("../formaters/data-formater");
+const { checkIfFileIsBufferable, getFileExt } = require("../lib/file-repurposer");
+const { mapIfSlidesExist } = require("../lib/data-formater");
+const { writeToLog } = require("../lib/logger");
 
 
 const createProject = async (req, res) => {
@@ -58,7 +59,7 @@ const createProject = async (req, res) => {
 			});
 		}
 	} catch (err) {
-		console.log("Failed to create project files in aws", err);
+		writeToLog("Failed to create project files in aws", err);
 	} finally {
 		await prisma.$disconnect();
 
@@ -71,7 +72,7 @@ const readAllProjects = async (req, res) => {
 		const result = await prisma.projects.findMany({ 
 			orderBy: [
 				{
-					id: 'desc',
+					id: "desc",
 				}
 			]
 		});
@@ -84,7 +85,7 @@ const readAllProjects = async (req, res) => {
 		
 		res.render("portal", payload);
 	} catch (err) {
-		console.log(err);
+		writeToLog(err);
 	} finally {
 		await prisma.$disconnect();
 	}
@@ -113,7 +114,7 @@ const updateProject = async (req, res) => {
 			data: bodyInputs
 		});
 	} catch (err) {
-		console.log("promise err from update", err)
+		writeToLog("promise err from update", err);
 	} finally {
 		await prisma.$disconnect();
 
@@ -140,7 +141,7 @@ const updateSlide = async (req, res) => {
 			data: slidePayload,
 		});
 	} catch (err) {
-		console.log(err);
+		writeToLog(err);
 	} finally {
 		await prisma.$disconnect();
 
@@ -156,7 +157,7 @@ const deleteProject = async (req, res) => {
 		await prisma.projects.delete({ where: {id: parseInt(req.params.id)} });
 		await prisma.services.deleteMany({ where: {project_id: parseInt(req.params.id)} });
 	} catch (err) {
-		console.log("huh", err);
+		writeToLog("huh", err);
 	} finally {
 		await prisma.$disconnect();
 
@@ -170,7 +171,7 @@ const deleteSlide = async (req, res) => {
 		
 		await prisma.services.delete({ where: {id: parseInt(req.params.id)} });
 	} catch (err) {
-		console.log("huh", err);
+		writeToLog("huh", err);
 	} finally {
 		await prisma.$disconnect();
 
