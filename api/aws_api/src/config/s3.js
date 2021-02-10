@@ -20,7 +20,7 @@ aws.config.update({
 const s3 = new aws.S3();
 
 function s3Create(file, fileKey) {
-	if (!file) return null;
+	if (!file) return "";
 
 	return new Promise(function(resolve, reject) {
 		const params = {

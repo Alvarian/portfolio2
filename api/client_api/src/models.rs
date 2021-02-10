@@ -19,6 +19,7 @@ pub struct Project {
 #[derive(Deserialize, Serialize)]
 pub struct Service {
     pub id: i32,
+    pub name: String,
     pub project_id: i32,
     pub image_url: String,
     pub description: String

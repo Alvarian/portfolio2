@@ -14,7 +14,8 @@ function Gallery() {
   });
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_URL+"/projects")
+    fetch("http://localhost:8000/api/v1/projects")
+    // fetch(process.env.REACT_APP_API_URL)
       .then(response => response.json())
       .then(json => setProjects(json))
   }, []);

@@ -12,6 +12,5 @@ pub fn build() -> Rocket {
 			],
 		)
 		.register(catchers![handling::not_found])
-		// .attach(make_cors())
 }
 

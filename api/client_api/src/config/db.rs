@@ -13,7 +13,7 @@ pub fn db_init() -> postgres::Client {
     let database_user: String = var("PSQL_USER").unwrap();
     let database_password: String = var("PSQL_PASS").unwrap();
     let database_name: String = var("PSQL_DB").unwrap();
-
+    
     Client::connect(
         &format!(
             "host={} dbname={} user={} password={}",

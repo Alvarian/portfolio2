@@ -12,12 +12,12 @@ use rocket_cors::{
 };
 
 extern crate dotenv;
-use dotenv::dotenv;
 use std::env::var;
 
 
 fn make_cors() -> Cors {
-	dotenv().ok();
+	// dotenv().ok();
+    dotenv::from_filename("src.env").ok();
 
 	// WILL BE LIST OF ADDRESS ROOTS. UPDATE THIS WHEN I KNOW HOW TO MAP LIST OF ENVS AS ARRAY
 	let portfolio_address: String = var("PORTFOLIO_URL").unwrap();

@@ -15,6 +15,9 @@ const getFileExt = (file) => {
 const checkIfFileIsBufferable = (cb, file, awsKey) => {
 	return new Promise(function(resolve) {
 		if (typeof file === "string" || !file) {
+			if (!file) {
+				return resolve("");
+			}
 			return resolve(file);
 		}
 

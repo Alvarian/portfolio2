@@ -9,7 +9,7 @@ use crate::models;
 pub fn read_all() -> Json<Vec<models::Project>> {
     let mut proj_result = Vec::new();
 
-    for proj_row in db::db_init().query("SELECT * FROM public.find_all_projects()", &[]).unwrap() {
+    for proj_row in db::db_init().query("SELECT * FROM public.projects", &[]).unwrap() {
         let id: i32 = proj_row.get(0);
         let title: &str = proj_row.get(1);
         let description: &str = proj_row.get(2);
@@ -22,14 +22,16 @@ pub fn read_all() -> Json<Vec<models::Project>> {
         let mut service_result = Vec::new();
 
         if game_file.is_empty() && style_file.is_empty() && deployed_url.is_empty() {
-            for service_row in db::db_init().query("SELECT * FROM public.find_service_by_id($1)", &[&id]).unwrap() {
+            for service_row in db::db_init().query("SELECT * FROM public.services WHERE project_id = $1", &[&id]).unwrap() {
                 let id: i32 = service_row.get(0);
-                let project_id: i32 = service_row.get(1);
-                let image_url: &str = service_row.get(2);
-                let description: &str = service_row.get(3);
+                let name: &str = service_row.get(1);
+                let project_id: i32 = service_row.get(2);
+                let image_url: &str = service_row.get(3);
+                let description: &str = service_row.get(4);
 
                 service_result.push(models::Service {
                     id,
+                    name: name.into(),
                     project_id,
                     image_url: image_url.into(),
                     description: description.into()
@@ -47,6 +49,7 @@ pub fn read_all() -> Json<Vec<models::Project>> {
                 icon_file: icon_file.into(),
                 slides: service_result
             });
+
         } else {
             proj_result.push(models::Project {
                 id,

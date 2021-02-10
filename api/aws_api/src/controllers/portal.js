@@ -59,7 +59,7 @@ const createProject = async (req, res) => {
 			});
 		}
 	} catch (err) {
-		writeToLog("Failed to create project files in aws", err);
+		writeToLog("create project: "+err);
 	} finally {
 		await prisma.$disconnect();
 
@@ -85,7 +85,7 @@ const readAllProjects = async (req, res) => {
 		
 		res.render("portal", payload);
 	} catch (err) {
-		writeToLog(err);
+		writeToLog("read all projects: "+err);
 	} finally {
 		await prisma.$disconnect();
 	}
@@ -114,7 +114,7 @@ const updateProject = async (req, res) => {
 			data: bodyInputs
 		});
 	} catch (err) {
-		writeToLog("promise err from update", err);
+		writeToLog("update project: "+err);
 	} finally {
 		await prisma.$disconnect();
 
@@ -141,7 +141,7 @@ const updateSlide = async (req, res) => {
 			data: slidePayload,
 		});
 	} catch (err) {
-		writeToLog(err);
+		writeToLog("update slide: "+err);
 	} finally {
 		await prisma.$disconnect();
 
@@ -151,13 +151,21 @@ const updateSlide = async (req, res) => {
 
 const deleteProject = async (req, res) => {
 	try {
-		if (req.body.game_file || req.body.icon_file || req.body.slides) {
+		if (
+			req.body.game_file || 
+			req.body.icon_file.replace(/\-|\./gi, "&").split("&").includes("port" && "amazonaws" && "s3") || 
+			req.body.slides
+		) {
 			await s3Destroy(`${req.body.title.replace(/\s/g, "")}/`);
+			
+			if (req.body.slides) {
+				await prisma.services.deleteMany({ where: {project_id: parseInt(req.params.id)} });
+			}
 		}
+
 		await prisma.projects.delete({ where: {id: parseInt(req.params.id)} });
-		await prisma.services.deleteMany({ where: {project_id: parseInt(req.params.id)} });
 	} catch (err) {
-		writeToLog("huh", err);
+		writeToLog("delete project: "+err);
 	} finally {
 		await prisma.$disconnect();
 
@@ -171,7 +179,7 @@ const deleteSlide = async (req, res) => {
 		
 		await prisma.services.delete({ where: {id: parseInt(req.params.id)} });
 	} catch (err) {
-		writeToLog("huh", err);
+		writeToLog("delete slide: "+err);
 	} finally {
 		await prisma.$disconnect();
 
