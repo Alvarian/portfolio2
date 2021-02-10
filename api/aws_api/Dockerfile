@@ -4,6 +4,7 @@ WORKDIR /usr/src
 
 COPY ./package*.json ./
 COPY ./src ./src
+COPY ./src/config/tables ./tables
 COPY ./.env ./
 
 RUN npm install

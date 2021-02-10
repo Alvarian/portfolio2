@@ -8,19 +8,6 @@ services:
       POSTGRES_PASSWORD: ${PSQL_PASS}
       POSTGRES_DB: ${PSQL_DB}
       POSTGRES_INITDB_ARGS: "-A md5"
-  panel:
-    build: 
-      context: aws_api
-      dockerfile: Dockerfile
-    restart: always
-    ports:
-      - "8080:8080"
-    networks:
-      - webnet
-    env_file: 
-      - "./aws_api/.env"
-    depends_on: 
-      - db
   gateway:
     build:
       context: client_api
@@ -33,6 +20,19 @@ services:
     env_file: 
       - "./client_api/src.env"
     depends_on: 
-      - db      
+      - db    
+  panel:
+    build: 
+      context: aws_api
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - webnet
+    env_file: 
+      - "./aws_api/.env"
+    depends_on: 
+      - db  
 networks:
   webnet:
