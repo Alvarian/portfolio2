@@ -4,16 +4,21 @@
   "description": "api for s3 bucket read, write. db only",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node ./src/server.js",
+    "dev": "npx prisma migrate dev --preview-feature && nodemon ./src/server.js",
+    "lint": "eslint **/*.js --ignore-pattern node_modules/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "alvarian",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "cross-env": "^7.0.3",
+    "eslint": "^7.19.0",
+    "nodemon": "^2.0.4",
+    "prisma": "^2.16.0"
   },
   "dependencies": {
+    "@prisma/client": "^2.16.0",
     "aws-sdk": "^2.734.0",
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
@@ -24,7 +29,6 @@
     "express-session": "^1.17.1",
     "multer": "^1.4.2",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
-    "pg": "^8.3.0"
+    "passport-local": "^1.0.0"
   }
 }

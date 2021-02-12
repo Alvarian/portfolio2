@@ -14,11 +14,10 @@ function Gallery() {
   });
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_URL+"/api/projects")
+    fetch(process.env.REACT_APP_CONTENT_API_URL)
       .then(response => response.json())
-      .then(json => setProjects(json.msg))
+      .then(json => setProjects(json))
   }, []);
-
 
   const [content, setContent] = useState();
 
@@ -42,7 +41,7 @@ function Gallery() {
       
       <div id="app">
         <h1 className="orb codepro" style={{textAlign: "center"}}>Project Gallery</h1>
-        <div className="row">
+        <div className="row" style={{height: '100%'}}>
           <div className="synop">
             <h2 className="orb codepro">Synopsis</h2>
             <div style={{height: "70%", fontSize: "7pt", margin: 0}} className="pressStart betweened">
@@ -58,7 +57,7 @@ function Gallery() {
                   synopsis.type.url ?  
                     <a href={synopsis.type.url} rel="noopener noreferrer" target="_blank">Visit the site!</a>
                    :
-                    <p>{synopsis.type}</p>
+                    <p>Service</p>
                 }
               </div> 
               
@@ -69,7 +68,7 @@ function Gallery() {
           <div className="cards">
             { projects.length ? 
               <div className="gallery gall">
-                {projects.map(project => (
+                {projects.reverse().map(project => (
                   <Project key={project.id} data={project} callbackForModal={modalContent} fillSynopsis={handleButtonOverlay} />           
                 ))}
               </div>
@@ -81,8 +80,7 @@ function Gallery() {
           </div>
         </div>
       </div>
-{/*
-*/}
+      
       <ProjectModal content={content} clear={modalContent} />
     </div>
   );
