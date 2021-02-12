@@ -20,7 +20,7 @@ function Contact() {
 			}
 		}
 
-		axios.post(process.env.REACT_APP_API_URL+'/contact', contactFieldValues)
+		axios.post(process.env.REACT_APP_CONTACT_API_URL, contactFieldValues)
 			.then(res => res)
 			.catch(err => console.log(err));
 

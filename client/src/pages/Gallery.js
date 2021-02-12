@@ -14,8 +14,7 @@ function Gallery() {
   });
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/v1/projects")
-    // fetch(process.env.REACT_APP_API_URL)
+    fetch(process.env.REACT_APP_CONTENT_API_URL)
       .then(response => response.json())
       .then(json => setProjects(json))
   }, []);
@@ -42,7 +41,7 @@ function Gallery() {
       
       <div id="app">
         <h1 className="orb codepro" style={{textAlign: "center"}}>Project Gallery</h1>
-        <div className="row">
+        <div className="row" style={{height: '100%'}}>
           <div className="synop">
             <h2 className="orb codepro">Synopsis</h2>
             <div style={{height: "70%", fontSize: "7pt", margin: 0}} className="pressStart betweened">
@@ -81,8 +80,7 @@ function Gallery() {
           </div>
         </div>
       </div>
-{/*
-*/}
+      
       <ProjectModal content={content} clear={modalContent} />
     </div>
   );
