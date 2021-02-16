@@ -68,7 +68,7 @@ function Gallery() {
           <div className="cards">
             { projects.length ? 
               <div className="gallery gall">
-                {projects.reverse().map(project => (
+                {projects.map(project => (
                   <Project key={project.id} data={project} callbackForModal={modalContent} fillSynopsis={handleButtonOverlay} />           
                 ))}
               </div>

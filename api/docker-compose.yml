@@ -25,7 +25,7 @@ services:
     build: 
       context: aws_api
       dockerfile: Dockerfile
-    restart: always
+    # restart: always
     ports:
       - "8080:8080"
     networks:
@@ -33,6 +33,15 @@ services:
     env_file: 
       - "./aws_api/.env"
     depends_on: 
-      - db  
+      - db
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    networks:
+      - webnet
+    depends_on:
+      - gateway
+      - panel
 networks:
   webnet:
