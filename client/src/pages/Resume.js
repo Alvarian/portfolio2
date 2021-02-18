@@ -17,7 +17,7 @@ export default function Resume() {
 
 				{width <= 600 &&
 					<div className="resumeBottomBtns">
-						<a data-tip="Full resume version in google drive!" href="https://drive.google.com/file/d/1tNZYNfO8NPjIwHL6jaLXQJwZR2QSrKWg/view?usp=sharing">
+						<a data-tip="Full resume version in google drive!" href="https://drive.google.com/file/d/1tNZYNfO8NPjIwHL6jaLXQJwZR2QSrKWg/view?usp=sharing" target="_blank">
 							<i className="bottomBtn fab fa-2x fa-google-drive"></i>
 						</a>
 
