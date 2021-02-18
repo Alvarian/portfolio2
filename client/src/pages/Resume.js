@@ -17,7 +17,7 @@ export default function Resume() {
 
 				{width <= 600 &&
 					<div className="resumeBottomBtns">
-						<a data-tip="Full resume version in google drive!" href="https://docs.google.com/document/d/1E8sK0bPbW3zeLZb4_ld9EtZ4x_iNW_nqJhrPTvbSZW4/edit#">
+						<a data-tip="Full resume version in google drive!" href="https://drive.google.com/file/d/1tNZYNfO8NPjIwHL6jaLXQJwZR2QSrKWg/view?usp=sharing#" target="_blank" rel="noopener noreferrer">
 							<i className="bottomBtn fab fa-2x fa-google-drive"></i>
 						</a>
 
@@ -37,7 +37,7 @@ export default function Resume() {
 					justifyContent: 'space-between', 
 					height: '120px'
 				}}>
-					<a data-tip="Full resume version in google drive!" href="https://docs.google.com/document/d/1E8sK0bPbW3zeLZb4_ld9EtZ4x_iNW_nqJhrPTvbSZW4/edit#">
+					<a data-tip="Full resume version in google drive!" href="https://drive.google.com/file/d/1tNZYNfO8NPjIwHL6jaLXQJwZR2QSrKWg/view?usp=sharing#" target="_blank" rel="noopener noreferrer">
 						<i className="fab bottomBtn fa-3x fa-google-drive"></i>
 					</a>
 

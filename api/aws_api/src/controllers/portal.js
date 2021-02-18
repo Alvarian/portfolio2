@@ -33,7 +33,7 @@ const createProject = async (req, res) => {
 				const desc = req.body.slide_desc[i];
 
 				const slides = {
-					name: `slide_image_${i}`,
+					name: `slide_${i}_${title.replace(/\s/g, "")}`,
 					project_id: result.id,
 					image_url: await checkIfFileIsBufferable(s3Create, [slide], `${title.replace(/\s/g, "")}/slide_image_${i}`),
 					description: desc
