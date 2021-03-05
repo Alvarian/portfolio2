@@ -24,6 +24,8 @@ function ProjectModal(props) {
 	const handleToggle = () => {
 		window.Game = null;
 
+		setSlideIndex(0);
+
 		props.clear(null);
 	};
 

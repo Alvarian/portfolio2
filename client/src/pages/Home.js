@@ -62,11 +62,10 @@ function Home() {
 							<h2>Commonly Used</h2>
 
 							<div className="loopUsed">
-								<i className="badges devicon-javascript-plain colored"></i>
 								<i className="badges devicon-nodejs-plain colored"></i>
-								<i className="badges devicon-css3-plain colored"></i>
 								<i className="badges devicon-html5-plain colored"></i>
 								<i className="badges devicon-python-plain colored"></i>
+								<i className="badges devicon-amazonwebservices-plain-wordmark colored"></i>
 							</div>
 						</div>
 
@@ -76,10 +75,9 @@ function Home() {
 							<div className="loopUnderstood">
 								<i className="badges devicon-redis-plain colored"></i>
 								<i className="badges devicon-postgresql-plain colored"></i>
-								<i className="badges devicon-jquery-plain-wordmark colored"></i>
 								<i className="badges devicon-mongodb-plain-wordmark colored"></i>
 								<i className="badges devicon-mysql-plain-wordmark colored"></i>
-								<i className="badges devicon-amazonwebservices-plain-wordmark colored"></i>
+								<i className="badges devicon-php-plain colored"></i>
 							</div>
 						</div>
 					
@@ -87,9 +85,8 @@ function Home() {
 							<h2>Learning...</h2>
 
 							<div className="loopLoading">
-								<i className="badges devicon-cplusplus-plain colored"></i>
+								<i className="badges devicon-java-plain colored"></i>
 								<i className="badges devicon-rust-plain colored"></i>
-								<i className="badges devicon-php-plain colored"></i>
 							</div>
 						</div>
 					</div>
