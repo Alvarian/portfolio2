@@ -456,9 +456,8 @@ nav {
 }
 .bio {
 	font-size: 12pt; 
-	margin-top: 20px;
+	font-weight: bold;
 	margin-left: 20px;
-	/*max-width: 400px;*/
 }
 .down {
 	display: flex; 

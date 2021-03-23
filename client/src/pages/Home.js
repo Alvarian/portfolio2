@@ -107,7 +107,7 @@ function Home() {
 									<div className="amatic" style={{fontWeight: "bold", letterSpacing: "2px", transform: "rotate(5deg)"}}>IVAN A. 2018</div>
 								</div>
 								
-								<div className="bio verdana">
+								<div className="bio arial">
 									<span style={{fontSize: "50pt", float: "left", marginRight: "20px"}}>Hi</span>
 									As a NYC-based website developer, I am always looking for more experience and knowledge.
 									
