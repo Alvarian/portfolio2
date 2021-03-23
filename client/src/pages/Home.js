@@ -1,42 +1,117 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Navbar from './components/Navbar.js';
 
+import { motion } from 'framer-motion';
+import CountUp from 'react-countup';
+
 
 function scrollUp(){
-    let scrollStep = -window.scrollY / (1000 / 15),
-		scrollInterval = setInterval(function(){
-	        if ( window.scrollY !== 0 ) {
-	            window.scrollBy( 0, scrollStep );
-	        }
-	        else clearInterval(scrollInterval); 
-		}, 15);
+	window.location.replace("/#top");
+
+  //   let scrollStep = -window.scrollY / (1000 / 15),
+		// scrollInterval = setInterval(function(){
+	 //        if ( window.scrollY !== 0 ) {
+	 //            window.scrollBy( 0, scrollStep );
+	 //        }
+	 //        else clearInterval(scrollInterval); 
+		// }, 15);
+}
+
+function scrollDown() {
+	window.location.replace("/#middleBio");
+	// console.log(document.body.offsetHeight)
+	// let { y } = document.getElementById("middleBio").getBoundingClientRect(),
+	// 	scrollInterval = setInterval(function(){
+	//         if ( window.scrollY !== y ) {
+	//             window.scrollBy( 0, document.body.offsetHeight / (1000 / 15) );
+	//         }
+	//         else clearInterval(scrollInterval); 
+	// 	}, 15);	
 }
 
 function Home() {
+	const [numOfProjs, setNumOfProjs] = useState(0);
+	const [numOfSolved, setNumOfSolved] = useState(0);
+
+	useEffect(() => {
+		fetch(process.env.REACT_APP_CONTENT_API_URL)
+			.then(response => response.json())
+			.then(json => setNumOfProjs(json.length))
+			.then(() => {
+				fetch("/Alvarian_")
+					.then(response => response.json())
+					.then(json => setNumOfSolved(json.codeChallenges.totalCompleted));
+				}
+			);
+	}, []);
+
 	return (
 		<div>
-			<Navbar class={'amatic homeNav'} />
+			<Navbar id="top" class={'amatic homeNav'} />
 
 			<div className="amatic" id="scrolltop">
-				<div className="school" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-					<h1 className="welcome">Welcome and ...</h1>
+				<div className="school" style={{display: "flex", justifyContent: "space-around", flexDirection: "column", alignItems: "center"}}>
+					<motion.div 
+						variants={{
+						  visible: {
+						    opacity: 1,
+						    transition: {
+						      duration: 1
+						    },
+						  },
+						  hidden: {
+						    opacity: 0
+						  },
+						}}
+						initial="hidden"
+						animate="visible"
+						style={{maxWidth: "490px"}}
+					>
+						<span className="welcome">IVAN ALVAREZ</span>
+						<div className="pitch">Self-learned software technologies through full stack development.</div>
+						<ul className="bench">	
+							<li><CountUp duration={4} end={numOfProjs} className="counter proj-num" /> <a rel="noopener noreferrer" className="bio-links" href="/gallery">fullfilled Applcations</a></li>
+							<li><CountUp duration={4} end={numOfSolved} className="counter cw-num" /> <a rel="noopener noreferrer" className="bio-links" href="https://www.codewars.com/users/Alvarian_" target="_blank">solved problems</a></li>
+						</ul>
+					</motion.div>
+
+					<motion.div 
+						variants={{
+						  visible: {
+						    opacity: 1,
+						    transition: {
+						      delay: 2,
+						      duration: 2
+						    },
+						  },
+						  hidden: {
+						    opacity: 0
+						  },
+						}}
+						initial="hidden"
+						animate="visible" className="anchor" style={{display: "flex", flexDirection: "column", alignItems: "center"}} onClick={scrollDown}>
+						<span style={{fontSize: "20pt"}}>About me</span>
+
+						<i style={{fontSize: "30pt"}} className="fas fa-arrow-down"></i>
+					</motion.div>
 				</div>
 
-				<div style={{justifyContent: "center", display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}}>
+				<div id="middleBio" style={{justifyContent: "center", display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}}>
 					<div style={{width: "100%", zIndex: 5}}>
 						<div className="float" style={{backgroundColor: "wheat", display: "flex", justifyContent: "spaceAround", width: "100%"}}>
 							<div className="des">
-								<div style={{display: "flex", height: "100%", justifyContent: "center", alignItems: "center"}}>
+								<div style={{display: "flex", height: "250px", flexDirection: "column", justifyContent: "space-around", alignItems: "center", backgroundColor: "white"}}>
 									<div className="icon"></div>
+
+									<div className="amatic" style={{fontWeight: "bold", letterSpacing: "2px", transform: "rotate(5deg)"}}>IVAN A. 2018</div>
 								</div>
 								
-								<div className="bio">
+								<div className="bio verdana">
 									<span style={{fontSize: "50pt", float: "left", marginRight: "20px"}}>Hi</span>
-									Im Ivan, a web developer
-									<p>As a growing developer in "The Big Apple",</p>
-
-									<p>I aspire to continue building neat applications, and meeting new people along the way.</p>
+									As a NYC-based website developer, I am always looking for more experience and knowledge.
+									
+									<p>I have a versitile skillset ranging from front end to back end technologies, with a great sense of idiomatic usage of frameworks and platforms.</p>
 								
 									<p>Feel free to browse my work!</p>
 
@@ -44,11 +119,6 @@ function Home() {
 									
 									<p>or <a rel="noopener noreferrer" className="orbi" href="https://github.com/Alvarian" target="_blank">Github</a></p>
 								</div>
-							</div>
-							
-							<div className="down" style={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", backgroundColor: "white", flex: 1, minWidth: "180px"}}>
-								<p><a rel="noopener noreferrer" className="descriptionLinks anchor" href="/resume" id="btn">View my resume</a></p>
-								<p><a rel="noopener noreferrer" className="descriptionLinks anchor" href="/contact">Contact me</a></p>
 							</div>
 						</div>
 					</div>
@@ -63,9 +133,11 @@ function Home() {
 
 							<div className="loopUsed">
 								<i className="badges devicon-nodejs-plain colored"></i>
-								<i className="badges devicon-html5-plain colored"></i>
+								<i className="badges devicon-docker-plain colored"></i>
 								<i className="badges devicon-python-plain colored"></i>
 								<i className="badges devicon-amazonwebservices-plain-wordmark colored"></i>
+								<i className="badges devicon-postgresql-plain colored"></i>
+								<i className="badges devicon-react-original colored"></i>
 							</div>
 						</div>
 
@@ -74,7 +146,6 @@ function Home() {
 
 							<div className="loopUnderstood">
 								<i className="badges devicon-redis-plain colored"></i>
-								<i className="badges devicon-postgresql-plain colored"></i>
 								<i className="badges devicon-mongodb-plain-wordmark colored"></i>
 								<i className="badges devicon-mysql-plain-wordmark colored"></i>
 								<i className="badges devicon-php-plain colored"></i>
@@ -85,8 +156,8 @@ function Home() {
 							<h2>Learning...</h2>
 
 							<div className="loopLoading">
-								<i className="badges devicon-java-plain colored"></i>
 								<i className="badges devicon-rust-plain colored"></i>
+								<i className="badges devicon-nginx-plain colored"></i>
 							</div>
 						</div>
 					</div>

@@ -11,7 +11,7 @@ function Navbar(props) {
 		<nav className={"row spaced "+props.class} style={{backgroundColor: "black", color: "white"}}>
 			<div className="menu lrg">
 				<div className="menuLayer">
-					<a className="bleach" href="/"><span>Ivan Alvarez</span></a>
+					<a className="bleach" href="/"><span>Home</span></a>
 
 					{ width < 600 ?
 						<div className="drop">

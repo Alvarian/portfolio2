@@ -93,7 +93,7 @@
 	z-index: 1;
 	width: 100%;
 	right: 20px;
-	background-color: black;
+	/*background-color: black;*/
 	color: white;
 	left: 0.3px;
 }
@@ -114,6 +114,12 @@
 .badges {
 	margin: 5px;
 }
+.bio-links:link, .bio-links:visited {
+	color: #fdad5c;
+}
+.bio-links:hover {
+	color: white;
+}
 .float {
 	display: -webkit-flex;
 	-webkit-flex-wrap: wrap;
@@ -126,6 +132,7 @@
 	flex-direction: column;
 }
 html {
+	scroll-behavior: smooth;
 	height: 100%;
 }
 body {
@@ -198,6 +205,12 @@ body {
 .bleach:visited {
 	color: white;
 	text-decoration: none;
+}
+.bench {
+	font-size: 28pt;
+	list-style-type: none;
+	font-weight: bold;
+	color: white;
 }
 .badges {
 	font-size: 5em;
@@ -284,7 +297,7 @@ body {
 	height: 200px; 
 	width: 200px; 
 	min-width: 200px;
-	margin-right: 25px;
+	margin-right: 12px;
 }
 .card {
 	border-style: solid;
@@ -363,6 +376,9 @@ body {
 .verdana { 
 	font-family: Verdana,Geneva,sans-serif; 
 } 
+.arial {
+	font-family: Arial, Helvetica, sans-serif;
+}
 .contactForm {
 	display: flex; 
 	flex-direction: column; 
@@ -380,10 +396,18 @@ body {
 }
 .des {
 	display: flex; 
+	align-items: center;
 	padding: 0px 100px;
 }
 .welcome {
-	text-align: center; margin: 0; font-size: 38pt;
+	margin: 0; 
+	font-size: 58pt;
+	letter-spacing: 18px;
+	font-weight: bolder;
+}
+.pitch {
+	font-size: 28pt;
+	color: white;
 }
 .navName {
 	margin-right: 100px;
@@ -431,9 +455,22 @@ nav {
 	padding: 0px 20px;
 }
 .bio {
-	font-size: 16pt; 
+	font-size: 12pt; 
 	margin-top: 20px;
-	max-width: 500px;
+	margin-left: 20px;
+	/*max-width: 400px;*/
+}
+.down {
+	display: flex; 
+	align-items: center; 
+	justify-content: center; 
+	flex-direction: column; 
+	background-color: white; 
+	flex: 1; 
+	min-width: 400px;
+}
+#middleBio {
+
 }
 .prettyResume {
 	opacity: 0.95;
@@ -541,7 +578,7 @@ nav {
 		width: 90px;
 	}
 	.des {
-		padding: 0;
+		padding: 30px 0px;
 		width: 100%;
 	}
 	.float {
