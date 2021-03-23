@@ -39,7 +39,7 @@ function Home() {
 			.then(response => response.json())
 			.then(json => setNumOfProjs(json.length))
 			.then(() => {
-				fetch("/Alvarian_")
+				fetch(process.env.REACT_APP_CORS_API_URL+"https://www.codewars.com/api/v1/users/Alvarian_")
 					.then(response => response.json())
 					.then(json => setNumOfSolved(json.codeChallenges.totalCompleted));
 				}
