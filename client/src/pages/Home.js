@@ -66,7 +66,7 @@ function Home() {
 						}}
 						initial="hidden"
 						animate="visible"
-						style={{maxWidth: "490px"}}
+						className="titleSection"
 					>
 						<span className="welcome">IVAN ALVAREZ</span>
 
@@ -107,7 +107,7 @@ function Home() {
 						  },
 						}}
 						initial="hidden"
-						animate="visible" className="anchor" style={{display: "flex", flexDirection: "column", alignItems: "center"}} onClick={scrollDown}>
+						animate="visible" className="anchor aboutBtn" onClick={scrollDown}>
 						<span style={{fontSize: "20pt"}}>About me</span>
 
 						<i style={{fontSize: "30pt"}} className="fas fa-arrow-down"></i>
@@ -118,7 +118,7 @@ function Home() {
 					<div style={{width: "100%", zIndex: 5}}>
 						<div className="float" style={{backgroundColor: "wheat", display: "flex", justifyContent: "spaceAround", width: "100%"}}>
 							<div className="des">
-								<div style={{display: "flex", height: "250px", flexDirection: "column", justifyContent: "space-around", alignItems: "center", backgroundColor: "white"}}>
+								<div style={{display: "flex", width: "210px", height: "250px", flexDirection: "column", justifyContent: "space-around", alignItems: "center", backgroundColor: "white"}}>
 									<div className="icon"></div>
 
 									<div className="amatic" style={{fontWeight: "bold", letterSpacing: "2px", transform: "rotate(5deg)"}}>IVAN A. 2018</div>

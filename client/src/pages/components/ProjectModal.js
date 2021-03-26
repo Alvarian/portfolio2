@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import useScript from './hooks/useScript';
+import useResize from './hooks/useResize';
 
-import { HorizontalBar } from 'react-chartjs-2';
+import { Bar, HorizontalBar } from 'react-chartjs-2';
 
 import '../../styles/slideShow.css';
 
@@ -12,6 +13,8 @@ function ProjectModal(props) {
 	const [slideIndex, setSlideIndex] = useState(0);
 	const [showCover, setCover] = useState(true);
 	const [gitLanguages, setGitLanguages] = useState([]);
+	const [width] = useResize();
+
 
 	useEffect(() => {
 		const slides = document.getElementsByClassName("slide");
@@ -92,7 +95,7 @@ function ProjectModal(props) {
 		return arr.map(g => g.x);
 	};
 
-	const options = {
+	const HOptions = {
 	  title: {
 	  	display: true,
 	  	text: "Languages Used",
@@ -111,6 +114,27 @@ function ProjectModal(props) {
 	    ],
 	  },
 	};
+
+	const VOptions = {
+	  title: {
+	  	display: true,
+	  	text: "Languages Used",
+	  	fontSize: "25"
+	  },
+	  legend: {
+	  	display: false
+	  },
+	  scales: {
+	    yAxes: [
+	      {
+	        ticks: {
+	          beginAtZero: true
+	        },
+	      },
+	    ],
+	  },
+	  maintainAspectRatio: false
+	};	
 
 	const chartData = {
 	  labels: getLanguageTitle(gitLanguages),
@@ -140,10 +164,18 @@ function ProjectModal(props) {
 							</div>
 
 							<div className="chart-details">
-								<HorizontalBar 
-									data={chartData} 
-									options={options} 
-								/>
+								{ width > 500 ?
+									<HorizontalBar 
+										data={chartData} 
+										options={HOptions} 
+									/>
+								 :
+								 	<Bar 
+										data={chartData} 
+										options={VOptions}
+										height={320}
+									/>
+								}
 							</div>
 
 							<button className="chart-continue" onClick={() => setCover(false)}>Continue</button>
