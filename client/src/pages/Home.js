@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar.js';
 
 import { motion } from 'framer-motion';
-import { BounceLoader, BarLoader, BeatLoader } from 'react-spinners';
+import { BeatLoader } from 'react-spinners';
 import CountUp from 'react-countup';
 
 
