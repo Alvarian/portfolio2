@@ -462,6 +462,7 @@ nav {
 	font-size: 12pt; 
 	font-weight: bold;
 	margin-left: 20px;
+	margin-top: 10px;
 }
 .down {
 	display: flex; 
