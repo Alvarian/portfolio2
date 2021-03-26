@@ -132,7 +132,7 @@ function Home() {
 								
 									<p>Feel free to browse my work!</p>
 
-									<p>presented in my <a style={{fontSize: "10pt"}} className="pressStart" href="/projects">Gallery</a></p>
+									<p>presented in my <a style={{fontSize: "10pt"}} className="pressStart" href="/gallery">Gallery</a></p>
 									
 									<p>or <a rel="noopener noreferrer" className="orbi" href="https://github.com/Alvarian" target="_blank">Github</a></p>
 								</div>
