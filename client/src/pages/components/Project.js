@@ -9,8 +9,7 @@ function Project(props) {
 	const [width] = useResize();
 	const [isDisplayed, setDisplay] = useState({display: 'none'});
 	const [buttonPos, setPos] = useState({y: 0});
-
-
+	
 	const handleOpenLayoutAndFillSynop = (title, description, game_file, deployed_url) => {
 		setDisplay({display: 'flex'});
 		
@@ -39,8 +38,10 @@ function Project(props) {
 						<div className="article lay"
 							style={isDisplayed}
 							onClick={props.callbackForModal.bind(this, {
-								url: project.deployed_url, 
+								url: project.deployed_url,
+								title: project.title, 
 								logic: project.game_file, 
+								gitData: props.gitData,
 								style: project.style_file,
 								slides: project.slides
 							})
@@ -57,8 +58,10 @@ function Project(props) {
 						<div className="article lay"
 							style={isDisplayed}
 							onClick={props.callbackForModal.bind(this, {
-								url: project.deployed_url, 
+								url: project.deployed_url,
+								title: project.title, 
 								logic: project.game_file, 
+								gitData: props.gitData,
 								style: project.style_file,
 								slides: project.slides
 							})

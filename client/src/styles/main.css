@@ -29,6 +29,10 @@
 	height: 100%;
 }
 
+.counter {
+	margin-right: 5px;
+}
+
 .galleryNav {
 	font-size: 18pt;
 	padding: 10px 0px;

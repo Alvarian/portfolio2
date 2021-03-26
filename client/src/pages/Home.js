@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar.js';
 
 import { motion } from 'framer-motion';
+import { BounceLoader, BarLoader, BeatLoader } from 'react-spinners';
 import CountUp from 'react-countup';
 
 
@@ -35,15 +36,14 @@ function Home() {
 	const [numOfSolved, setNumOfSolved] = useState(0);
 
 	useEffect(() => {
-		fetch(process.env.REACT_APP_CONTENT_API_URL)
+		fetch(process.env.REACT_APP_CORS_API_URL+"https://www.codewars.com/api/v1/users/Alvarian_")
 			.then(response => response.json())
-			.then(json => setNumOfProjs(json.length))
+			.then(json => setNumOfSolved(json.codeChallenges.totalCompleted))
 			.then(() => {
-				fetch(process.env.REACT_APP_CORS_API_URL+"https://www.codewars.com/api/v1/users/Alvarian_")
+				fetch(process.env.REACT_APP_CONTENT_API_URL)
 					.then(response => response.json())
-					.then(json => setNumOfSolved(json.codeChallenges.totalCompleted));
-				}
-			);
+					.then(json => setNumOfProjs(json.length))
+			});
 	}, []);
 
 	return (
@@ -69,10 +69,27 @@ function Home() {
 						style={{maxWidth: "490px"}}
 					>
 						<span className="welcome">IVAN ALVAREZ</span>
+
 						<div className="pitch">Self-learned software technologies through full stack development.</div>
+
 						<ul className="bench">	
-							<li><CountUp duration={4} end={numOfProjs} className="counter proj-num" /> <a rel="noopener noreferrer" className="bio-links" href="/gallery">fullfilled Applcations</a></li>
-							<li><CountUp duration={4} end={numOfSolved} className="counter cw-num" /> <a rel="noopener noreferrer" className="bio-links" href="https://www.codewars.com/users/Alvarian_" target="_blank">solved problems</a></li>
+							<li>
+								{ !numOfProjs ?
+									<BeatLoader loading />
+								 :
+									<CountUp duration={4} end={numOfProjs} className="counter proj-num" /> 
+								}
+								<a rel="noopener noreferrer" className="bio-links" href="/gallery">fullfilled Applcations</a>
+							</li>
+
+							<li>
+								{ !numOfProjs ?
+									<BeatLoader loading />
+								 :
+									<CountUp duration={4} end={numOfSolved} className="counter cw-num" /> 
+								}
+								<a rel="noopener noreferrer" className="bio-links" href="https://www.codewars.com/users/Alvarian_" target="_blank">solved problems</a>
+							</li>
 						</ul>
 					</motion.div>
 

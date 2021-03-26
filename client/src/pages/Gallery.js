@@ -5,7 +5,7 @@ import Project from './components/Project.js';
 import ProjectModal from './components/ProjectModal.js';
 
 
-function Gallery() {
+function Gallery(props) {
   const [projects, setProjects] = useState([]);
   const [synopsis, setSynopsis] = useState({
     title: 'Hover over an app! >>',
@@ -52,7 +52,7 @@ function Gallery() {
               </div>
               <div className="type">
                 {synopsis.type.logic ? 
-                  <p>{synopsis.type.logic.split('/')[4] === 'javascript' && 'Vanilla Javascript'}</p>
+                  <p>{synopsis.type.logic.split('/')[4].charAt(0).toUpperCase() + synopsis.type.logic.split('/')[4].slice(1)}</p>
                  :
                   synopsis.type.url ?  
                     <a href={synopsis.type.url} rel="noopener noreferrer" target="_blank">Visit the site!</a>
@@ -69,7 +69,10 @@ function Gallery() {
             { projects.length ? 
               <div className="gallery gall">
                 {projects.map(project => (
-                  <Project key={project.id} data={project} callbackForModal={modalContent} fillSynopsis={handleButtonOverlay} />           
+                  <Project 
+                    key={project.id} 
+                    data={project} 
+                    gitData={props.gitData.filter(d => d.full_name === project.git_url.split("/").slice(project.git_url.split("/").length-2, project.git_url.split("/").length).join("/"))[0]} callbackForModal={modalContent} fillSynopsis={handleButtonOverlay} />           
                 ))}
               </div>
              : 

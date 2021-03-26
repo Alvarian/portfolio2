@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 
 import useScript from './hooks/useScript';
 
+import { HorizontalBar } from 'react-chartjs-2';
+
 import '../../styles/slideShow.css';
 
 
 function ProjectModal(props) {
 	const status = useScript(props.content);
 	const [slideIndex, setSlideIndex] = useState(0);
+	const [showCover, setCover] = useState(true);
+	const [gitLanguages, setGitLanguages] = useState([]);
 
 	useEffect(() => {
 		const slides = document.getElementsByClassName("slide");
@@ -19,16 +23,41 @@ function ProjectModal(props) {
 				slides[i].style.display = "none";
 			}
 		}
+		
+		if (props.content && !gitLanguages.length) {
+			if (props.content.gitData) {
+				fetch(props.content.gitData.languages_url)
+					.then(response => response.json())
+					.then(json => {
+						let setted = [];
+						for (const key in json) {
+							setted.push({
+								x: key, 
+								y: json[key]
+							});
+						}
+
+						setted.total = setted.reduce((a, b) => (a+json[b.x]), 0);
+
+						setGitLanguages(setted);
+					});
+			}
+		}
 	});
-	
+
 	const handleToggle = () => {
 		window.Game = null;
+
 		setSlideIndex(0);
+		
+		setCover(true);
+
+		setGitLanguages([]);
+		
 		props.clear(null);
 	};
 
 	const plusSlides = (n) => {
-		console.log(n)
 		if (slideIndex + n > props.content.slides.length - 1) {
 			setSlideIndex(0);
 		} else if (slideIndex + n < 0) {
@@ -38,13 +67,89 @@ function ProjectModal(props) {
 		}
 	};
 
+	const getDate = (string) => {
+		const [month, day, year] = new Date(string).toLocaleDateString("en-US").split("/");
+
+		return `${month}/${day}/${year}`;
+	};
+
+	const getRandomColor = (arr) => {
+		if (!arr.length) {
+			return ["#" + ("FFFFFF" + Math.floor(Math.random() * Math.pow(16, 6)).toString(16)).slice(-6)]
+		}
+		return arr.map(() => {
+			return "#" + ("FFFFFF" + Math.floor(Math.random() * Math.pow(16, 6)).toString(16)).slice(-6);
+		});
+	};
+
+	const getLanguageTitle = (arr) => {
+		if (!arr.length && props.content) {
+			if (props.content.logic) {
+				return [props.content.logic.split('/')[4].charAt(0).toUpperCase() + props.content.logic.split('/')[4].slice(1)];
+			}
+		}
+
+		return arr.map(g => g.x);
+	};
+
+	const options = {
+	  title: {
+	  	display: true,
+	  	text: "Languages Used",
+	  	fontSize: "25"
+	  },
+	  legend: {
+	  	display: false
+	  },
+	  scales: {
+	    xAxes: [
+	      {
+	        ticks: {
+	          beginAtZero: true
+	        },
+	      },
+	    ],
+	  },
+	};
+
+	const chartData = {
+	  labels: getLanguageTitle(gitLanguages),
+	  datasets: [
+	    {
+	      label: "Percentage",
+	      data: (!gitLanguages.length && props.content) ? [100] : gitLanguages.map(g => Math.round((g.y/gitLanguages.total)*10000)/100 ),
+	      backgroundColor: getRandomColor(gitLanguages),
+	      borderColor: getRandomColor(gitLanguages),
+	      borderWidth: 1,
+	    }
+	  ],
+	};
+
 	return props.content ? (
 		<div id="modal">
 			<div className="modal-content">
 				<div className="close" onClick={ handleToggle }>X</div>
 				<div className="border">
 					{/*App loads here*/}
-					{ props.content.logic ?
+					{ showCover ?
+						<div className="modal-cover">
+							<div>
+								<h1 className="chart-title">{props.content.title}</h1> 
+								Created at: {(props.content.gitData) ? getDate(props.content.gitData.created_at) : "N/A"} <br />
+								Last Update: {(props.content.gitData) ? getDate(props.content.gitData.updated_at) : "N/A"}
+							</div>
+
+							<div className="chart-details">
+								<HorizontalBar 
+									data={chartData} 
+									options={options} 
+								/>
+							</div>
+
+							<button className="chart-continue" onClick={() => setCover(false)}>Continue</button>
+						</div>
+					 :
+					  props.content.logic ?
 						<div className="app">
 							{ status === "ready" && window.Game.start(document.querySelector('.app')) }
 

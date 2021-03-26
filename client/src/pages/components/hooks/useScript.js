@@ -5,13 +5,11 @@ import { useState, useEffect } from 'react';
 function useScript(payload) {
   // Keep track of script status ("idle", "loading", "ready", "error")
   const [status, setStatus] = useState(payload ? "loading" : "idle");
-
   useEffect(
     () => {
-      const element = document.querySelector('.app') || null;
-    
       // Allow falsy src value if waiting on other data needed for
       // constructing the script URL passed to this hook.
+      const element = document.querySelector('.app') || null;
       if (!payload || !element) {
         setStatus("idle");
         return;
@@ -66,8 +64,7 @@ function useScript(payload) {
           script.removeEventListener("error", setStateFromEvent);
         }
       };
-    },
-    [payload] // Only re-run effect if script src changes
+    } // Only re-run effect if script src changes
   );
 
   return status;
