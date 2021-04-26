@@ -4,6 +4,7 @@ import useScript from './hooks/useScript';
 import useResize from './hooks/useResize';
 
 import { Bar, HorizontalBar } from 'react-chartjs-2';
+import { motion } from 'framer-motion';
 
 import '../../styles/slideShow.css';
 
@@ -18,7 +19,7 @@ function ProjectModal(props) {
 
 	useEffect(() => {
 		const slides = document.getElementsByClassName("slide");
-		
+
 		for (let i = 0; i < slides.length; i++) {
 			if (i === slideIndex) {
 				slides[i].style.display = "flex";
@@ -26,7 +27,7 @@ function ProjectModal(props) {
 				slides[i].style.display = "none";
 			}
 		}
-		
+
 		if (props.content && !gitLanguages.length) {
 			if (props.content.gitData) {
 				fetch(props.content.gitData.languages_url)
@@ -35,7 +36,7 @@ function ProjectModal(props) {
 						let setted = [];
 						for (const key in json) {
 							setted.push({
-								x: key, 
+								x: key,
 								y: json[key]
 							});
 						}
@@ -52,11 +53,11 @@ function ProjectModal(props) {
 		window.Game = null;
 
 		setSlideIndex(0);
-		
+
 		setCover(true);
 
 		setGitLanguages([]);
-		
+
 		props.clear(null);
 	};
 
@@ -66,7 +67,7 @@ function ProjectModal(props) {
 		} else if (slideIndex + n < 0) {
 			setSlideIndex(props.content.slides.length - 1);
 		} else {
-			setSlideIndex(slideIndex + n);	
+			setSlideIndex(slideIndex + n);
 		}
 	};
 
@@ -134,7 +135,7 @@ function ProjectModal(props) {
 	    ],
 	  },
 	  maintainAspectRatio: false
-	};	
+	};
 
 	const chartData = {
 	  labels: getLanguageTitle(gitLanguages),
@@ -153,47 +154,64 @@ function ProjectModal(props) {
 		<div id="modal">
 			<div className="modal-content">
 				<div className="close" onClick={ handleToggle }>X</div>
+
 				<div className="border">
-					{/*App loads here*/}
-					{ showCover ?
-						<div className="modal-cover">
-							<div>
-								<h1 className="chart-title">{props.content.title}</h1> 
-								Created at: {(props.content.gitData) ? getDate(props.content.gitData.created_at) : "N/A"} <br />
-								Last Update: {(props.content.gitData) ? getDate(props.content.gitData.updated_at) : "N/A"}
-							</div>
+					<motion.div
+						variants={{
+							visible: {
+								opacity: 1,
+								transition: {
+									duration: 1
+								},
+							},
+							hidden: {
+								opacity: 0,
+								display: "none"
+							},
+						}}
+						initial="visible"
+						animate={showCover ? "visible" : "hidden"}
+						className="modal-cover"
+					>
+						<div>
+							<h1 className="chart-title">{props.content.title}</h1>
 
-							<div className="chart-details">
-								{ width > 500 ?
-									<HorizontalBar 
-										data={chartData} 
-										options={HOptions} 
-									/>
-								 :
-								 	<Bar 
-										data={chartData} 
-										options={VOptions}
-										height={320}
-									/>
-								}
-							</div>
-
-							<button className="chart-continue" onClick={() => setCover(false)}>Continue</button>
+							Created at: {(props.content.gitData) ? getDate(props.content.gitData.created_at) : "N/A"} <br />
+							Last Update: {(props.content.gitData) ? getDate(props.content.gitData.updated_at) : "N/A"}
 						</div>
-					 :
-					  props.content.logic ?
+
+						<div className="chart-details">
+							{ width > 500 ?
+								<HorizontalBar
+								data={chartData}
+								options={HOptions}
+								/>
+								:
+								<Bar
+								data={chartData}
+								options={VOptions}
+								height={320}
+								/>
+							}
+						</div>
+
+						<button className="chart-continue" onClick={() => setCover(false)}>Continue</button>
+					</motion.div>
+
+					{/*App loads here*/}
+					{ props.content.logic ?
 						<div className="app">
 							{ status === "ready" && window.Game.start(document.querySelector('.app')) }
 
 							{ props.content.style && <link rel="stylesheet" type="text/css" href={props.content.style} /> }
 						</div>
-					 : 
+					 :
 					  props.content.url ?
 						<iframe title="jsx-a11y/iframe-has-title" src={ props.content.url } height="100%" width="100%" />
 					 :
 						<div className="slide-container">
 							{ props.content.slides.map((slide, index) => (
-								<div key={index} className="slide-wrapper">	
+								<div key={index} className="slide-wrapper">
 									<div className="slide fade">
 										<div className="numbertext">{index+1} / {props.content.slides.length}</div>
 
@@ -210,7 +228,7 @@ function ProjectModal(props) {
 					}
 				</div>
 			</div>
-		</div>	
+		</div>
 	) : null
 }
 
