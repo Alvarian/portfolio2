@@ -63,6 +63,8 @@ function ProjectModal(props) {
 	};
 
 	const writeLetters = index => {
+		if (!props.content.slides[index]) return;
+		
 		const description = props.content.slides[index].description;
 		let curr = 0;
 		let elem = document.getElementsByClassName('text')[index];
