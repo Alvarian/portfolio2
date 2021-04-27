@@ -57,14 +57,16 @@
 }
 .modal-cover {
   background-color: black;
-  z-index: 9; 
-  height: 100%; 
-  width: 100%; 
+  z-index: 9;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   color: white;
+  position: absolute;
+  z-index: 999;
 }
 .border {
   overflow: hidden;
@@ -75,10 +77,32 @@
   width: 100%;
   position: relative;
   background: url(/images/loading2.gif);
-  background-position: center; 
+  background-position: center;
   background-size: cover;
 }
 
+.text {
+  /* font-weight: bold; */
+  font-size: 10pt;
+  font-family: 'Press Start 2P', cursive;
+}
+.text:hover {
+  border: solid 4px red;
+  background-color: rgba(0,0,0,1); /* Black w/ opacity */
+}
+
+.blink{
+  color: red;
+  animation:blinkingText 1.2s infinite;
+}
+
+@keyframes blinkingText{
+  0%{     color: white;    }
+  49%{    color: white; }
+  60%{    color: transparent; }
+  99%{    color:transparent;  }
+  100%{   color: white;    }
+}
 @media only screen and (max-width: 600px) {
   .modal-content {
     margin: 8% auto;
