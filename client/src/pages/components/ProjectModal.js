@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import useScript from './hooks/useScript';
 import useResize from './hooks/useResize';
 
+import { BeatLoader } from 'react-spinners';
 import { Bar, HorizontalBar } from 'react-chartjs-2';
 import { motion } from 'framer-motion';
 
@@ -61,23 +62,44 @@ function ProjectModal(props) {
 		props.clear(null);
 	};
 
-	const plusSlides = (n) => {
+	const writeLetters = index => {
+		const description = props.content.slides[index].description;
+		let curr = 0;
+		let elem = document.getElementsByClassName('text')[index];
+		elem.innerHTML = "";
+
+		function write() {
+			elem.textContent += description.charAt(curr);
+			curr++;
+			if (curr < description.length) {
+				window.setTimeout(write, 20);
+			} else {
+				elem.innerHTML += "<span class='blink'> <i class='fas fa-dragon'></i></span>";
+			}
+		}
+		write();
+	};
+
+	const plusSlides = n => {
 		if (slideIndex + n > props.content.slides.length - 1) {
 			setSlideIndex(0);
+			writeLetters(0);
 		} else if (slideIndex + n < 0) {
 			setSlideIndex(props.content.slides.length - 1);
+			writeLetters(props.content.slides.length - 1);
 		} else {
 			setSlideIndex(slideIndex + n);
+			writeLetters(slideIndex + n);
 		}
 	};
 
-	const getDate = (string) => {
+	const getDate = string => {
 		const [month, day, year] = new Date(string).toLocaleDateString("en-US").split("/");
 
 		return `${month}/${day}/${year}`;
 	};
 
-	const getRandomColor = (arr) => {
+	const getRandomColor = arr => {
 		if (!arr.length) {
 			return ["#" + ("FFFFFF" + Math.floor(Math.random() * Math.pow(16, 6)).toString(16)).slice(-6)]
 		}
@@ -86,7 +108,7 @@ function ProjectModal(props) {
 		});
 	};
 
-	const getLanguageTitle = (arr) => {
+	const getLanguageTitle = arr => {
 		if (!arr.length && props.content) {
 			if (props.content.logic) {
 				return [props.content.logic.split('/')[4].charAt(0).toUpperCase() + props.content.logic.split('/')[4].slice(1)];
@@ -195,7 +217,7 @@ function ProjectModal(props) {
 							}
 						</div>
 
-						<button className="chart-continue" onClick={() => setCover(false)}>Continue</button>
+						<button className="chart-continue" onClick={() => {setCover(false); writeLetters(0);}}>Continue</button>
 					</motion.div>
 
 					{/*App loads here*/}
@@ -217,13 +239,10 @@ function ProjectModal(props) {
 
 										<img src={slide.image_url} alt="shtup" />
 
-										<p className="text">{slide.description}</p>
+										<p className="text" onClick={plusSlides.bind(this, 1)}></p>
 									</div>
 								</div>
 							)) }
-
-							<button className="prev" onClick={plusSlides.bind(this, -1)}>&#10094;</button>
-							<button className="next" onClick={plusSlides.bind(this, 1)}>&#10095;</button>
 						</div>
 					}
 				</div>
